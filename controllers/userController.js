@@ -2,7 +2,6 @@ class UserController {
 
     constructor(service) {
         this.service = service;
-        console.log(service, "ETOO OOO")
     }
 
     async login(req, res){
