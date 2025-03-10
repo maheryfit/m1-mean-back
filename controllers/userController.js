@@ -14,15 +14,12 @@ class UserController {
     }
 
     async register(req, res){
-        /*try {
+        try {
             const user = await this.service.registerService(req);
             res.json(user);
         } catch (error) {
             res.status(400).json({ message: error.message });
-        }*/
-        console.log(this.service)
-        const user = await this.service.registerService(req);
-        res.json(user);
+        }
     }
 }
 
