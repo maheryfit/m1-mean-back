@@ -5,7 +5,15 @@ const config = {
     JWT_SECRET_KEY: process.env.JWT_SECRET_KEY,
     TOKEN_DURATION: process.env.TOKEN_DURATION,
     ROLE: ["manager", "client", "mécanicien"],
-    DEFAULT_ROLE: "client"
+    DEFAULT_ROLE: "client",
+    ORIGINS: ["http://localhost:4200"],
+    PRODUCTION: process.env.PRODUCTION || false,
+    COOKIE_KEY: process.env.COOKIE_KEY,
+    COOKIE_CONFIG: {
+        httpOnly: true, // Prevents access from JavaScript
+        secure: this.PRODUCTION, // Works only on HTTPS and HTTP
+        sameSite: "Strict", // Prevents CSRF
+    }
 }
 module.exports = config
 

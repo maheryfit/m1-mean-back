@@ -6,9 +6,21 @@ const cors = require('cors');
 const {connect} = require("mongoose");
 const config = require("./config");
 const socket = require('socket.io');
+const cookieParser = require("cookie-parser");
+// Cookie
+app.use(cookieParser());
+
 
 // Middleware setup
-app.use(cors())
+
+
+app.use(cors(
+    {
+        origin: config.ORIGINS,
+        methods: ["GET", "POST", "PUT", "DELETE"],
+        credentials: true,
+    }
+))
 app.use(express.json());
 
 // Router

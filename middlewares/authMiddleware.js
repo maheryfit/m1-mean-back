@@ -1,3 +1,4 @@
+const config = require("../config");
 const verifyAccessToken = require("../utils/tokenUtil").verifyAccessToken
 
 function authenticateToken(req, res, next) {
@@ -59,10 +60,13 @@ function authenticateTokenWithRole(req, role) {
 }
 
 function authenticate(req) {
+    // Si vous voulez utiliser le localStorage
+    /*
     const authHeader = req.headers['authorization'];
 
     const token = authHeader && authHeader.split(' ')[1];
-
+    */
+    const token = req.cookies[config.COOKIE_KEY];
     if (token === undefined || token === '') {
         return false
     }

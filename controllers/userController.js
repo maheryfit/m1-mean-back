@@ -1,13 +1,15 @@
 class UserController {
 
-    constructor(service) {
+    constructor(service, config) {
         this.service = service;
+        this.config = config;
     }
 
     async login(req, res){
         try {
-            const user = await this.service.loginService(req);
-            res.json(user);
+            const token = await this.service.loginService(req);
+            res.cookie(this.config.COOKIE_KEY, token, this.config.COOKIE_CONFIG);
+            res.json({message: "Logged in successfully"});
         } catch (error) {
             res.status(400).json({ message: error.message });
         }
@@ -15,11 +17,18 @@ class UserController {
 
     async register(req, res){
         try {
-            const user = await this.service.registerService(req);
-            res.json(user);
+            const token = await this.service.registerService(req);
+            res.cookie(this.config.COOKIE_KEY, token, this.config.COOKIE_CONFIG);
+            res.json({message:"Registered"});
         } catch (error) {
             res.status(400).json({ message: error.message });
         }
+    }
+
+    logout(req, res){
+        res.clearCookie("authToken");
+        res.clearCookie("refreshToken");
+        res.json({message:"Logged out"});
     }
 
     async getUsers(req, res){

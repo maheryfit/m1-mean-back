@@ -15,6 +15,8 @@ const verifyAccessToken = function (token) {
         return { success: false, error: error.message };
     }
 }
+
+
 module.exports = {
     generateAccessToken,
     verifyAccessToken
