@@ -1,12 +1,18 @@
 const mongoose = require('mongoose');
 const {genSalt, hash, compare} = require("bcrypt");
-
+const config = require("../config");
 const UserSchema = new mongoose.Schema({
- username: { type: String, required: true, unique: true},
- password: { type: String, required: true }
+  username: { type: String, required: true, unique: true},
+  password: { type: String, required: true },
+  role: {
+    type: String,
+    enum: config.ROLE,
+    default: config.DEFAULT_ROLE,
+  }
 }, {
   timestamps: true
 });
+
 
 // Hash the password before saving the user
 UserSchema.pre('save', async function (next) {

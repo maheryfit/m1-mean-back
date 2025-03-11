@@ -15,7 +15,6 @@ app.use(express.json());
 const userRouter = require('./routes/userRouter')
 app.use("/user", userRouter);
 
-
 // MongoDB connection
 module.exports = connect(config.MONGO_URI, {
     useNewUrlParser: true,

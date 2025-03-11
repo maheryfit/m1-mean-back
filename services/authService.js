@@ -1,4 +1,4 @@
-
+const tokenUtil = require('../utils/tokenUtil');
 const User = require('../models/User');
 
 const user = new User()
@@ -21,8 +21,7 @@ class AuthService {
         const isMatch = await userToFind.comparePassword(password)
         if(!isMatch)
             throw new Error("Password doesn't match")
-        userToFind.password = ""
-        return userToFind
+        return tokenUtil.generateAccessToken({id: userToFind.id, username: userToFind.username, role: userToFind.role})
     }
 
     /**
@@ -33,7 +32,11 @@ class AuthService {
     async registerService(request) {
         const user = new User(request.body)
         await user.save()
-        return user
+        return tokenUtil.generateAccessToken({id: user.id, username: user.username, role: user.role})
+    }
+
+    getUsersService() {
+        return User.find();
     }
 }
 
