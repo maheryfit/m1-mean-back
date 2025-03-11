@@ -59,14 +59,19 @@ function authenticateTokenWithRole(req, role) {
     return { success: true }
 }
 
-function authenticate(req) {
+function getTokenFromAuthorization(req) {
     // Si vous voulez utiliser le localStorage
-    /*
     const authHeader = req.headers['authorization'];
+    return authHeader && authHeader.split(' ')[1];
+}
 
-    const token = authHeader && authHeader.split(' ')[1];
-    */
-    const token = req.cookies[config.COOKIE_KEY];
+function getTokenFromCookie(req) {
+    return req.cookies[config.COOKIE_KEY]
+}
+
+function authenticate(req) {
+
+    const token = getTokenFromCookie(req);
     if (token === undefined || token === '') {
         return false
     }
