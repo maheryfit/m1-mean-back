@@ -1,7 +1,7 @@
 const verifyAccessToken = require("../utils/tokenUtil").verifyAccessToken
 
 function authenticateToken(req, res, next) {
-    const result = authenticate(req, res)
+    const result = authenticate(req)
     if (result === false ) {
         return res.sendStatus(401);
     }
@@ -10,7 +10,7 @@ function authenticateToken(req, res, next) {
 }
 
 function authenticateTokenManager(req, res, next) {
-    const result = authenticateTokenWithRole(req, res, "manager")
+    const result = authenticateTokenWithRole(req, "manager")
     if (result.hasOwnProperty("error")) {
         return res.status(403).json({ error: result.error });
     }
@@ -21,7 +21,7 @@ function authenticateTokenManager(req, res, next) {
 }
 
 function authenticateTokenMecanicien(req, res, next) {
-    const result = authenticateTokenWithRole(req, res, "mécanicien")
+    const result = authenticateTokenWithRole(req, "mécanicien")
     if (result.hasOwnProperty("error")) {
         return res.status(403).json({ error: result.error });
     }
@@ -32,7 +32,7 @@ function authenticateTokenMecanicien(req, res, next) {
 }
 
 function authenticateTokenClient(req, res, next) {
-    const result = authenticateTokenWithRole(req, res, "client")
+    const result = authenticateTokenWithRole(req, "client")
     if (result.hasOwnProperty("error")) {
         return res.status(403).json({ error: result.error });
     }
@@ -42,10 +42,13 @@ function authenticateTokenClient(req, res, next) {
     next()
 }
 
-function authenticateTokenWithRole(req, res, role) {
-    const result = authenticate(req, res)
+function authenticateTokenWithRole(req, role) {
+    const result = authenticate(req)
     if (result === false ) {
         return false;
+    }
+    if (result.hasOwnProperty("error")) {
+        return { error: result.error };
     }
     const userRole = result.data.role
     if (userRole !== role) {
@@ -55,7 +58,7 @@ function authenticateTokenWithRole(req, res, role) {
     return { success: true }
 }
 
-function authenticate(req, res) {
+function authenticate(req) {
     const authHeader = req.headers['authorization'];
 
     const token = authHeader && authHeader.split(' ')[1];

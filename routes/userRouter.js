@@ -5,7 +5,7 @@ const UserController = require('../controllers/userController');
 
 const service = new AuthService();
 const userController = new UserController(service);
-const middleware = require('../middlewares');
+const middleware = require('../middlewares/authMiddleware');
 /**
  * Occur error: service is undefined because it's out of the context of the object userController
  */
