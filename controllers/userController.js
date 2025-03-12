@@ -1,7 +1,8 @@
 class UserController {
 
-    constructor(service, config) {
+    constructor(service, config, util) {
         this.service = service;
+        this.util = util;
         this.config = config;
     }
 
@@ -25,9 +26,21 @@ class UserController {
         }
     }
 
+    checkAuthConnected(req, res) {
+        res.status(200).json(true);
+    }
+
+    checkAuthMecanicien(req, res) {
+        res.status(200).json(true);
+    }
+
+    checkAuthManager(req, res) {
+        res.status(200).json(true);
+    }
+
+
     logout(req, res){
-        res.clearCookie("authToken");
-        res.clearCookie("refreshToken");
+        this.util.cleanCookie(res)
         res.json({message:"Logged out"});
     }
 

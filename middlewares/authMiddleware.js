@@ -1,5 +1,5 @@
-const config = require("../config");
 const verifyAccessToken = require("../utils/tokenUtil").verifyAccessToken
+const getTokenFromCookie = require("../utils/tokenUtil").getTokenFromCookie;
 
 function authenticateToken(req, res, next) {
     const result = authenticate(req)
@@ -59,15 +59,7 @@ function authenticateTokenWithRole(req, role) {
     return { success: true }
 }
 
-function getTokenFromAuthorization(req) {
-    // Si vous voulez utiliser le localStorage
-    const authHeader = req.headers['authorization'];
-    return authHeader && authHeader.split(' ')[1];
-}
 
-function getTokenFromCookie(req) {
-    return req.cookies[config.COOKIE_KEY]
-}
 
 function authenticate(req) {
 

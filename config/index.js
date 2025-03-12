@@ -13,6 +13,7 @@ const config = {
         httpOnly: true, // Prevents access from JavaScript
         secure: this.PRODUCTION, // Works only on HTTPS and HTTP
         sameSite: "Strict", // Prevents CSRF
+        maxAge: 60 * 1000, // 30 * 24 * 60 * 60 * 1000, // 30 days
     }
 }
 module.exports = config

@@ -1,5 +1,6 @@
 const tokenUtil = require('../utils/tokenUtil');
 const User = require('../models/User');
+const {getDataFromRequestToken} = require("../utils/tokenUtil");
 
 const user = new User()
 
@@ -32,6 +33,16 @@ class AuthService {
     async registerService(request) {
         const user = new User(request.body)
         await user.save()
+        return tokenUtil.generateAccessToken({id: user.id, username: user.username, role: user.role})
+    }
+
+    /**
+     *
+     * @param {Request} request
+     * @returns {*}
+     */
+    refreshTokenService(request) {
+        const user = getDataFromRequestToken(request)
         return tokenUtil.generateAccessToken({id: user.id, username: user.username, role: user.role})
     }
 
