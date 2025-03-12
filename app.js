@@ -12,8 +12,6 @@ app.use(cookieParser());
 
 
 // Middleware setup
-
-
 app.use(cors(
     {
         origin: config.ORIGINS,
@@ -24,7 +22,7 @@ app.use(cors(
 app.use(express.json());
 
 // Router
-const userRouter = require('./routes/userRouter')
+const userRouter = require('./routes/utilisateurRouter')
 app.use("/user", userRouter);
 
 // MongoDB connection
