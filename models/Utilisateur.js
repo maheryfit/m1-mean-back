@@ -1,13 +1,15 @@
 const mongoose = require('mongoose');
 const {genSalt, hash, compare} = require("bcrypt");
 const config = require("../config");
-const UserSchema = new mongoose.Schema({
-  username: { type: String, required: true, unique: true},
-  password: { type: String, required: true },
-  role: {
+const UtilisateursSchema = new mongoose.Schema({
+  nom: { type: String, required: true},
+  prenom: { type: String, required: true },
+  nom_utilisateur: { type: String, required: true, unique: true},
+  mot_de_passe: { type: String, required: true },
+  profil: {
     type: String,
-    enum: config.ROLE,
-    default: config.DEFAULT_ROLE,
+    enum: config.PROFIL,
+    default: config.DEFAULT_PROFIL,
   }
 }, {
   timestamps: true
@@ -15,13 +17,13 @@ const UserSchema = new mongoose.Schema({
 
 
 // Hash the password before saving the user
-UserSchema.pre('save', async function (next) {
+UtilisateursSchema.pre('save', async function (next) {
   // If password is modified or is a new user
-  if (this.isModified('password') || this.isNew) {
+  if (this.isModified('mot_de_passe') || this.isNew) {
     try {
       // Salt rounds determine the complexity of the hash
       const salt = await genSalt(10);
-      this.password = await hash(this.password, salt);
+      this.mot_de_passe = await hash(this.mot_de_passe, salt);
       next();
     } catch (err) {
       next(err);
@@ -37,9 +39,9 @@ UserSchema.pre('save', async function (next) {
  * @param {String} enteredPassword
  * @returns {Promise<void|*>}
  */
-UserSchema.methods.comparePassword = async function (enteredPassword) {
+UtilisateursSchema.methods.comparePassword = async function (enteredPassword) {
   try {
-    return await compare(enteredPassword, this.password);
+    return await compare(enteredPassword, this.mot_de_passe);
   } catch (err) {
     throw err;
   }
@@ -51,10 +53,10 @@ UserSchema.methods.comparePassword = async function (enteredPassword) {
  * @param {String} username
  * @returns {Promise<*>}
  */
-UserSchema.methods.findUsingUsername = async function (username) {
+UtilisateursSchema.methods.findUsingUsername = async function (username) {
   try {
-    return await mongoose.model('User').findOne({
-      username: {
+    return await mongoose.model('Utilisateurs').findOne({
+      nom_utilisateur: {
         $eq: username
       }
     });
@@ -64,4 +66,4 @@ UserSchema.methods.findUsingUsername = async function (username) {
 };
 
 
-module.exports = mongoose.model('User', UserSchema);
+module.exports = mongoose.model('Utilisateurs', UtilisateursSchema);

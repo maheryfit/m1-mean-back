@@ -1,4 +1,4 @@
-class UserController {
+class UtilisateurController {
 
     constructor(service, config, util) {
         this.service = service;
@@ -55,4 +55,4 @@ class UserController {
 
 }
 
-module.exports = UserController;
+module.exports = UtilisateurController;

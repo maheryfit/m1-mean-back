@@ -1,12 +1,12 @@
 const express = require('express');
 const router = express.Router();
-const AuthService = require('../services/authService')
-const UserController = require('../controllers/userController');
+const AuthService = require('../services/authentificationService')
+const UserController = require('../controllers/utilisateurController');
 const config = require("../config");
 const service = new AuthService();
 const tokenUtil = require("../utils/tokenUtil");
 const userController = new UserController(service, config, tokenUtil);
-const middleware = require('../middlewares/authMiddleware');
+const middleware = require('../middlewares/authentificationMiddleware');
 /**
  * Occur error: service is undefined because it's out of the context of the object userController
  */
