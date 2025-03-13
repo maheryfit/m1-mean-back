@@ -77,7 +77,7 @@ class ClientController {
     async delete(req, res) {
         try {
             await this.service.deleteService(req);
-            return res.status(204);
+            return res.status(204).json({message: 'deleted'});
         } catch (error) {
             res.status(400).json({ message: error.message });
         }
