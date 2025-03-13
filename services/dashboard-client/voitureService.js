@@ -1,5 +1,5 @@
 const Voiture = require('../../models/dashboard-client/Voiture');
-
+const utils = require('../../utils/tokenUtil');
 class VoitureService {
 
     constructor() {
@@ -11,6 +11,7 @@ class VoitureService {
      * @returns {Promise<*>}
      */
     async createService(req) {
+        await this._checkIfHavePermission(req)
         const newVoiture = new Voiture(req.body);
         await newVoiture.save();
         return newVoiture;
@@ -22,8 +23,9 @@ class VoitureService {
      * @returns {Promise<*>}
      */
    async updateService(req) {
-        return Voiture.findByIdAndUpdate(req.params.id,
-            req.body, {new: true});
+       await this._checkIfHavePermission(req)
+       return Voiture.findByIdAndUpdate(req.params.id,
+           req.body, {new: true});
    }
 
    /**
@@ -32,7 +34,17 @@ class VoitureService {
      * @returns {Promise<*>}
      */
    async deleteService(req) {
+       await this._checkIfHavePermission(req)
        return Voiture.findByIdAndDelete(req.params.id);
+   }
+
+    /**
+     *
+     * @param {Request} req
+     * @returns {Promise<void>}
+     */
+   async _checkIfHavePermission(req) {
+       await utils.checkIfHavePermission(req, Voiture, "proprietaire")
    }
 
    /**

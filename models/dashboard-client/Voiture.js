@@ -16,7 +16,7 @@ const VoitureSchema = new mongoose.Schema({
         unique: true,
         required: true,
     },
-    specifications: {
+    specification: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Specifications",
         required: true,

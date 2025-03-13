@@ -40,12 +40,30 @@ function cleanCookie (res) {
     res.clearCookie("refreshToken");
 }
 
+/**
+ *
+ * @param {Request} req
+ * @param {any} model
+ * @param {string} field
+ * @returns {Promise<void>}
+ */
+async function checkIfHavePermission(req, model, field) {
+    const client = getDataFromRequestToken(req)
+    const response = await model.findById(req.params.id);
+    if (!response) {
+        throw new Error('Not Found');
+    }
+    if (response[field].toString() !== client.id) {
+        throw new Error('You dont have permission to use this service.');
+    }
+}
 
 module.exports = {
     generateAccessToken,
     verifyAccessToken,
     getDataFromToken,
     getTokenFromCookie,
+    checkIfHavePermission,
     getTokenFromAuthorization,
     getDataFromRequestToken,
     cleanCookie
