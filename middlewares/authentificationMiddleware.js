@@ -11,7 +11,7 @@ function authenticateToken(req, res, next) {
 }
 
 function authenticateTokenManager(req, res, next) {
-    const result = authenticateTokenWithRole(req, "manager")
+    const result = authenticateTokenWithProfile(req, "manager")
     if (result.hasOwnProperty("error")) {
         return res.status(403).json({ error: result.error });
     }
@@ -22,7 +22,7 @@ function authenticateTokenManager(req, res, next) {
 }
 
 function authenticateTokenMecanicien(req, res, next) {
-    const result = authenticateTokenWithRole(req, "mécanicien")
+    const result = authenticateTokenWithProfile(req, "mécanicien")
     if (result.hasOwnProperty("error")) {
         return res.status(403).json({ error: result.error });
     }
@@ -33,7 +33,7 @@ function authenticateTokenMecanicien(req, res, next) {
 }
 
 function authenticateTokenClient(req, res, next) {
-    const result = authenticateTokenWithRole(req, "client")
+    const result = authenticateTokenWithProfile(req, "client")
     if (result.hasOwnProperty("error")) {
         return res.status(403).json({ error: result.error });
     }
@@ -43,7 +43,7 @@ function authenticateTokenClient(req, res, next) {
     next()
 }
 
-function authenticateTokenWithRole(req, role) {
+function authenticateTokenWithProfile(req, profil) {
     const result = authenticate(req)
     if (result === false ) {
         return false;
@@ -51,8 +51,8 @@ function authenticateTokenWithRole(req, role) {
     if (result.hasOwnProperty("error")) {
         return { error: result.error };
     }
-    const userRole = result.data.role
-    if (userRole !== role) {
+    const userRole = result.data.profil
+    if (userRole !== profil) {
         return false
     }
     req.user = result.data
