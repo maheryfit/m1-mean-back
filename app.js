@@ -10,7 +10,6 @@ const cookieParser = require("cookie-parser");
 // Cookie
 app.use(cookieParser());
 
-
 // Middleware setup
 app.use(cors(
     {
@@ -21,9 +20,6 @@ app.use(cors(
 ))
 app.use(express.json());
 
-// Router
-const userRouter = require('./routes/utilisateurRouter')
-app.use("/user", userRouter);
 
 // MongoDB connection
 module.exports = connect(config.MONGO_URI, {
@@ -32,6 +28,34 @@ module.exports = connect(config.MONGO_URI, {
 })
     .then(() => console.log("MongoDB connecté"))
     .catch(err => console.log(err));
+
+
+// --------------------------------------- ROUTER -------------------------------------------------
+// Router
+const userRouter = require('./routes/utilisateurRouter')
+app.use("/user", userRouter);
+
+// Abonnement router
+const abonnementRouter = require('./routes/dashboard-client/abonnementRouter')
+app.use("/abonnements", abonnementRouter);
+
+// Specification router
+const specificationRouter = require('./routes/dashboard-client/specificationRouter')
+app.use("/specifications", specificationRouter);
+
+// StatutClient router
+const statutClientRouter = require('./routes/dashboard-client/statutClientRouter')
+app.use("/statutClients", statutClientRouter);
+
+// Voiture router
+const voitureRouter = require('./routes/dashboard-client/voitureRouter')
+app.use("/voitures", voitureRouter);
+
+// Client router
+const clientRouter = require('./routes/dashboard-client/clientRouter')
+app.use("/clients", clientRouter);
+
+// --------------------------------------- ROUTER -------------------------------------------------
 
 // Server
 const server = app.listen(config.PORT, () => {
