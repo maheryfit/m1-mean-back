@@ -55,6 +55,10 @@ app.use("/voitures", voitureRouter);
 const clientRouter = require('./routes/dashboard-client/clientRouter')
 app.use("/clients", clientRouter);
 
+// PaiementAbonnement router
+const paiementAbonnementRouter = require('./routes/dashboard-client/paiementAbonnementRouter')
+app.use("/paiementAbonnements", paiementAbonnementRouter);
+
 // --------------------------------------- ROUTER -------------------------------------------------
 
 // Server
