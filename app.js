@@ -69,7 +69,7 @@ const server = app.listen(config.PORT, () => {
 // Websocket
 const io = socket(server, {
     cors: {
-        origin: "*",
+        origin: config.ORIGINS,
     }
 });
 
