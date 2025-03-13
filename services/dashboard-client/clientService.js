@@ -1,4 +1,6 @@
 const Client = require('../../models/dashboard-client/Client');
+const utils = require("../../utils/tokenUtil");
+const Voiture = require("../../models/dashboard-client/Voiture");
 
 class ClientService {
 
@@ -22,8 +24,9 @@ class ClientService {
      * @returns {Promise<*>}
      */
    async updateService(req) {
-        return Client.findByIdAndUpdate(req.params.id,
-            req.body, {new: true});
+       await this._checkIfHavePermission(req);
+       return Client.findByIdAndUpdate(req.params.id,
+           req.body, {new: true});
    }
 
    /**
@@ -42,6 +45,16 @@ class ClientService {
    async getAllService() {
        return Client.find({});
    }
+
+     /**
+     *
+     * @param {Request} req
+     * @returns {Promise<void>}
+     */
+   async _checkIfHavePermission(req) {
+       await utils.checkIfHavePermission(req, Client, "utilisateur")
+   }
+
 
    /**
      *
