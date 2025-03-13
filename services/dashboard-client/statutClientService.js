@@ -1,5 +1,5 @@
 const StatutClient = require('../../models/dashboard-client/StatutClient');
-
+const Client = require('../../models/dashboard-client/Client');
 class StatutClientService {
 
     constructor() {
@@ -50,6 +50,23 @@ class StatutClientService {
      */
    async findByIdService(req) {
        return StatutClient.findById(req.params.id);
+   }
+
+    /**
+     *
+     * @param {Request} req
+     * @returns {Promise<Client>}
+     */
+   async modifyStatusClientByClientService(req){
+       const statutClient = await StatutClient.findById(req.params.id);
+       if (!statutClient) {
+           throw new Error('Not Found');
+       }
+       const client = await Client.findById(req.params.client);
+       if (!client) {
+           throw new Error('Not Found');
+       }
+       return Client.updateOne({_id: client._id}, {statut_client: statutClient._id});
    }
 
 }
