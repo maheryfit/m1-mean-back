@@ -8,7 +8,7 @@ const VoitureSchema = new mongoose.Schema({
         unique: true
     },
     description: {
-        type: Text,
+        type: String,
         required: true,
     },
     immatriculation: {
@@ -18,13 +18,8 @@ const VoitureSchema = new mongoose.Schema({
     },
     specifications: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "Abonnements",
-        required: false,
-    },
-    statut_client: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "StatutClients",
-        required: false,
+        ref: "Specifications",
+        required: true,
     }
 }, { timestamps: true })
 

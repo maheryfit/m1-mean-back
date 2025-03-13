@@ -1,5 +1,4 @@
-import mongoose from "mongoose";
-
+const mongoose = require('mongoose');
 const StatutClientSchema = new mongoose.Schema({
     titre: {
         type: String,
@@ -18,7 +17,7 @@ const StatutClientSchema = new mongoose.Schema({
     depenses: [
         {
             type: Number,
-            required: true,
+            required: false,
             validate: {
             validator: (value) => value > 0,
                 message: 'Dépense ne doit pas être négative ou null'

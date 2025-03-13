@@ -1,4 +1,4 @@
-class AbonnementController {
+class ClientController {
 
     constructor(service) {
         this.service = service;
@@ -12,8 +12,8 @@ class AbonnementController {
      */
     async create(req, res) {
         try {
-            const newAbonnement = await this.service.createService(req);
-            return res.status(201).json(newAbonnement);
+            const newClient = await this.service.createService(req);
+            return res.status(201).json(newClient);
         } catch (error) {
             res.status(400).json({ message: error.message });
         }
@@ -28,8 +28,8 @@ class AbonnementController {
      */
     async update(req, res) {
         try {
-            const abonnement = await this.service.updateService(req);
-            return res.status(200).json(abonnement);
+            const client = await this.service.updateService(req);
+            return res.status(200).json(client);
         } catch (error) {
             res.status(400).json({ message: error.message });
         }
@@ -44,8 +44,8 @@ class AbonnementController {
      */
     async getAll(req, res) {
         try {
-            const abonnements = await this.service.getAllService();
-            return res.status(200).json(abonnements);
+            const clients = await this.service.getAllService();
+            return res.status(200).json(clients);
         } catch (error) {
             res.status(400).json({ message: error.message });
         }
@@ -60,8 +60,8 @@ class AbonnementController {
      */
     async findById(req, res) {
         try {
-            const abonnement = await this.service.findByIdService(req);
-            return res.status(200).json(abonnement);
+            const client = await this.service.findByIdService(req);
+            return res.status(200).json(client);
         } catch (error) {
             res.status(400).json({ message: error.message });
         }
@@ -84,5 +84,4 @@ class AbonnementController {
     }
 
 }
-
-module.exports = AbonnementController;
+module.exports = ClientController;

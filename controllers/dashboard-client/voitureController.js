@@ -1,4 +1,4 @@
-class AbonnementController {
+class VoitureController {
 
     constructor(service) {
         this.service = service;
@@ -12,8 +12,8 @@ class AbonnementController {
      */
     async create(req, res) {
         try {
-            const newAbonnement = await this.service.createService(req);
-            return res.status(201).json(newAbonnement);
+            const newVoiture = await this.service.createService(req);
+            return res.status(201).json(newVoiture);
         } catch (error) {
             res.status(400).json({ message: error.message });
         }
@@ -28,8 +28,8 @@ class AbonnementController {
      */
     async update(req, res) {
         try {
-            const abonnement = await this.service.updateService(req);
-            return res.status(200).json(abonnement);
+            const voiture = await this.service.updateService(req);
+            return res.status(200).json(voiture);
         } catch (error) {
             res.status(400).json({ message: error.message });
         }
@@ -44,8 +44,8 @@ class AbonnementController {
      */
     async getAll(req, res) {
         try {
-            const abonnements = await this.service.getAllService();
-            return res.status(200).json(abonnements);
+            const voitures = await this.service.getAllService();
+            return res.status(200).json(voitures);
         } catch (error) {
             res.status(400).json({ message: error.message });
         }
@@ -60,8 +60,8 @@ class AbonnementController {
      */
     async findById(req, res) {
         try {
-            const abonnement = await this.service.findByIdService(req);
-            return res.status(200).json(abonnement);
+            const voiture = await this.service.findByIdService(req);
+            return res.status(200).json(voiture);
         } catch (error) {
             res.status(400).json({ message: error.message });
         }
@@ -85,4 +85,5 @@ class AbonnementController {
 
 }
 
-module.exports = AbonnementController;
+module.exports = VoitureController;
+
