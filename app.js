@@ -10,6 +10,10 @@ const cookieParser = require("cookie-parser");
 // Cookie
 app.use(cookieParser());
 
+// Utils
+const tokenUtil = require('./utils/tokenUtil');
+
+
 // Middleware setup
 app.use(cors(
     {

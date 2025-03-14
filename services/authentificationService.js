@@ -20,7 +20,8 @@ class AuthentificationService {
         const isMatch = await userToFind.comparePassword(password)
         if(!isMatch)
             throw new Error("Password doesn't match")
-        return tokenUtil.generateAccessToken({id: userToFind.id, nom_utilisateur: userToFind.nom_utilisateur, profil: userToFind.profil})
+        const userToSend = {id: userToFind.id, nom_utilisateur: userToFind.nom_utilisateur, profil: userToFind.profil}
+        return [tokenUtil.generateAccessToken(userToSend), userToSend]
     }
 
     /**
@@ -31,7 +32,8 @@ class AuthentificationService {
     async registerService(request) {
         const user = new User(request.body)
         await user.save()
-        return tokenUtil.generateAccessToken({id: user.id, nom_utilisateur: user.nom_utilisateur, profil: user.profil})
+        const userToSend = {id: user.id, nom_utilisateur: user.nom_utilisateur, profil: user.profil}
+        return [tokenUtil.generateAccessToken(userToSend), userToSend]
     }
 
     getUsersService() {
