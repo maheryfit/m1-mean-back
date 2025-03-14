@@ -1,7 +1,6 @@
 const Client = require('../../models/dashboard-client/Client');
 const utils = require("../../utils/tokenUtil");
-const Voiture = require("../../models/dashboard-client/Voiture");
-
+const dateUtil = require("../../utils/dateUtil");
 class ClientService {
 
     constructor() {
@@ -62,7 +61,9 @@ class ClientService {
      * @returns {Promise<*>}
      */
    async findByIdService(req) {
-       return Client.findById(req.params.id);
+       const client = await Client.findById(req.params.id).lean();
+       client["nb_jour_client"] = dateUtil.dateDiffInDays(client['date_inscription'], new Date(Date.now()));
+       return client;
    }
 
 }
