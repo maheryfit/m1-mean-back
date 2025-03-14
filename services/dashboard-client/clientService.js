@@ -61,7 +61,11 @@ class ClientService {
      * @returns {Promise<*>}
      */
    async findByIdService(req) {
-       const client = await Client.findById(req.params.id).lean();
+       const client = await Client.findById(req.params.id)
+           .populate("utilisateur")
+           .populate("statut_client")
+           .populate("abonnement")
+           .lean();
        client["nb_jour_client"] = dateUtil.dateDiffInDays(client['date_inscription'], new Date(Date.now()));
        return client;
    }
