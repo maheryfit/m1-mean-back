@@ -61,6 +61,7 @@ class ClientService {
      * @returns {Promise<*>}
      */
    async findByIdService(req) {
+       await this._checkIfHavePermission(req)
        const client = await Client.findById(req.params.id)
            .populate("utilisateur")
            .populate("statut_client")
