@@ -59,6 +59,10 @@ app.use("/clients", clientRouter);
 const paiementAbonnementRouter = require('./routes/dashboard-client/paiementAbonnementRouter')
 app.use("/paiementAbonnements", paiementAbonnementRouter);
 
+// Mecanicien router
+const mecanicienRouter=require("./routes/dashboard-mecanicien/mecanicienRouter");
+app.use("/mecanicien", mecanicienRouter);
+
 // --------------------------------------- ROUTER -------------------------------------------------
 
 // Server
@@ -86,3 +90,5 @@ io.on('connection', (socket) => {
         io.emit('typing', data);
     })
 })
+
+module.exports=app;
