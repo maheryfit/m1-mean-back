@@ -1,22 +1,32 @@
-[
-  {
-    "nom": "Bronze",
-    "prix": 8000,
-    "pourcentage_reduction": 5
+[{
+  "_id": {
+    "$oid": "67d5bb4c3c212676c4fa60fd"
   },
-  {
-    "nom": "Silver",
-    "prix": 10000,
-    "pourcentage_reduction": 12
+  "nom": "Bronze",
+  "prix": 8000,
+  "pourcentage_reduction": 5
+},
+{
+  "_id": {
+    "$oid": "67d5bb4c3c212676c4fa60fe"
   },
-  {
-    "nom": "Gold",
-    "prix": 15000,
-    "pourcentage_reduction": 20
+  "nom": "Silver",
+  "prix": 10000,
+  "pourcentage_reduction": 12
+},
+{
+  "_id": {
+    "$oid": "67d5bb4c3c212676c4fa60ff"
   },
-  {
-    "nom": "Diamond",
-    "prix": 20000,
-    "pourcentage_reduction": 27
-  }
-]
+  "nom": "Gold",
+  "prix": 15000,
+  "pourcentage_reduction": 20
+},
+{
+  "_id": {
+    "$oid": "67d5bb4c3c212676c4fa6100"
+  },
+  "nom": "Diamond",
+  "prix": 20000,
+  "pourcentage_reduction": 27
+}]
