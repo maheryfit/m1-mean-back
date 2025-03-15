@@ -1,0 +1,191 @@
+[
+  {
+    "modele": "Toyota Supra",
+    "type": "Sport",
+    "moteur": "essence",
+    "transmission": "automatique",
+    "traction": "propulsion"
+  },
+  {
+    "modele": "Ford Mustang",
+    "type": "Muscle car",
+    "moteur": "essence",
+    "transmission": "manuel",
+    "traction": "propulsion"
+  },
+  {
+    "modele": "Tesla Model S",
+    "type": "Super car",
+    "moteur": "électrique",
+    "transmission": "automatique",
+    "traction": "4*4"
+  },
+  {
+    "modele": "Volkswagen Golf R",
+    "type": "Sport",
+    "moteur": "essence",
+    "transmission": "automatique",
+    "traction": "traction avant"
+  },
+  {
+    "modele": "BMW M3",
+    "type": "Sport",
+    "moteur": "essence",
+    "transmission": "manuel",
+    "traction": "propulsion"
+  },
+  {
+    "modele": "Chevrolet Camaro",
+    "type": "Muscle car",
+    "moteur": "essence",
+    "transmission": "manuel",
+    "traction": "propulsion"
+  },
+  {
+    "modele": "Audi RS5",
+    "type": "Sport",
+    "moteur": "essence",
+    "transmission": "automatique",
+    "traction": "4*4"
+  },
+  {
+    "modele": "Mercedes AMG GT",
+    "type": "Super car",
+    "moteur": "essence",
+    "transmission": "automatique",
+    "traction": "propulsion"
+  },
+  {
+    "modele": "Dodge Challenger",
+    "type": "Muscle car",
+    "moteur": "essence",
+    "transmission": "manuel",
+    "traction": "propulsion"
+  },
+  {
+    "modele": "Nissan GT-R",
+    "type": "Super car",
+    "moteur": "essence",
+    "transmission": "automatique",
+    "traction": "4*4"
+  },
+  {
+    "modele": "Honda Civic Type R",
+    "type": "Sport",
+    "moteur": "essence",
+    "transmission": "manuel",
+    "traction": "traction avant"
+  },
+  {
+    "modele": "Porsche 911",
+    "type": "Super car",
+    "moteur": "essence",
+    "transmission": "automatique",
+    "traction": "propulsion"
+  },
+  {
+    "modele": "Subaru WRX STI",
+    "type": "Sport",
+    "moteur": "essence",
+    "transmission": "manuel",
+    "traction": "4*4"
+  },
+  {
+    "modele": "Mazda MX-5",
+    "type": "Sport",
+    "moteur": "essence",
+    "transmission": "manuel",
+    "traction": "propulsion"
+  },
+  {
+    "modele": "Lamborghini Huracan",
+    "type": "Super car",
+    "moteur": "essence",
+    "transmission": "automatique",
+    "traction": "4*4"
+  },
+  {
+    "modele": "Ferrari 488",
+    "type": "Super car",
+    "moteur": "essence",
+    "transmission": "automatique",
+    "traction": "propulsion"
+  },
+  {
+    "modele": "Volkswagen Passat",
+    "type": "Sedan",
+    "moteur": "diesel",
+    "transmission": "automatique",
+    "traction": "traction avant"
+  },
+  {
+    "modele": "BMW 530d",
+    "type": "Sedan",
+    "moteur": "diesel",
+    "transmission": "automatique",
+    "traction": "propulsion"
+  },
+  {
+    "modele": "Mercedes E220d",
+    "type": "Sedan",
+    "moteur": "diesel",
+    "transmission": "automatique",
+    "traction": "propulsion"
+  },
+  {
+    "modele": "Audi A6 TDI",
+    "type": "Sedan",
+    "moteur": "diesel",
+    "transmission": "automatique",
+    "traction": "traction avant"
+  },
+  {
+    "modele": "Ford Ranger",
+    "type": "Pickup",
+    "moteur": "diesel",
+    "transmission": "manuel",
+    "traction": "4*4"
+  },
+  {
+    "modele": "Toyota Hilux",
+    "type": "Pickup",
+    "moteur": "diesel",
+    "transmission": "manuel",
+    "traction": "4*4"
+  },
+  {
+    "modele": "Jeep Grand Cherokee",
+    "type": "SUV",
+    "moteur": "diesel",
+    "transmission": "automatique",
+    "traction": "4*4"
+  },
+  {
+    "modele": "Land Rover Discovery",
+    "type": "SUV",
+    "moteur": "diesel",
+    "transmission": "automatique",
+    "traction": "4*4"
+  },
+  {
+    "modele": "Volvo XC90 D5",
+    "type": "SUV",
+    "moteur": "diesel",
+    "transmission": "automatique",
+    "traction": "4*4"
+  },
+  {
+    "modele": "Skoda Superb TDI",
+    "type": "Sedan",
+    "moteur": "diesel",
+    "transmission": "manuel",
+    "traction": "traction avant"
+  },
+  {
+    "modele": "Renault Megane DCI",
+    "type": "Hatchback",
+    "moteur": "diesel",
+    "transmission": "manuel",
+    "traction": "traction avant"
+  }
+]

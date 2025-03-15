@@ -1,0 +1,22 @@
+[
+  {
+    "nom": "Bronze",
+    "prix": 8000,
+    "pourcentage_reduction": 5
+  },
+  {
+    "nom": "Silver",
+    "prix": 10000,
+    "pourcentage_reduction": 12
+  },
+  {
+    "nom": "Gold",
+    "prix": 15000,
+    "pourcentage_reduction": 20
+  },
+  {
+    "nom": "Diamond",
+    "prix": 20000,
+    "pourcentage_reduction": 27
+  }
+]
