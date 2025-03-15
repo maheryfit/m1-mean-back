@@ -187,5 +187,20 @@
     "moteur": "diesel",
     "transmission": "manuel",
     "traction": "traction avant"
+  },
+
+  {
+    "modele": "Peugeot 3008",
+    "type": "SUV",
+    "moteur": "diesel",
+    "transmission": "automatique",
+    "traction": "traction avant"
+  },
+  {
+    "modele": "Hyundai Tucson",
+    "type": "SUV",
+    "moteur": "essence",
+    "transmission": "automatique",
+    "traction": "4*4"
   }
 ]
