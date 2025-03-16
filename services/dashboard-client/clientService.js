@@ -45,7 +45,7 @@ class ClientService {
        return Client.find({});
    }
 
-     /**
+   /**
      *
      * @param {Request} req
      * @returns {Promise<void>}

@@ -26,6 +26,15 @@ class UtilisateurController {
         }
     }
 
+    async registerMany(req, res){
+        try {
+            await this.service.registerManyService(req);
+            res.json({message: "Success"});
+        } catch (error) {
+            res.status(400).json({ message: error.message });
+        }
+    }
+
     checkAuthConnected(req, res) {
         res.status(200).json(true);
     }
@@ -52,6 +61,21 @@ class UtilisateurController {
             res.status(400).json({ message: error.message });
         }
     }
+
+    /**
+     *
+     * @param {Request} req
+     * @param {Response} res
+     */
+    async findVoituresByUtilisateurId(req, res) {
+        try {
+            const voitures = await this.service.findVoituresByUtilisateurIdService(req);
+            res.status(200).json(voitures);
+        } catch (error) {
+            res.status(400).json({ message: error.message });
+        }
+    }
+
 
 }
 
