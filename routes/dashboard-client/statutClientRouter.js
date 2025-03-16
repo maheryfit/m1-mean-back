@@ -5,7 +5,7 @@ const StatutClientService = require('../../services/dashboard-client/statutClien
 const StatutClientController = require('../../controllers/dashboard-client/statutClientController');
 
 const service = new StatutClientService();
-const middleware = require('../..//middlewares/authentificationMiddleware');
+const middleware = require('../../middlewares/authentificationMiddleware');
 const statutClientController = new StatutClientController(service);
 
 router.get('', middleware.authenticateTokenManager,statutClientController.getAll.bind(statutClientController));

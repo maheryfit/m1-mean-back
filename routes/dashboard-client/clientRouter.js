@@ -5,7 +5,7 @@ const ClientService = require('../../services/dashboard-client/clientService');
 const ClientController = require('../../controllers/dashboard-client/clientController');
 
 const service = new ClientService();
-const middleware = require('../..//middlewares/authentificationMiddleware');
+const middleware = require('../../middlewares/authentificationMiddleware');
 const clientController = new ClientController(service);
 
 router.get('', middleware.authenticateTokenManager,clientController.getAll.bind(clientController));

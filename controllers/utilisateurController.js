@@ -8,9 +8,9 @@ class UtilisateurController {
 
     async login(req, res){
         try {
-            const token = await this.service.loginService(req);
-            res.cookie(this.config.COOKIE_KEY, token, this.config.COOKIE_CONFIG);
-            res.json({message: "Logged in successfully"});
+            const response = await this.service.loginService(req);
+            res.cookie(this.config.COOKIE_KEY, response[0], this.config.COOKIE_CONFIG);
+            res.json(response[1]);
         } catch (error) {
             res.status(400).json({ message: error.message });
         }
@@ -18,9 +18,18 @@ class UtilisateurController {
 
     async register(req, res){
         try {
-            const token = await this.service.registerService(req);
-            res.cookie(this.config.COOKIE_KEY, token, this.config.COOKIE_CONFIG);
-            res.json({message:"Registered"});
+            const response = await this.service.registerService(req);
+            res.cookie(this.config.COOKIE_KEY, response[0], this.config.COOKIE_CONFIG);
+            res.json(response[1]);
+        } catch (error) {
+            res.status(400).json({ message: error.message });
+        }
+    }
+
+    async registerMany(req, res){
+        try {
+            await this.service.registerManyService(req);
+            res.json({message: "Success"});
         } catch (error) {
             res.status(400).json({ message: error.message });
         }
@@ -52,6 +61,21 @@ class UtilisateurController {
             res.status(400).json({ message: error.message });
         }
     }
+
+    /**
+     *
+     * @param {Request} req
+     * @param {Response} res
+     */
+    async findVoituresByUtilisateurId(req, res) {
+        try {
+            const voitures = await this.service.findVoituresByUtilisateurIdService(req);
+            res.status(200).json(voitures);
+        } catch (error) {
+            res.status(400).json({ message: error.message });
+        }
+    }
+
 
 }
 

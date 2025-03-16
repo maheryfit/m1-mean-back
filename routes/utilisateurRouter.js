@@ -1,9 +1,9 @@
 const express = require('express');
 const router = express.Router();
-const AuthService = require('../services/authentificationService')
+const UtilisateurService = require('../services/utilisateurService')
 const UserController = require('../controllers/utilisateurController');
 const config = require("../config");
-const service = new AuthService();
+const service = new UtilisateurService();
 const tokenUtil = require("../utils/tokenUtil");
 const userController = new UserController(service, config, tokenUtil);
 const middleware = require('../middlewares/authentificationMiddleware');
@@ -13,7 +13,10 @@ const middleware = require('../middlewares/authentificationMiddleware');
 //router.post('/login', userController.login);
 router.post('/login', userController.login.bind(userController));
 router.post('/register', userController.register.bind(userController));
+router.post('/registerMany', userController.registerMany.bind(userController));
 router.get('/logout', userController.logout.bind(userController));
+router.get('/:id/voitures', middleware.authenticateToken, userController.findVoituresByUtilisateurId.bind(userController));
+
 /**
  * Is user connected following a role ?
  */
