@@ -5,7 +5,7 @@ const PaiementAbonnementService = require('../../services/dashboard-client/paiem
 const PaiementAbonnementController = require('../../controllers/dashboard-client/paiementAbonnementController');
 
 const service = new PaiementAbonnementService();
-const middleware = require('../..//middlewares/authentificationMiddleware');
+const middleware = require('../../middlewares/authentificationMiddleware');
 const paiementAbonnementController = new PaiementAbonnementController(service);
 
 router.get('', middleware.authenticateTokenClient,paiementAbonnementController.getAll.bind(paiementAbonnementController));
