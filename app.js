@@ -7,11 +7,9 @@ const {connect} = require("mongoose");
 const config = require("./config");
 const socket = require('socket.io');
 const cookieParser = require("cookie-parser");
+
 // Cookie
 app.use(cookieParser());
-
-// Utils
-const tokenUtil = require('./utils/tokenUtil');
 
 
 // Middleware setup
@@ -25,13 +23,8 @@ app.use(cors(
 app.use(express.json());
 
 
-// MongoDB connection
-module.exports = connect(config.MONGO_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-})
-    .then(() => console.log("MongoDB connecté"))
-    .catch(err => console.log(err));
+// Service connection
+require('./utils/serviceTierceUtil')
 
 
 // --------------------------------------- ROUTER -------------------------------------------------
@@ -77,16 +70,35 @@ const io = socket(server, {
     }
 });
 
+// Singleton
+const SocketPairUtilisateur = new require("./utils/objectSingletonUtil")
+const socketPairUtilisateur = new SocketPairUtilisateur()
 // Listen for new connection and print a message in console
 io.on('connection', (socket) => {
-    console.log(`New connection ${socket.id}`);
     socket.on('chat', (data) => {
-        data['from'] = "incoming";
-        console.log(data);
         io.emit('chat', data);
     })
-    socket.on('typing', (data) => {
-        console.log(data);
-        io.emit('typing', data);
+
+    socket.on('online', async (data) => {
+        const socketId = socket.id;
+        const utilisateurId = data.id
+        // Ajouter la clé valeur dans l'utilisateur
+        await socketPairUtilisateur.storeSocketIdAndUtilisateurId(socketId, utilisateurId);
+        io.emit('online', data);
+    })
+
+    socket.on('offline', async (data) => {
+        const socketId = socket.id;
+        // Supprimer la clé valeur dans l'utilisateur
+        await socketPairUtilisateur.invalidateSocketId(socketId);
+        io.emit('offline', data);
+    })
+
+    socket.on('typing', async (data) => {
+        const utilisateurDestinataireId = data.id
+        const socketIds = await socketPairUtilisateur.getSocketIdsByUtilisateur(utilisateurDestinataireId)
+        socketIds.forEach(socketId => {
+            io.to(socketId).emit('typing', data);
+        })
     })
 })
