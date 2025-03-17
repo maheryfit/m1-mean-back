@@ -18,10 +18,24 @@ services: # services which our app going to use. (list of containers we want to 
     depends_on:
       - mongo-cont
 
+  redis-cache:
+    image: redis:7.4.2-alpine
+    container_name: redis-cont
+    restart: always
+    ports:
+      - '6379:6379'
+    # Nous configurons le serveur redis pour qu'il sauvegarde UNE écriture toutes les 10 secondes
+    # --requirepass permet d'ajouter une authentification.
+    command: redis-server --save 10 1 --loglevel warning --requirepass eYVX7EwVmmxKPCDmwMtyKVge8oLd2t81
+    volumes:
+      - cache:/data
+
 networks: # allow services to talk to each other while providing isolation from other docker container, running on the same host
   mern-app:
     driver: bridge
 
 volumes: # enable persistence of database data across container restart
   mongo_db:
+    driver: local
+  cache:
     driver: local

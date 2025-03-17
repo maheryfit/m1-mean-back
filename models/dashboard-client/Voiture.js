@@ -5,7 +5,6 @@ const VoitureSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: "Utilisateurs",
         required: true,
-        unique: true
     },
     description: {
         type: String,
@@ -20,7 +19,13 @@ const VoitureSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: "Specifications",
         required: true,
+    },
+    image_name: {
+        type: String,
+        required: true,
+        unique: true,
     }
 }, { timestamps: true })
+VoitureSchema.index({ proprietaire: 2, specification: 2, immatriculation: 2 }, { unique: true });
 
 module.exports = new mongoose.model('Voitures', VoitureSchema);

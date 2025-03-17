@@ -5,7 +5,7 @@ const VoitureService = require('../../services/dashboard-client/voitureService')
 const VoitureController = require('../../controllers/dashboard-client/voitureController');
 
 const service = new VoitureService();
-const middleware = require('../..//middlewares/authentificationMiddleware');
+const middleware = require('../../middlewares/authentificationMiddleware');
 const voitureController = new VoitureController(service);
 
 router.get('', middleware.authenticateToken,voitureController.getAll.bind(voitureController));

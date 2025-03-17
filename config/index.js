@@ -17,7 +17,11 @@ const config = {
         secure: this.PRODUCTION, // Works only on HTTPS and HTTP
         sameSite: "Strict", // Prevents CSRF
         maxAge: 2 * 60 * 60 * 1000, // -> 2h // 30 * 24 * 60 * 60 * 1000, // -> 30 days
-    }
+    },
+    REDIS_SERVER_URL: process.env.REDIS_SERVER_URL,
+    REDIS_PASSWORD: process.env.REDIS_PASSWORD,
+    SOCKET_KEY_REDIS: "socket",
+    DELAY_REDIS_SECONDS: process.env.DELAY_REDIS_SECONDS,
 }
 module.exports = config
 
