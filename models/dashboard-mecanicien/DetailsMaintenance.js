@@ -29,7 +29,8 @@ const DetailsMaintenanceSchema=new mongoose.Schema({
         default:Date.now
     },
     dateheure_fin:{
-        type:Date
+        type:Date,
+        required:true
     },
     etat:{
         type:Number,

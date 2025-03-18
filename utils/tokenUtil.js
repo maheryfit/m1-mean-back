@@ -58,13 +58,32 @@ async function checkIfHavePermission(req, model, field) {
     }
 }
 
+/**
+ *
+ * @param {Request} req
+ * @param {any} model
+ * @param {any} modelUser
+ * @param {string} field
+ * @returns {Promise<void>}
+ */
+async function checkIfHavePermissionRequestBody(req, model, modelUser, field) {
+    const user = getDataFromRequestToken(req)
+    const response = await modelUser.findById(req.body[field]);
+    if (!response) {
+        throw new Error('Not Found');
+    }
+    if (response.id !== user.id) {
+        throw new Error('You dont have permission to use this service.');
+    }
+}
+
 module.exports = {
     generateAccessToken,
     verifyAccessToken,
     getDataFromToken,
     getTokenFromCookie,
     checkIfHavePermission,
-    getTokenFromAuthorization,
     getDataFromRequestToken,
+    checkIfHavePermissionRequestBody,
     cleanCookie
 }

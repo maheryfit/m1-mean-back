@@ -23,7 +23,6 @@ const VoitureSchema = new mongoose.Schema({
     image_name: {
         type: String,
         required: true,
-        unique: true,
     }
 }, { timestamps: true })
 VoitureSchema.index({ proprietaire: 2, specification: 2, immatriculation: 2 }, { unique: true });
