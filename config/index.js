@@ -1,4 +1,5 @@
 // Connexion à MongoDB
+const rootPath = require("get-root-path")
 const config = {
     PORT: process.env.PORT || 3000,
     MONGO_URI: process.env.MONGO_URI,
@@ -22,6 +23,10 @@ const config = {
     REDIS_PASSWORD: process.env.REDIS_PASSWORD,
     SOCKET_KEY_REDIS: "socket",
     DELAY_REDIS_SECONDS: process.env.DELAY_REDIS_SECONDS,
+    ALLOWED_EXTENSION_FILE_IMAGE: [".jpg", ".png", ".jpeg"],
+    ROOT_FOLDER: rootPath.rootPath.toString(),
+    ETAT: ["terminé", "annulé", "en cours"],
+    DEFAULT_ETAT: "en cours",
 }
 module.exports = config
 

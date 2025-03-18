@@ -1,0 +1,30 @@
+[{
+  "_id": {
+    "$oid": "67d92523a31e92b755f1fc0d"
+  },
+  "titre": "simple",
+  "anciennete": 0,
+  "depenses": 0,
+  "createdAt": {
+    "$date": "2025-03-16T16:44:13.970Z"
+  },
+  "updatedAt": {
+    "$date": "2025-03-16T16:44:13.970Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67d92523a31e92b755f1fc0e"
+  },
+  "titre": "fidèle",
+  "anciennete": 365,
+  "depenses": 5100000,
+  "createdAt": {
+    "$date": "2025-03-16T16:44:13.970Z"
+  },
+  "updatedAt": {
+    "$date": "2025-03-16T16:44:13.970Z"
+  },
+  "__v": 0
+}]

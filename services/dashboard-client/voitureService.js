@@ -1,5 +1,6 @@
 const Voiture = require('../../models/dashboard-client/Voiture');
 const utils = require('../../utils/tokenUtil');
+const Utilisateur = require('../../models/Utilisateur');
 class VoitureService {
 
     constructor() {
@@ -11,7 +12,8 @@ class VoitureService {
      * @returns {Promise<*>}
      */
     async createService(req) {
-        await this._checkIfHavePermission(req)
+        await this._checkIfHavePermissionFromRequestBody(req)
+        req.body["image_name"] = req.files[0]["filename"];
         const newVoiture = new Voiture(req.body);
         await newVoiture.save();
         return newVoiture;
@@ -24,6 +26,7 @@ class VoitureService {
      */
    async updateService(req) {
        await this._checkIfHavePermission(req)
+        req.body["image_name"] = req.files[0]["filename"];
        return Voiture.findByIdAndUpdate(req.params.id,
            req.body, {new: true});
    }
@@ -39,6 +42,15 @@ class VoitureService {
    }
 
     /**
+     *
+     * @param {Request} req
+     * @returns {Promise<void>}
+     */
+   async _checkIfHavePermissionFromRequestBody(req) {
+       await utils.checkIfHavePermissionFromRequestBody(req, Utilisateur,"proprietaire")
+   }
+
+   /**
      *
      * @param {Request} req
      * @returns {Promise<void>}
@@ -61,7 +73,7 @@ class VoitureService {
      * @returns {Promise<*>}
      */
    async findByIdService(req) {
-       return Voiture.findById(req.params.id);
+       return Voiture.findById(req.params.id).populate("specification");
    }
 
 }

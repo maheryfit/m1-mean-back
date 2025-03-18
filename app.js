@@ -3,14 +3,16 @@ const app = express();
 require('dotenv').config();
 
 const cors = require('cors');
-const {connect} = require("mongoose");
 const config = require("./config");
 const socket = require('socket.io');
 const cookieParser = require("cookie-parser");
+const pathFolder = require("path");
 
 // Cookie
 app.use(cookieParser());
 
+// Setup public link to the picture
+app.use("/images", express.static(pathFolder.join(__dirname, 'uploads')));
 
 // Middleware setup
 app.use(cors(
@@ -22,12 +24,15 @@ app.use(cors(
 ))
 app.use(express.json());
 
+// Middleware to handle URL-encoded bodies (if needed)
+app.use(express.urlencoded({ extended: true }));
 
 // Service connection
 require('./utils/serviceTierceUtil')
 
 
 // --------------------------------------- ROUTER -------------------------------------------------
+// --------------------------- Client --------------------------------------
 // Router
 const userRouter = require('./routes/utilisateurRouter')
 app.use("/user", userRouter);
@@ -56,9 +61,26 @@ app.use("/clients", clientRouter);
 const paiementAbonnementRouter = require('./routes/dashboard-client/paiementAbonnementRouter')
 app.use("/paiementAbonnements", paiementAbonnementRouter);
 
+// DemandeRDVDiagnostic router
+const demandeRDVDiagnosticRouter = require('./routes/dashboard-client/demandeRDVDiagnosticRouter')
+app.use("/demandeRDVDiagnostics", demandeRDVDiagnosticRouter);
+
+// --------------------------- Client --------------------------------------
+
+// --------------------------- Mécanicien --------------------------------------
 // Mecanicien router
 const mecanicienRouter=require("./routes/dashboard-mecanicien/mecanicienRouter");
 app.use("/mecanicien", mecanicienRouter);
+
+// --------------------------- Mécanicien --------------------------------------
+
+// --------------------------- Manager --------------------------------------
+// Manager router
+const managerRouter=require("./routes/dashboard-manager/managerRouter");
+const middleware = require("./middlewares/authentificationMiddleware")
+app.use("/managers", managerRouter);
+
+// --------------------------- Manager --------------------------------------
 
 // --------------------------------------- ROUTER -------------------------------------------------
 
@@ -76,6 +98,7 @@ const io = socket(server, {
 
 // Singleton
 const SocketPairUtilisateur = new require("./utils/objectSingletonUtil")
+const path = require("node:path");
 const socketPairUtilisateur = new SocketPairUtilisateur()
 // Listen for new connection and print a message in console
 io.on('connection', (socket) => {
