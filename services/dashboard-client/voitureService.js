@@ -26,6 +26,7 @@ class VoitureService {
      */
    async updateService(req) {
        await this._checkIfHavePermission(req)
+        req.body["image_name"] = req.files[0]["filename"];
        return Voiture.findByIdAndUpdate(req.params.id,
            req.body, {new: true});
    }
