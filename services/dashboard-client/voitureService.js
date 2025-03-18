@@ -12,7 +12,7 @@ class VoitureService {
      * @returns {Promise<*>}
      */
     async createService(req) {
-        await this._checkIfHavePermissionRequestBody(req)
+        await this._checkIfHavePermissionFromRequestBody(req)
         req.body["image_name"] = req.files[0]["filename"];
         const newVoiture = new Voiture(req.body);
         await newVoiture.save();
@@ -46,8 +46,8 @@ class VoitureService {
      * @param {Request} req
      * @returns {Promise<void>}
      */
-   async _checkIfHavePermissionRequestBody(req) {
-       await utils.checkIfHavePermissionRequestBody(req, Voiture, Utilisateur,"proprietaire")
+   async _checkIfHavePermissionFromRequestBody(req) {
+       await utils.checkIfHavePermissionFromRequestBody(req, Utilisateur,"proprietaire")
    }
 
    /**
@@ -73,7 +73,7 @@ class VoitureService {
      * @returns {Promise<*>}
      */
    async findByIdService(req) {
-       return Voiture.findById(req.params.id);
+       return Voiture.findById(req.params.id).populate("specification");
    }
 
 }

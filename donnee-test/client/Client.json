@@ -5,10 +5,19 @@
   "utilisateur": {
     "$oid": "67d6ffdd8503d5c0d1c974d6"
   },
-  "date_inscription": "2025-03-16T16:44:13.970Z",
+  "date_inscription": {
+    "$date": "2025-03-16T16:44:13.974Z"
+  },
   "telephone": "+33 6 12 34 56 78",
   "abonnement": null,
-  "statut_client": null
+  "statut_client": null,
+    "createdAt": {
+    "$date": "2025-03-16T16:44:13.970Z"
+  },
+  "updatedAt": {
+    "$date": "2025-03-16T16:44:13.970Z"
+  },
+  "__v": 0
 },
 {
   "_id": {
@@ -17,10 +26,19 @@
   "utilisateur": {
     "$oid": "67d6ffdd8503d5c0d1c974da"
   },
-  "date_inscription": "2025-03-16T16:44:13.975Z",
+  "date_inscription": {
+    "$date": "2025-03-16T16:44:13.974Z"
+  },
   "telephone": "+33 6 23 45 67 89",
   "abonnement": null,
-  "statut_client": null
+  "statut_client": null,
+    "createdAt": {
+    "$date": "2025-03-16T16:44:13.970Z"
+  },
+  "updatedAt": {
+    "$date": "2025-03-16T16:44:13.970Z"
+  },
+  "__v": 0
 },
 {
   "_id": {
@@ -29,10 +47,19 @@
   "utilisateur": {
     "$oid": "67d6ffdd8503d5c0d1c974d7"
   },
-  "date_inscription": "2025-03-16T16:44:13.974Z",
+  "date_inscription": {
+    "$date": "2025-03-16T16:44:13.974Z"
+  },
   "telephone": "+33 6 34 56 78 90",
   "abonnement": null,
-  "statut_client": null
+  "statut_client": null,
+  "createdAt": {
+    "$date": "2025-03-16T16:44:13.970Z"
+  },
+  "updatedAt": {
+    "$date": "2025-03-16T16:44:13.970Z"
+  },
+  "__v": 0
 },
 {
   "_id": {
@@ -41,10 +68,19 @@
   "utilisateur": {
     "$oid": "67d6ffdd8503d5c0d1c974d8"
   },
-  "date_inscription": "2025-03-16T16:44:13.975Z",
+  "date_inscription": {
+    "$date": "2025-03-16T16:44:13.974Z"
+  },
   "telephone": "+33 6 45 67 89 01",
   "abonnement": null,
-  "statut_client": null
+  "statut_client": null,
+    "createdAt": {
+    "$date": "2025-03-16T16:44:13.970Z"
+  },
+  "updatedAt": {
+    "$date": "2025-03-16T16:44:13.970Z"
+  },
+  "__v": 0
 },
 {
   "_id": {
@@ -53,10 +89,19 @@
   "utilisateur": {
     "$oid": "67d6ffdd8503d5c0d1c974d9"
   },
-  "date_inscription": "2025-03-16T16:44:13.975Z",
+  "date_inscription": {
+    "$date": "2025-03-16T16:44:13.974Z"
+  },
   "telephone": "+33 6 56 78 90 12",
   "abonnement": null,
-  "statut_client": null
+  "statut_client": null,
+    "createdAt": {
+    "$date": "2025-03-16T16:44:13.970Z"
+  },
+  "updatedAt": {
+    "$date": "2025-03-16T16:44:13.970Z"
+  },
+  "__v": 0
 },
 {
   "_id": {
@@ -65,10 +110,19 @@
   "utilisateur": {
     "$oid": "67d6ffdd8503d5c0d1c974db"
   },
-  "date_inscription": "2025-03-16T16:44:13.975Z",
+  "date_inscription": {
+    "$date": "2025-03-16T16:44:13.974Z"
+  },
   "telephone": "+33 6 67 89 01 23",
   "abonnement": null,
-  "statut_client": null
+  "statut_client": null,
+    "createdAt": {
+    "$date": "2025-03-16T16:44:13.970Z"
+  },
+  "updatedAt": {
+    "$date": "2025-03-16T16:44:13.970Z"
+  },
+  "__v": 0
 },
 {
   "_id": {
@@ -77,10 +131,19 @@
   "utilisateur": {
     "$oid": "67d6ffdd8503d5c0d1c974df"
   },
-  "date_inscription": "2025-03-16T16:44:13.977Z",
+  "date_inscription": {
+    "$date": "2025-03-16T16:44:13.974Z"
+  },
   "telephone": "+33 6 78 90 12 34",
   "abonnement": null,
-  "statut_client": null
+  "statut_client": null,
+    "createdAt": {
+    "$date": "2025-03-16T16:44:13.970Z"
+  },
+  "updatedAt": {
+    "$date": "2025-03-16T16:44:13.970Z"
+  },
+  "__v": 0
 },
 {
   "_id": {
@@ -89,10 +152,19 @@
   "utilisateur": {
     "$oid": "67d6ffdd8503d5c0d1c974dd"
   },
-  "date_inscription": "2025-03-16T16:44:13.976Z",
+  "date_inscription": {
+    "$date": "2025-03-16T16:44:13.974Z"
+  },
   "telephone": "+33 6 89 01 23 45",
   "abonnement": null,
-  "statut_client": null
+  "statut_client": null,
+    "createdAt": {
+    "$date": "2025-03-16T16:44:13.970Z"
+  },
+  "updatedAt": {
+    "$date": "2025-03-16T16:44:13.970Z"
+  },
+  "__v": 0
 },
 {
   "_id": {
@@ -101,10 +173,19 @@
   "utilisateur": {
     "$oid": "67d6ffdd8503d5c0d1c974de"
   },
-  "date_inscription": "2025-03-16T16:44:13.976Z",
+  "date_inscription": {
+    "$date": "2025-03-16T16:44:13.974Z"
+  },
   "telephone": "+33 6 90 12 34 56",
   "abonnement": null,
-  "statut_client": null
+  "statut_client": null,
+    "createdAt": {
+    "$date": "2025-03-16T16:44:13.970Z"
+  },
+  "updatedAt": {
+    "$date": "2025-03-16T16:44:13.970Z"
+  },
+  "__v": 0
 },
 {
   "_id": {
@@ -113,8 +194,17 @@
   "utilisateur": {
     "$oid": "67d6ffdd8503d5c0d1c974e0"
   },
-  "date_inscription": "2025-03-16T16:44:13.977Z",
+  "date_inscription": {
+    "$date": "2025-03-16T16:44:13.974Z"
+  },
   "telephone": "+33 6 01 23 45 67",
   "abonnement": null,
-  "statut_client": null
+  "statut_client": null,
+    "createdAt": {
+    "$date": "2025-03-16T16:44:13.970Z"
+  },
+  "updatedAt": {
+    "$date": "2025-03-16T16:44:13.970Z"
+  },
+  "__v": 0
 }]
