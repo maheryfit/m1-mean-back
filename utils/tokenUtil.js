@@ -61,18 +61,36 @@ async function checkIfHavePermission(req, model, field) {
 /**
  *
  * @param {Request} req
- * @param {any} model
  * @param {any} modelUser
  * @param {string} field
  * @returns {Promise<void>}
  */
-async function checkIfHavePermissionRequestBody(req, model, modelUser, field) {
+async function checkIfHavePermissionFromRequestBody(req, modelUser, field) {
     const user = getDataFromRequestToken(req)
     const response = await modelUser.findById(req.body[field]);
     if (!response) {
         throw new Error('Not Found');
     }
     if (response.id !== user.id) {
+        throw new Error('You dont have permission to use this service.');
+    }
+}
+
+/**
+ *
+ * @param {Request} req
+ * @param {any} model
+ * @param {string} field
+ * @param {string} fieldUser
+ * @returns {Promise<void>}
+ */
+async function checkIfHavePermissionFromRequestBodyAndOtherModel(req, model, field, fieldUser) {
+    const user = getDataFromRequestToken(req)
+    const modelInstance = await model.findById(req.body[field]);
+    if (!modelInstance) {
+        throw new Error('Not Found');
+    }
+    if (modelInstance[fieldUser].toString() !== user.id) {
         throw new Error('You dont have permission to use this service.');
     }
 }
@@ -84,6 +102,7 @@ module.exports = {
     getTokenFromCookie,
     checkIfHavePermission,
     getDataFromRequestToken,
-    checkIfHavePermissionRequestBody,
+    checkIfHavePermissionFromRequestBody,
+    checkIfHavePermissionFromRequestBodyAndOtherModel,
     cleanCookie
 }

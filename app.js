@@ -60,6 +60,10 @@ app.use("/clients", clientRouter);
 const paiementAbonnementRouter = require('./routes/dashboard-client/paiementAbonnementRouter')
 app.use("/paiementAbonnements", paiementAbonnementRouter);
 
+// DemandeRDVDiagnostic router
+const demandeRDVDiagnosticRouter = require('./routes/dashboard-client/demandeRDVDiagnosticRouter')
+app.use("/demandeRDVDiagnostics", demandeRDVDiagnosticRouter);
+
 // Mecanicien router
 const mecanicienRouter=require("./routes/dashboard-mecanicien/mecanicienRouter");
 app.use("/mecanicien", mecanicienRouter);
