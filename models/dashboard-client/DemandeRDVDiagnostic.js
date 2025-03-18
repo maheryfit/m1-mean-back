@@ -1,5 +1,5 @@
 const _BEST_DIFF_DAY = 1
-
+const config = require("../../config");
 const mongoose = require('mongoose');
 const DemandeRDVDiagnosticSchema = new mongoose.Schema({
     voiture: {
@@ -30,8 +30,8 @@ const DemandeRDVDiagnosticSchema = new mongoose.Schema({
     etat: {
         type: String,
         required: false,
-        enum: [],
-        default: ""
+        enum: config.ETAT,
+        default: config.DEFAULT_ETAT
     }
 }, {timestamps: true});
 DemandeRDVDiagnosticSchema.index({ date_favorable: 3, voiture: 3 }, { unique: true });
