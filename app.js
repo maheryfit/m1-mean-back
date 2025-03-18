@@ -32,6 +32,7 @@ require('./utils/serviceTierceUtil')
 
 
 // --------------------------------------- ROUTER -------------------------------------------------
+// --------------------------- Client --------------------------------------
 // Router
 const userRouter = require('./routes/utilisateurRouter')
 app.use("/user", userRouter);
@@ -64,9 +65,22 @@ app.use("/paiementAbonnements", paiementAbonnementRouter);
 const demandeRDVDiagnosticRouter = require('./routes/dashboard-client/demandeRDVDiagnosticRouter')
 app.use("/demandeRDVDiagnostics", demandeRDVDiagnosticRouter);
 
+// --------------------------- Client --------------------------------------
+
+// --------------------------- Mécanicien --------------------------------------
 // Mecanicien router
 const mecanicienRouter=require("./routes/dashboard-mecanicien/mecanicienRouter");
 app.use("/mecanicien", mecanicienRouter);
+
+// --------------------------- Mécanicien --------------------------------------
+
+// --------------------------- Manager --------------------------------------
+// Manager router
+const managerRouter=require("./routes/dashboard-manager/managerRouter");
+const middleware = require("./middlewares/authentificationMiddleware")
+app.use("/managers", managerRouter);
+
+// --------------------------- Manager --------------------------------------
 
 // --------------------------------------- ROUTER -------------------------------------------------
 

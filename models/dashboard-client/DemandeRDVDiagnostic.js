@@ -27,6 +27,11 @@ const DemandeRDVDiagnosticSchema = new mongoose.Schema({
             message: `La date favorable doit être au moins ${_BEST_DIFF_DAY} jours en avance à compter d'aujourd'hui ${new Date(Date.now()).toDateString()} `
         }
     },
+    station: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Stations",
+        required: true
+    },
     etat: {
         type: String,
         required: false,

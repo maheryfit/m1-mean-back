@@ -1,0 +1,32 @@
+[{
+  "_id": {
+    "$oid": "67d975ec0e3e0cef9e5d0785"
+  },
+  "utilisateur": {
+    "$oid": "67d974d14a4ed9b442cc3210"
+  },
+  "telephone": "+261 34 55 824 44",
+  "createdAt": {
+    "$date": "2025-03-18T13:32:28.824Z"
+  },
+  "updatedAt": {
+    "$date": "2025-03-18T13:32:28.824Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67d9761f0e3e0cef9e5d0787"
+  },
+  "utilisateur": {
+    "$oid": "67d974d14a4ed9b442cc3211"
+  },
+  "telephone": "+261 32 79 104 54",
+  "createdAt": {
+    "$date": "2025-03-18T13:33:19.529Z"
+  },
+  "updatedAt": {
+    "$date": "2025-03-18T13:33:19.529Z"
+  },
+  "__v": 0
+}]
