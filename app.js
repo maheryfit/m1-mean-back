@@ -82,10 +82,15 @@ app.use("/station", stationRouter);
 // --------------------------- Mécanicien --------------------------------------
 
 // --------------------------- Manager --------------------------------------
+const middleware = require("./middlewares/authentificationMiddleware")
+
 // Manager router
 const managerRouter=require("./routes/dashboard-manager/managerRouter");
-const middleware = require("./middlewares/authentificationMiddleware")
-app.use("/managers", managerRouter);
+app.use("/managers", middleware.authenticateTokenManager, managerRouter);
+
+// Manager router
+const changementStatutClientRouter=require("./routes/dashboard-manager/changementStatutClientRouter");
+app.use("/changementStatutClients", middleware.authenticateTokenManager, changementStatutClientRouter);
 
 // --------------------------- Manager --------------------------------------
 
