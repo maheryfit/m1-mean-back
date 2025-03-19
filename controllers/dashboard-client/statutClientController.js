@@ -78,19 +78,5 @@ class StatutClientController {
         }
     }
 
-    /**
-     *
-     * @param {Request} req
-     * @param {Response} res
-     */
-    async modifyStatusClientByClient(req, res) {
-        try {
-            await this.service.modifyStatusClientByClientService(req);
-            res.status(200).json({message: 'Client status changed'});
-        } catch (error) {
-            res.status(400).json({ message: error.message });
-        }
-    }
-
 }
 module.exports = StatutClientController;
