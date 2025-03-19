@@ -1,4 +1,4 @@
-const Station=require("../../models/dashboard-mecanicien/Stations");
+const Station=require("../../models/dashboard-mecanicien/Station");
 
 class StationService{
     constructor() {
