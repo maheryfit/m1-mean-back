@@ -13,7 +13,10 @@ class VoitureService {
      */
     async createService(req) {
         await this._checkIfHavePermissionFromRequestBody(req)
-        req.body["image_name"] = req.files[0]["filename"];
+        req.body["images_name"] = []
+        req.files.forEach((file) => {
+            req.body["images_name"].push(file["filename"]);
+        })
         const newVoiture = new Voiture(req.body);
         await newVoiture.save();
         return newVoiture;
@@ -26,7 +29,10 @@ class VoitureService {
      */
    async updateService(req) {
        await this._checkIfHavePermission(req)
-        req.body["image_name"] = req.files[0]["filename"];
+       req.body["images_name"] = []
+       req.files.forEach((file) => {
+           req.body["images_name"].push(file["filename"]);
+       })
        return Voiture.findByIdAndUpdate(req.params.id,
            req.body, {new: true});
    }
