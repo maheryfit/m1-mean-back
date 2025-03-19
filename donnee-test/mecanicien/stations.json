@@ -1,7 +1,7 @@
 [
     {
       "_id": {
-        "$oid" : "65f1a3b1c9e77a001c1a0001"
+        "$oid": "65f1a3b1c9e77a001c1a0001"
       },
       "nom": "Station Alpha",
       "lieu": "Downtown",
@@ -12,7 +12,7 @@
     },
     {
       "_id": {
-        "$oid" : "65f1a3b1c9e77a001c1a0002"
+        "$oid": "65f1a3b1c9e77a001c1a0002"
       },
       "nom": "Station Beta",
       "lieu": "Uptown",
@@ -23,7 +23,7 @@
     },
     {
       "_id": {
-        "$oid" : "65f1a3b1c9e77a001c1a0003"
+        "$oid": "65f1a3b1c9e77a001c1a0003"
       },
       "nom": "Station Gamma",
       "lieu": "Suburb West",
@@ -34,7 +34,7 @@
     },
     {
       "_id": {
-        "$oid" : "65f1a3b1c9e77a001c1a0004"
+        "$oid": "65f1a3b1c9e77a001c1a0004"
       },
       "nom": "Station Delta",
       "lieu": "Suburb East",
@@ -45,7 +45,7 @@
     },
     {
       "_id": {
-        "$oid" : "65f1a3b1c9e77a001c1a0005"
+        "$oid": "65f1a3b1c9e77a001c1a0005"
       },
       "nom": "Station Epsilon",
       "lieu": "City Center",
@@ -56,7 +56,7 @@
     },
     {
       "_id": {
-        "$oid" : "65f1a3b1c9e77a001c1a0006"
+        "$oid": "65f1a3b1c9e77a001c1a0006"
       },
       "nom": "Station Zeta",
       "lieu": "Industrial Zone",
@@ -66,4 +66,3 @@
       }
     }
   ]
-  

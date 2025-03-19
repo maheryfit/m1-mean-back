@@ -4,7 +4,7 @@ const user = new User()
 const Voiture = require('../models/dashboard-client/Voiture')
 const utils = require("../utils/tokenUtil");
 const Utilisateur = require("../models/Utilisateur");
-const ObjectID = require("bson-objectid");
+
 class UtilisateurService {
 
     constructor() {
@@ -46,10 +46,7 @@ class UtilisateurService {
      */
     async registerManyService(request) {
         const data = request.body
-        data.map(async item => {
-            const user = new User(item)
-            await user.save()
-        })
+        await User.insertMany(data)
     }
 
     getUsersService() {

@@ -25,8 +25,8 @@ const config = {
     DELAY_REDIS_SECONDS: process.env.DELAY_REDIS_SECONDS,
     ALLOWED_EXTENSION_FILE_IMAGE: [".jpg", ".png", ".jpeg"],
     ROOT_FOLDER: rootPath.rootPath.toString(),
-    ETAT: ["terminé", "annulé", "en cours"],
-    DEFAULT_ETAT: "en cours",
+    ETAT_DEMANDE_RDV_DIAG: ["en attente de confirmation", "accepté", "rejeté"],
+    DEFAULT_ETAT_DEMANDE_RDV_DIAG: "en attente de confirmation",
 }
 module.exports = config
 
