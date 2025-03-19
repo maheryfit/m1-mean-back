@@ -76,6 +76,9 @@ app.use("/demandeRDVDiagnostics", demandeRDVDiagnosticRouter);
 const mecanicienRouter=require("./routes/dashboard-mecanicien/mecanicienRouter");
 app.use("/mecanicien", mecanicienRouter);
 
+const stationRouter=require("./routes/dashboard-mecanicien/stationRouter");
+app.use("/station", stationRouter);
+
 // --------------------------- Mécanicien --------------------------------------
 
 // --------------------------- Manager --------------------------------------
