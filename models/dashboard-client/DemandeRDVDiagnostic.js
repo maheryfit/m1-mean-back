@@ -35,8 +35,8 @@ const DemandeRDVDiagnosticSchema = new mongoose.Schema({
     etat: {
         type: String,
         required: false,
-        enum: config.ETAT,
-        default: config.DEFAULT_ETAT
+        enum: config.ETAT_DEMANDE_RDV_DIAG,
+        default: config.DEFAULT_ETAT_DEMANDE_RDV_DIAG
     }
 }, {timestamps: true});
 DemandeRDVDiagnosticSchema.index({ date_favorable: 3, voiture: 3 }, { unique: true });
