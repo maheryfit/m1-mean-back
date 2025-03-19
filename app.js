@@ -32,11 +32,15 @@ require('./utils/serviceTierceUtil')
 
 
 // --------------------------------------- ROUTER -------------------------------------------------
-// --------------------------- Client --------------------------------------
 // Router
 const userRouter = require('./routes/utilisateurRouter')
 app.use("/user", userRouter);
 
+// Message
+const messageRouter = require('./routes/messageRouter')
+app.use("/messages", messageRouter);
+
+// --------------------------- Client --------------------------------------
 // Abonnement router
 const abonnementRouter = require('./routes/dashboard-client/abonnementRouter')
 app.use("/abonnements", abonnementRouter);
