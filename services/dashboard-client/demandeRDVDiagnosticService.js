@@ -22,6 +22,15 @@ class DemandeRDVDiagnosticService {
     /**
      *
      * @param {Request} req
+     * @returns {Promise<*>}
+     */
+    async createManyService(req) {
+        await DemandeRDVDiagnostic.insertMany(req.body)
+    }
+
+    /**
+     *
+     * @param {Request} req
      * @returns {Promise<void>}
      */
    async _checkIfHavePermissionFromRequestBodyAndOtherModel(req) {
@@ -63,6 +72,7 @@ class DemandeRDVDiagnosticService {
      */
    async findByIdService(req) {
        return DemandeRDVDiagnostic.findById(req.params.id)
+           .populate("station")
            .populate("voiture");
    }
 

@@ -1,4 +1,4 @@
-class DemandeRDVDiagnosticController {
+class StationController {
 
     constructor(service) {
         this.service = service;
@@ -11,22 +11,8 @@ class DemandeRDVDiagnosticController {
      */
     async create(req, res) {
         try {
-            const newDemandeRDVDiagnostic = await this.service.createService(req);
-            res.status(201).json(newDemandeRDVDiagnostic);
-        } catch (error) {
-            res.status(400).json({ message: error.message });
-        }
-    }
-
-    /**
-     *
-     * @param {Request} req
-     * @param {Response} res
-     */
-    async createMany(req, res) {
-        try {
-            await this.service.createManyService(req);
-            res.status(201).json({message: "Successfully inserted"});
+            const newStation = await this.service.createService(req);
+            res.status(201).json(newStation);
         } catch (error) {
             res.status(400).json({ message: error.message });
         }
@@ -40,8 +26,8 @@ class DemandeRDVDiagnosticController {
      */
     async update(req, res) {
         try {
-            const demandeRDVDiagnostic = await this.service.updateService(req);
-            res.status(200).json(demandeRDVDiagnostic);
+            const station = await this.service.updateService(req);
+            res.status(200).json(station);
         } catch (error) {
             res.status(400).json({ message: error.message });
         }
@@ -55,8 +41,8 @@ class DemandeRDVDiagnosticController {
      */
     async getAll(req, res) {
         try {
-            const demandeRDVDiagnostics = await this.service.getAllService();
-            res.status(200).json(demandeRDVDiagnostics);
+            const stations = await this.service.getAllService();
+            res.status(200).json(stations);
         } catch (error) {
             res.status(400).json({ message: error.message });
         }
@@ -70,8 +56,8 @@ class DemandeRDVDiagnosticController {
      */
     async findById(req, res) {
         try {
-            const demandeRDVDiagnostic = await this.service.findByIdService(req);
-            res.status(200).json(demandeRDVDiagnostic);
+            const station = await this.service.findByIdService(req);
+            res.status(200).json(station);
         } catch (error) {
             res.status(400).json({ message: error.message });
         }
@@ -94,5 +80,4 @@ class DemandeRDVDiagnosticController {
 
 }
 
-module.exports = DemandeRDVDiagnosticController;
-
+module.exports = StationController;
