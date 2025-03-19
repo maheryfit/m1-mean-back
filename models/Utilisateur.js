@@ -18,19 +18,19 @@ const UtilisateursSchema = new mongoose.Schema({
 
 // Hash the password before saving the user
 UtilisateursSchema.pre('save', async function (next) {
-  // If password is modified or is a new user
-  if (this.isModified('mot_de_passe') || this.isNew) {
+    // If password is modified or is a new user
+    if (this.isModified('mot_de_passe') || this.isNew) {
     try {
-      // Salt rounds determine the complexity of the hash
-      const salt = await genSalt(10);
-      this.mot_de_passe = await hash(this.mot_de_passe, salt);
-      next();
+        // Salt rounds determine the complexity of the hash
+        const salt = await genSalt(10);
+        this.mot_de_passe = await hash(this.mot_de_passe, salt);
+        next();
     } catch (err) {
-      next(err);
+        next(err);
     }
-  } else {
-    next();
-  }
+    } else {
+        next();
+    }
 });
 
 // Method to compare entered password with hashed password

@@ -43,7 +43,6 @@ class MessageService {
      */
     async _addNewMessage(req, response) {
         this._checkIfDestinataireInUtilisateurs(req)
-        req.body['conversations']['date_heure_contenu'] = new Date(Date.now())
         response["conversations"].push(req.body['conversations'])
         const utilisateur_1 = req.body["utilisateur_1"]
         const utilisateur_2 = req.body["utilisateur_2"]
@@ -60,7 +59,6 @@ class MessageService {
      */
     async _createNewMessage(req) {
         const conversation = req.body["conversations"]
-        conversation['date_heure_contenu'] = new Date(Date.now())
         this._checkIfDestinataireInUtilisateurs(req)
         req.body["conversations"] = []
         req.body["conversations"].push(conversation)
