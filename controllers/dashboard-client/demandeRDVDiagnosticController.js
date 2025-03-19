@@ -18,6 +18,20 @@ class DemandeRDVDiagnosticController {
         }
     }
 
+    /**
+     *
+     * @param {Request} req
+     * @param {Response} res
+     */
+    async createMany(req, res) {
+        try {
+            await this.service.createManyService(req);
+            res.status(201).json({message: "Successfully inserted"});
+        } catch (error) {
+            res.status(400).json({ message: error.message });
+        }
+    }
+
 
     /**
      *
