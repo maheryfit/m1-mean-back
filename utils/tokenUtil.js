@@ -101,6 +101,17 @@ async function checkIfHavePermissionFromRequestBodyAndOtherModel(req, model, fie
     }
 }
 
+/**
+ *
+ * @param {Request} req
+ * @param {any} Model
+ * @returns {Promise<void>}
+ */
+async function getRealProfileUserFromRequestParam(req, Model) {
+    const user = getDataFromRequestToken(req)
+    return await Model.findOne({utilisateur: user.id});
+}
+
 module.exports = {
     generateAccessToken,
     verifyAccessToken,
@@ -110,5 +121,6 @@ module.exports = {
     getDataFromRequestToken,
     checkIfHavePermissionFromRequestBody,
     checkIfHavePermissionFromRequestBodyAndOtherModel,
-    cleanCookie
+    cleanCookie,
+    getRealProfileUserFromRequestParam
 }
