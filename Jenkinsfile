@@ -2,6 +2,7 @@ pipeline {
     agent any
     
     environment {
+        IMAGE_NAME = app-server
         DOCKER_TAG = 'latest'
         DOCKER_COMPOSE_FILE = 'docker-compose.yaml'
     }
@@ -9,21 +10,23 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                echo "Pulling project"
-                git branch: 'main', url: 'https://github.com/maheryfit/m1-mean-back.git'    
+                git branch: 'main', url: 'https://github.com/maheryfit/m1-mean-back.git'
             }
         }
+
         stage('Build') {
             steps {
                 echo "Creating .env"
                 sh 'cp .env.development .env'
             
-                echo "Build node image"
-                sh 'docker build -t app-server .'
+                dockerImage = docker.build IMAGE_NAME
                 
                 echo "Docker compose build"
                 sh 'docker-compose -f ${DOCKER_COMPOSE_FILE} build'
-
+            }
+        }
+        stage('Deploy') {
+            steps {
                 echo "Docker compose up"
                 sh 'docker-compose -f ${DOCKER_COMPOSE_FILE} up -d'
             }
