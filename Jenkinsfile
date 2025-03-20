@@ -7,6 +7,10 @@ pipeline {
         DOCKER_COMPOSE_FILE = 'docker-compose.yaml'
     }
 
+    options {
+        timestamps()  // Adds timestamps for debugging
+    }
+
     stages {
         stage('Checkout') {
             steps {
@@ -17,12 +21,18 @@ pipeline {
         stage('Build') {
             steps {
                 echo "Creating .env"
-                sh 'cp .env.development .env'
+                sh '''
+                    set -x
+                    cp .env.development .env
+                '''
                 script {   
                     docker.build(IMAGE_NAME)
                 }
                 echo "Docker compose build"
-                sh 'docker-compose -f ${DOCKER_COMPOSE_FILE} build'
+                sh '''
+                    set -x
+                    docker-compose -f ${DOCKER_COMPOSE_FILE} build
+                '''
             }
         }
         stage('Deploy') {
