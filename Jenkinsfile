@@ -11,9 +11,12 @@ pipeline {
             steps {
                 echo "Pulling project"
                 git branch: 'main', url: 'https://github.com/maheryfit/m1-mean-back.git'
+                sh '''
+                    docker -v
+                '''
             }
         }
-        
+        /*
         stage('Copy .env file') {
             steps {
                 sh 'cp .env.development .env'
@@ -36,6 +39,7 @@ pipeline {
                 sh 'docker-compose -f ${DOCKER_COMPOSE_FILE} up -d'
             }
         }
+        */
     }
     
     post {
