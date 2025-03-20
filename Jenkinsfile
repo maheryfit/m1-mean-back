@@ -18,9 +18,9 @@ pipeline {
             steps {
                 echo "Creating .env"
                 sh 'cp .env.development .env'
-            
-                docker.build(IMAGE_NAME, "-p 3000")
-                
+                script {   
+                    docker.build(IMAGE_NAME, "-p 3000")
+                }
                 echo "Docker compose build"
                 sh 'docker-compose -f ${DOCKER_COMPOSE_FILE} build'
             }
