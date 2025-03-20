@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken');
 const config = require("../config");
 const secret = config.JWT_SECRET_KEY;
-
+const MANAGER = "manager"
 const generateAccessToken = function (user) {
     const options = { expiresIn: config.TOKEN_DURATION };
     return jwt.sign(user, secret, options);
@@ -48,12 +48,15 @@ function cleanCookie (res) {
  * @returns {Promise<void>}
  */
 async function checkIfHavePermission(req, model, field) {
-    const client = getDataFromRequestToken(req)
+    const user = getDataFromRequestToken(req)
+    if (user.profil === MANAGER) {
+        return
+    }
     const response = await model.findById(req.params.id);
     if (!response) {
         throw new Error('Not Found');
     }
-    if (response[field].toString() !== client.id) {
+    if (response[field].toString() !== user.id) {
         throw new Error('You dont have permission to use this service.');
     }
 }
@@ -68,6 +71,9 @@ async function checkIfHavePermission(req, model, field) {
 async function checkIfHavePermissionFromRequestBody(req, modelUser, field) {
     const user = getDataFromRequestToken(req)
     const response = await modelUser.findById(req.body[field]);
+    if (user.profil === MANAGER) {
+        return
+    }
     if (!response) {
         throw new Error('Not Found');
     }

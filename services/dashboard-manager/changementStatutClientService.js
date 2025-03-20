@@ -1,6 +1,7 @@
 const ChangementStatutClient=require("../../models/dashboard-manager/ChangementStatutClient");
 const {startSession} = require("mongoose");
 const Client = require("../../models/dashboard-client/Client");
+const tokenUtil = require("../../utils/tokenUtil");
 
 class ChangementStatutClientService{
 
@@ -13,6 +14,7 @@ class ChangementStatutClientService{
      * @returns {Promise<*>}
      */
     async createService(req) {
+        req.body['manager'] = tokenUtil.getDataFromRequestToken(req).id
         const newChangementStatutClient = new ChangementStatutClient(req.body);
         const session = await startSession();
         session.startTransaction()
