@@ -1,0 +1,493 @@
+[{
+  "_id": {
+    "$oid": "67d5bc3d3c212676c4fa611d"
+  },
+  "modele": "Toyota Supra",
+  "type": "Sport",
+  "moteur": "essence",
+  "transmission": "automatique",
+  "traction": "propulsion",
+    "createdAt": {
+    "$date": "2025-03-16T16:44:13.970Z"
+  },
+  "updatedAt": {
+    "$date": "2025-03-16T16:44:13.970Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67d5bc3d3c212676c4fa611e"
+  },
+  "modele": "Ford Mustang",
+  "type": "Muscle car",
+  "moteur": "essence",
+  "transmission": "manuel",
+  "traction": "propulsion",
+    "createdAt": {
+    "$date": "2025-03-16T16:44:13.970Z"
+  },
+  "updatedAt": {
+    "$date": "2025-03-16T16:44:13.970Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67d5bc3d3c212676c4fa611f"
+  },
+  "modele": "Tesla Model S",
+  "type": "Super car",
+  "moteur": "électrique",
+  "transmission": "automatique",
+  "traction": "4*4",
+    "createdAt": {
+    "$date": "2025-03-16T16:44:13.970Z"
+  },
+  "updatedAt": {
+    "$date": "2025-03-16T16:44:13.970Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67d5bc3d3c212676c4fa6120"
+  },
+  "modele": "Volkswagen Golf R",
+  "type": "Sport",
+  "moteur": "essence",
+  "transmission": "automatique",
+  "traction": "traction avant",
+    "createdAt": {
+    "$date": "2025-03-16T16:44:13.970Z"
+  },
+  "updatedAt": {
+    "$date": "2025-03-16T16:44:13.970Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67d5bc3d3c212676c4fa6121"
+  },
+  "modele": "BMW M3",
+  "type": "Sport",
+  "moteur": "essence",
+  "transmission": "manuel",
+  "traction": "propulsion",
+    "createdAt": {
+    "$date": "2025-03-16T16:44:13.970Z"
+  },
+  "updatedAt": {
+    "$date": "2025-03-16T16:44:13.970Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67d5bc3d3c212676c4fa6122"
+  },
+  "modele": "Chevrolet Camaro",
+  "type": "Muscle car",
+  "moteur": "essence",
+  "transmission": "manuel",
+  "traction": "propulsion",
+    "createdAt": {
+    "$date": "2025-03-16T16:44:13.970Z"
+  },
+  "updatedAt": {
+    "$date": "2025-03-16T16:44:13.970Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67d5bc3d3c212676c4fa6123"
+  },
+  "modele": "Audi RS5",
+  "type": "Sport",
+  "moteur": "essence",
+  "transmission": "automatique",
+  "traction": "4*4",
+    "createdAt": {
+    "$date": "2025-03-16T16:44:13.970Z"
+  },
+  "updatedAt": {
+    "$date": "2025-03-16T16:44:13.970Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67d5bc3d3c212676c4fa6124"
+  },
+  "modele": "Mercedes AMG GT",
+  "type": "Super car",
+  "moteur": "essence",
+  "transmission": "automatique",
+  "traction": "propulsion",
+    "createdAt": {
+    "$date": "2025-03-16T16:44:13.970Z"
+  },
+  "updatedAt": {
+    "$date": "2025-03-16T16:44:13.970Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67d5bc3d3c212676c4fa6125"
+  },
+  "modele": "Dodge Challenger",
+  "type": "Muscle car",
+  "moteur": "essence",
+  "transmission": "manuel",
+  "traction": "propulsion",
+    "createdAt": {
+    "$date": "2025-03-16T16:44:13.970Z"
+  },
+  "updatedAt": {
+    "$date": "2025-03-16T16:44:13.970Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67d5bc3d3c212676c4fa6126"
+  },
+  "modele": "Nissan GT-R",
+  "type": "Super car",
+  "moteur": "essence",
+  "transmission": "automatique",
+  "traction": "4*4",
+    "createdAt": {
+    "$date": "2025-03-16T16:44:13.970Z"
+  },
+  "updatedAt": {
+    "$date": "2025-03-16T16:44:13.970Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67d5bc3d3c212676c4fa6127"
+  },
+  "modele": "Honda Civic Type R",
+  "type": "Sport",
+  "moteur": "essence",
+  "transmission": "manuel",
+  "traction": "traction avant",
+    "createdAt": {
+    "$date": "2025-03-16T16:44:13.970Z"
+  },
+  "updatedAt": {
+    "$date": "2025-03-16T16:44:13.970Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67d5bc3d3c212676c4fa6128"
+  },
+  "modele": "Porsche 911",
+  "type": "Super car",
+  "moteur": "essence",
+  "transmission": "automatique",
+  "traction": "propulsion",
+    "createdAt": {
+    "$date": "2025-03-16T16:44:13.970Z"
+  },
+  "updatedAt": {
+    "$date": "2025-03-16T16:44:13.970Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67d5bc3d3c212676c4fa6129"
+  },
+  "modele": "Subaru WRX STI",
+  "type": "Sport",
+  "moteur": "essence",
+  "transmission": "manuel",
+  "traction": "4*4",
+    "createdAt": {
+    "$date": "2025-03-16T16:44:13.970Z"
+  },
+  "updatedAt": {
+    "$date": "2025-03-16T16:44:13.970Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67d5bc3d3c212676c4fa612a"
+  },
+  "modele": "Mazda MX-5",
+  "type": "Sport",
+  "moteur": "essence",
+  "transmission": "manuel",
+  "traction": "propulsion",
+    "createdAt": {
+    "$date": "2025-03-16T16:44:13.970Z"
+  },
+  "updatedAt": {
+    "$date": "2025-03-16T16:44:13.970Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67d5bc3d3c212676c4fa612b"
+  },
+  "modele": "Lamborghini Huracan",
+  "type": "Super car",
+  "moteur": "essence",
+  "transmission": "automatique",
+  "traction": "4*4",
+    "createdAt": {
+    "$date": "2025-03-16T16:44:13.970Z"
+  },
+  "updatedAt": {
+    "$date": "2025-03-16T16:44:13.970Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67d5bc3d3c212676c4fa612c"
+  },
+  "modele": "Ferrari 488",
+  "type": "Super car",
+  "moteur": "essence",
+  "transmission": "automatique",
+  "traction": "propulsion",
+    "createdAt": {
+    "$date": "2025-03-16T16:44:13.970Z"
+  },
+  "updatedAt": {
+    "$date": "2025-03-16T16:44:13.970Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67d5bc3d3c212676c4fa612d"
+  },
+  "modele": "Volkswagen Passat",
+  "type": "Sedan",
+  "moteur": "diesel",
+  "transmission": "automatique",
+  "traction": "traction avant",
+    "createdAt": {
+    "$date": "2025-03-16T16:44:13.970Z"
+  },
+  "updatedAt": {
+    "$date": "2025-03-16T16:44:13.970Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67d5bc3d3c212676c4fa612e"
+  },
+  "modele": "BMW 530d",
+  "type": "Sedan",
+  "moteur": "diesel",
+  "transmission": "automatique",
+  "traction": "propulsion",
+    "createdAt": {
+    "$date": "2025-03-16T16:44:13.970Z"
+  },
+  "updatedAt": {
+    "$date": "2025-03-16T16:44:13.970Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67d5bc3d3c212676c4fa612f"
+  },
+  "modele": "Mercedes E220d",
+  "type": "Sedan",
+  "moteur": "diesel",
+  "transmission": "automatique",
+  "traction": "propulsion",
+    "createdAt": {
+    "$date": "2025-03-16T16:44:13.970Z"
+  },
+  "updatedAt": {
+    "$date": "2025-03-16T16:44:13.970Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67d5bc3d3c212676c4fa6130"
+  },
+  "modele": "Audi A6 TDI",
+  "type": "Sedan",
+  "moteur": "diesel",
+  "transmission": "automatique",
+  "traction": "traction avant",
+    "createdAt": {
+    "$date": "2025-03-16T16:44:13.970Z"
+  },
+  "updatedAt": {
+    "$date": "2025-03-16T16:44:13.970Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67d5bc3d3c212676c4fa6131"
+  },
+  "modele": "Ford Ranger",
+  "type": "Pickup",
+  "moteur": "diesel",
+  "transmission": "manuel",
+  "traction": "4*4",
+    "createdAt": {
+    "$date": "2025-03-16T16:44:13.970Z"
+  },
+  "updatedAt": {
+    "$date": "2025-03-16T16:44:13.970Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67d5bc3d3c212676c4fa6132"
+  },
+  "modele": "Toyota Hilux",
+  "type": "Pickup",
+  "moteur": "diesel",
+  "transmission": "manuel",
+  "traction": "4*4",
+    "createdAt": {
+    "$date": "2025-03-16T16:44:13.970Z"
+  },
+  "updatedAt": {
+    "$date": "2025-03-16T16:44:13.970Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67d5bc3d3c212676c4fa6133"
+  },
+  "modele": "Jeep Grand Cherokee",
+  "type": "SUV",
+  "moteur": "diesel",
+  "transmission": "automatique",
+  "traction": "4*4",
+    "createdAt": {
+    "$date": "2025-03-16T16:44:13.970Z"
+  },
+  "updatedAt": {
+    "$date": "2025-03-16T16:44:13.970Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67d5bc3d3c212676c4fa6134"
+  },
+  "modele": "Land Rover Discovery",
+  "type": "SUV",
+  "moteur": "diesel",
+  "transmission": "automatique",
+  "traction": "4*4",
+    "createdAt": {
+    "$date": "2025-03-16T16:44:13.970Z"
+  },
+  "updatedAt": {
+    "$date": "2025-03-16T16:44:13.970Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67d5bc3d3c212676c4fa6135"
+  },
+  "modele": "Volvo XC90 D5",
+  "type": "SUV",
+  "moteur": "diesel",
+  "transmission": "automatique",
+  "traction": "4*4",
+    "createdAt": {
+    "$date": "2025-03-16T16:44:13.970Z"
+  },
+  "updatedAt": {
+    "$date": "2025-03-16T16:44:13.970Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67d5bc3d3c212676c4fa6136"
+  },
+  "modele": "Skoda Superb TDI",
+  "type": "Sedan",
+  "moteur": "diesel",
+  "transmission": "manuel",
+  "traction": "traction avant",
+    "createdAt": {
+    "$date": "2025-03-16T16:44:13.970Z"
+  },
+  "updatedAt": {
+    "$date": "2025-03-16T16:44:13.970Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67d5bc3d3c212676c4fa6137"
+  },
+  "modele": "Renault Megane DCI",
+  "type": "Hatchback",
+  "moteur": "diesel",
+  "transmission": "manuel",
+  "traction": "traction avant",
+    "createdAt": {
+    "$date": "2025-03-16T16:44:13.970Z"
+  },
+  "updatedAt": {
+    "$date": "2025-03-16T16:44:13.970Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67d5bc3d3c212676c4fa6138"
+  },
+  "modele": "Peugeot 3008",
+  "type": "SUV",
+  "moteur": "diesel",
+  "transmission": "automatique",
+  "traction": "traction avant",
+    "createdAt": {
+    "$date": "2025-03-16T16:44:13.970Z"
+  },
+  "updatedAt": {
+    "$date": "2025-03-16T16:44:13.970Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67d5bc3d3c212676c4fa6139"
+  },
+  "modele": "Hyundai Tucson",
+  "type": "SUV",
+  "moteur": "essence",
+  "transmission": "automatique",
+  "traction": "4*4",
+    "createdAt": {
+    "$date": "2025-03-16T16:44:13.970Z"
+  },
+  "updatedAt": {
+    "$date": "2025-03-16T16:44:13.970Z"
+  },
+  "__v": 0
+}]

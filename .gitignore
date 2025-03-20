@@ -10,7 +10,6 @@ lerna-debug.log*
 .idea
 .env
 .vscode
-.env*
 
 # Diagnostic reports (https://nodejs.org/api/report.html)
 report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
@@ -139,3 +138,6 @@ dist
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnp.*
+
+.devcontainer
+.nvmrc
