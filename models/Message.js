@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const conversationSchema = new mongoose.Schema({
+const ConversationSchema = new mongoose.Schema({
     destinataire: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Utilisateurs",
@@ -16,6 +16,19 @@ const conversationSchema = new mongoose.Schema({
     }
 }, {timestamps: true});
 
+ConversationSchema.pre("save", async function (next) {
+    if (this.isNew) {
+        try {
+            this.date_heure_contenu = new Date(Date.now())
+            next()
+        } catch (e) {
+            next(e)
+        }
+    } else {
+        next();
+    }
+})
+
 const MessageSchema = new mongoose.Schema({
     utilisateur_1: {
         type: mongoose.Schema.Types.ObjectId,
@@ -29,7 +42,7 @@ const MessageSchema = new mongoose.Schema({
     },
     conversations: [
         {
-            type: conversationSchema,
+            type: ConversationSchema,
             required: true,
         }
     ]

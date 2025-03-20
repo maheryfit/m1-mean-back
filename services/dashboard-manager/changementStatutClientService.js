@@ -1,0 +1,56 @@
+const ChangementStatutClient=require("../../models/dashboard-manager/ChangementStatutClient");
+const {startSession} = require("mongoose");
+const Client = require("../../models/dashboard-client/Client");
+
+class ChangementStatutClientService{
+
+    constructor() {
+    }
+
+    /**
+     *
+     * @param {Request} req
+     * @returns {Promise<*>}
+     */
+    async createService(req) {
+        const newChangementStatutClient = new ChangementStatutClient(req.body);
+        const session = await startSession();
+        session.startTransaction()
+        try {
+            await newChangementStatutClient.save();
+            await this._modifyStatutClient(newChangementStatutClient);
+            await session.commitTransaction()
+            return newChangementStatutClient;
+        } catch (error) {
+            await session.abortTransaction()
+            throw error;
+        } finally {
+            await session.endSession()
+        }
+    }
+
+    /**
+     *
+     * @param newStatutClient
+     * @returns {Promise<void>}
+     * @private
+     */
+    async _modifyStatutClient(newStatutClient) {
+        // Modification du changement du statut du client
+        const client = await Client.findById(newStatutClient.client.toString());
+        if (!client) {
+            throw new Error('Client does not exist');
+        }
+        await Client.updateOne({ _id: client._id }, { statut_client: newStatutClient.statut_client.toString() });
+    }
+
+    /**
+    *
+    * @returns {Promise<*>}
+    */
+    async getAllService() {
+        return ChangementStatutClient.find({});
+    }
+
+}
+module.exports=ChangementStatutClientService;
