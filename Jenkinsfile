@@ -10,28 +10,21 @@ pipeline {
         stage('Checkout') {
             steps {
                 echo "Pulling project"
-                git branch: 'main', url: 'https://github.com/maheryfit/m1-mean-back.git'
+                git branch: 'main', url: 'https://github.com/maheryfit/m1-mean-back.git'    
             }
         }
-        stage('Copy .env file') {
+        stage('Build') {
             steps {
+                echo "Creating .env"
                 sh 'cp .env.development .env'
-            }
-        }
-        
-        stage('Build node JS image using Dockerfile') {
-            steps {
-                sh 'docker build -t app-server .' 
-            }
-        }
-        
-        stage('Run docker compose file') {
-            steps {
+            
+                echo "Build node image"
+                sh 'docker build -t app-server .'
+                
+                echo "Docker compose build"
                 sh 'docker-compose -f ${DOCKER_COMPOSE_FILE} build'
-            }
-        }
-        stage('Deploy') {
-            steps {
+
+                echo "Docker compose up"
                 sh 'docker-compose -f ${DOCKER_COMPOSE_FILE} up -d'
             }
         }
