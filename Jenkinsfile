@@ -19,7 +19,7 @@ pipeline {
                 echo "Creating .env"
                 sh 'cp .env.development .env'
                 script {   
-                    docker.build(IMAGE_NAME, "-p 3000")
+                    docker.build(IMAGE_NAME)
                 }
                 echo "Docker compose build"
                 sh 'docker-compose -f ${DOCKER_COMPOSE_FILE} build'
