@@ -19,16 +19,15 @@ const ChangementStatutClientSchema = new mongoose.Schema({
     date_heure: {
         type: Date,
         required: true,
+        default: new Date(Date.now()),
     }
 }, {timestamps: true});
 
-ChangementStatutClientSchema.pre("save", async function (next) {
-    if (this.isNew) {
+ChangementStatutClientSchema.pre("save", function (next) {
+    if (this.isNew || this.isModified("date_heure")) {
         this.date_heure = new Date(Date.now())
-        next()
-    } else {
-        next()
     }
+    next();
 })
 
-module.exports = new mongoose.model("ChangementStatutClients", ChangementStatutClientSchema);
+module.exports = mongoose.model("ChangementStatutClients", ChangementStatutClientSchema);
