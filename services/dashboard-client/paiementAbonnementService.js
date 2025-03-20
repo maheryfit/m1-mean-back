@@ -65,7 +65,9 @@ class PaiementAbonnementService {
     * @returns {Promise<*>}
     */
    async getAllService() {
-       return PaiementAbonnement.find({});
+       return PaiementAbonnement.find({})
+           .populate("client")
+           .populate("abonnement");
    }
 
    /**
@@ -74,7 +76,9 @@ class PaiementAbonnementService {
      * @returns {Promise<*>}
      */
    async findByIdService(req) {
-       return PaiementAbonnement.findById(req.params.id);
+       return PaiementAbonnement.findById(req.params.id)
+           .populate("client")
+           .populate("abonnement");
    }
 
 }
