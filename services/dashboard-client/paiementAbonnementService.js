@@ -2,6 +2,7 @@ const PaiementAbonnement = require('../../models/dashboard-client/PaiementAbonne
 const Client = require('../../models/dashboard-client/Client');
 const Abonnement = require('../../models/dashboard-client/Abonnement');
 const {startSession} = require("mongoose");
+const tokenUtil = require("../../utils/tokenUtil");
 
 class PaiementAbonnementService {
 
@@ -14,6 +15,8 @@ class PaiementAbonnementService {
      * @returns {Promise<*>}
      */
     async createService(req) {
+        const client = await tokenUtil.getRealProfileUserFromRequestParam(req, Client)
+        req.body['client'] = client.id
         const newPaiementAbonnement = new PaiementAbonnement(req.body);
         await this._setMontantPayeFromAbonnement(newPaiementAbonnement);
         const session = await startSession();

@@ -1,5 +1,5 @@
 const Client = require('../../models/dashboard-client/Client');
-const utils = require("../../utils/tokenUtil");
+const tokenUtil = require("../../utils/tokenUtil");
 const dateUtil = require("../../utils/dateUtil");
 class ClientService {
 
@@ -51,7 +51,7 @@ class ClientService {
      * @returns {Promise<void>}
      */
    async _checkIfHavePermission(req) {
-       await utils.checkIfHavePermission(req, Client, "utilisateur")
+       await tokenUtil.checkIfHavePermission(req, Client, "utilisateur")
    }
 
 
