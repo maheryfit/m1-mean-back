@@ -5,7 +5,6 @@ pipeline {
         IMAGE_NAME = 'app-server'
         DOCKER_TAG = 'latest'
         DOCKER_COMPOSE_FILE = 'docker-compose.yaml'
-        dockerImage = ''
     }
 
     stages {
@@ -20,7 +19,7 @@ pipeline {
                 echo "Creating .env"
                 sh 'cp .env.development .env'
             
-                dockerImage = docker.build(IMAGE_NAME, "-p 3000")
+                docker.build(IMAGE_NAME, "-p 3000")
                 
                 echo "Docker compose build"
                 sh 'docker-compose -f ${DOCKER_COMPOSE_FILE} build'
