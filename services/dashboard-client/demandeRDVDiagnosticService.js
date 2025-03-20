@@ -2,6 +2,7 @@ const DemandeRDVDiagnostic = require('../../models/dashboard-client/DemandeRDVDi
 const Voiture = require('../../models/dashboard-client/Voiture');
 const utils = require("../../utils/tokenUtil");
 const dateUtil = require("../../utils/dateUtil");
+const etatConfig=require("../../config/etats");
 class DemandeRDVDiagnosticService {
 
     constructor() {
@@ -74,6 +75,15 @@ class DemandeRDVDiagnosticService {
        return DemandeRDVDiagnostic.findById(req.params.id)
            .populate("station")
            .populate("voiture");
+   }
+
+   /**
+     *
+     * @param {Request} req
+     * @returns {Promise<*>}
+     */
+   async demandesRdvEnCours(){
+    return DemandeRDVDiagnostic.find({ etat: etatConfig.ETAT_DEMANDE_RDV_DIAG[0] });
    }
 
 }

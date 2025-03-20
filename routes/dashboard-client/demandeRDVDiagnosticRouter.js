@@ -15,4 +15,6 @@ router.post('/many', middleware.authenticateTokenManager,demandeRDVDiagnosticCon
 router.put('/:id', middleware.authenticateToken,demandeRDVDiagnosticController.update.bind(demandeRDVDiagnosticController));
 router.delete('/:id', middleware.authenticateToken,demandeRDVDiagnosticController.delete.bind(demandeRDVDiagnosticController));
 
+router.get("/demandes-rdv-en-cours", middleware.authenticateTokenMecanicien, demandeRDVDiagnosticController.demandesRdvEnCours.bind(demandeRDVDiagnosticController));
+
 module.exports = router;

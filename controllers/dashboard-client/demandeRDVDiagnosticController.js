@@ -1,5 +1,11 @@
+const DemandeRDVDiagnosticService = require("../../services/dashboard-client/demandeRDVDiagnosticService");
+
 class DemandeRDVDiagnosticController {
 
+    /**
+     * 
+     * @param {DemandeRDVDiagnosticService} service 
+     */
     constructor(service) {
         this.service = service;
     }
@@ -89,6 +95,19 @@ class DemandeRDVDiagnosticController {
             res.status(204).json({message: 'deleted'});
         } catch (error) {
             res.status(400).json({ message: error.message });
+        }
+    }
+    /**
+     * 
+     * @param {Request} req 
+     * @param {Response} res 
+     */
+    async demandesRdvEnCours(req, res){
+        try {
+            const demandesRdvEnCours=await this.service.demandesRdvEnCours();
+            res.status(200).json(demandesRdvEnCours);
+        } catch (error) {
+            res.status(500).json({ message : error.message });
         }
     }
 
