@@ -12,7 +12,8 @@ pipeline {
                 echo "Pulling project"
                 git branch: 'main', url: 'https://github.com/maheryfit/m1-mean-back.git'
                 sh '''
-                    docker version
+                    hostnamectl
+                    hostname
                 '''
             }
         }
