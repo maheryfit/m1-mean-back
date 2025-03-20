@@ -1,7 +1,8 @@
 const ChangementStatutClient=require("../../models/dashboard-manager/ChangementStatutClient");
 const {startSession} = require("mongoose");
 const Client = require("../../models/dashboard-client/Client");
-
+const tokenUtil = require("../../utils/tokenUtil");
+const Manager = require("../../models/dashboard-manager/Manager");
 class ChangementStatutClientService{
 
     constructor() {
@@ -13,6 +14,8 @@ class ChangementStatutClientService{
      * @returns {Promise<*>}
      */
     async createService(req) {
+        const manager = await tokenUtil.getRealProfileUserFromRequestParam(req, Manager)
+        req.body['manager'] = manager.id
         const newChangementStatutClient = new ChangementStatutClient(req.body);
         const session = await startSession();
         session.startTransaction()
@@ -49,7 +52,20 @@ class ChangementStatutClientService{
     * @returns {Promise<*>}
     */
     async getAllService() {
-        return ChangementStatutClient.find({});
+        return ChangementStatutClient.find({})
+            .populate("manager")
+            .populate("statut_client")
+            .populate("client")
+            /*
+            // populate a populate field (client -> utilisateur)
+            .populate({
+                path: "client",
+                populate: {
+                    path: "utilisateur",
+                    model: "Utilisateurs",
+                }
+            });
+             */
     }
 
 }
