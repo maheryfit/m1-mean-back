@@ -6,14 +6,6 @@ const PaiementAbonnementSchema = new mongoose.Schema({
         ref: "Clients",
         required: true
     },
-    montant_paye: {
-        type: Number,
-        required: true,
-        validate: {
-            validator: (value) => value > 0,
-            message: 'Montant payé ne doit pas être négatif ou null'
-        }
-    },
     abonnement: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Abonnements",
