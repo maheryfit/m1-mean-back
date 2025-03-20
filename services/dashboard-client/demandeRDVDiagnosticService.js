@@ -86,5 +86,14 @@ class DemandeRDVDiagnosticService {
     return DemandeRDVDiagnostic.find({ etat: etatConfig.ETAT_DEMANDE_RDV_DIAG[0] });
    }
 
+   /**
+    * 
+    * @param {Request} req 
+    * @returns 
+    */
+   async actionDemandeRdv(req){
+    return DemandeRDVDiagnostic.findByIdAndUpdate(req.params.id, req.body, {runValidators:true, new:true});
+   }
+
 }
 module.exports = DemandeRDVDiagnosticService;

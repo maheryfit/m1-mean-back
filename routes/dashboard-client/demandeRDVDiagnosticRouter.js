@@ -16,5 +16,6 @@ router.put('/:id', middleware.authenticateToken,demandeRDVDiagnosticController.u
 router.delete('/:id', middleware.authenticateToken,demandeRDVDiagnosticController.delete.bind(demandeRDVDiagnosticController));
 
 router.get("/demandes-rdv-en-cours", middleware.authenticateTokenMecanicien, demandeRDVDiagnosticController.demandesRdvEnCours.bind(demandeRDVDiagnosticController));
+router.put("/action-demande-rdv/:id", middleware.authenticateTokenMecanicien, demandeRDVDiagnosticController.actionDemandeRdv.bind(demandeRDVDiagnosticController));
 
 module.exports = router;
