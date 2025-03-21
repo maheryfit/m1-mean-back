@@ -15,10 +15,6 @@ pipeline {
         }
         stage('Build') {
             steps {
-                echo "Creating .env"
-                sh '''
-                    cp .env.development .env
-                '''
                 script {   
                     docker.build(IMAGE_NAME)
                 }
