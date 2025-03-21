@@ -14,7 +14,7 @@ services: # services which our app going to use. (list of containers we want to 
     container_name: app-server-cont
     image: app-server
     ports:
-      - "5000:5000"
+      - "3000:3000"
     depends_on:
       - mongo-cont
 
