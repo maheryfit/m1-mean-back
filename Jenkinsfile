@@ -8,6 +8,14 @@ pipeline {
     }
 
     stages {
+        stage('Clean Workspace') {
+            steps {
+                script {
+                    sh 'rm -rf *'
+                }
+            }
+        }
+        
         stage('Checkout') {
             steps {
                 checkout scm
