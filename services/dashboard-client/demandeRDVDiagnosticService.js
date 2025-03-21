@@ -106,7 +106,7 @@ class DemandeRDVDiagnosticService {
     diagnostic.rdv={
       $oid: idrdv
     };
-    return Diagnostic.insertOne(diagnostic);
+    await Diagnostic.insertOne(diagnostic);
    }
 
 }

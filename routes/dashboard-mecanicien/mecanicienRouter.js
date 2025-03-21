@@ -9,9 +9,15 @@ const service = new DemandeRDVDiagnosticService();
 const middleware = require('../../middlewares/authentificationMiddleware');
 const demandeRDVDiagnosticController = new DemandeRDVDiagnosticController(service);
 
+const DevisController=require("../../controllers/dashboard-mecanicien/DevisController");
+const DevisService=require("../../services/dashboard-mecanicien/DevisService");
+const devisService=new DevisService();
+const devisController=new DevisController(devisService);
+
 router.get("/horaire-travail/:id", middleware.authenticateTokenMecanicien, controller.horaireTravail.bind(controller));
 router.get("/demandes-rdv-en-cours", middleware.authenticateTokenMecanicien, demandeRDVDiagnosticController.demandesRdvEnCours.bind(demandeRDVDiagnosticController));
 router.put("/action-demande-rdv/:id", middleware.authenticateTokenMecanicien, demandeRDVDiagnosticController.actionDemandeRdv.bind(demandeRDVDiagnosticController));
 router.post("/ajout-diagnostic/:idrdv", middleware.authenticateTokenMecanicien, demandeRDVDiagnosticController.ajoutDiagnostic.bind(demandeRDVDiagnosticController));
+router.post("/devis", middleware.authenticateTokenMecanicien, devisController.creerDevis.bind(devisController));
 
 module.exports=router;
