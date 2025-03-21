@@ -7,22 +7,16 @@ pipeline {
         DOCKER_COMPOSE_FILE = 'docker-compose.yaml'
     }
 
-    options {
-        timestamps()  // Adds timestamps for debugging
-    }
-
     stages {
         stage('Checkout') {
             steps {
                 git branch: 'main', url: 'https://github.com/maheryfit/m1-mean-back.git'
             }
         }
-
         stage('Build') {
             steps {
                 echo "Creating .env"
                 sh '''
-                    set -x
                     cp .env.development .env
                 '''
                 script {   
@@ -30,15 +24,14 @@ pipeline {
                 }
                 echo "Docker compose build"
                 sh '''
-                    set -x
-                    docker-compose -f ${DOCKER_COMPOSE_FILE} build
+                    docker compose -f ${DOCKER_COMPOSE_FILE} build
                 '''
             }
         }
         stage('Deploy') {
             steps {
                 echo "Docker compose up"
-                sh 'docker-compose -f ${DOCKER_COMPOSE_FILE} up -d'
+                sh 'docker compose -f ${DOCKER_COMPOSE_FILE} up -d'
             }
         }
     }
@@ -47,6 +40,7 @@ pipeline {
         success {
             echo 'Deployment successful!'
         }
+        
         failure {
             echo 'Deployment failed.'
         }
