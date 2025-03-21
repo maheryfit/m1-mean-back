@@ -12,5 +12,6 @@ const demandeRDVDiagnosticController = new DemandeRDVDiagnosticController(servic
 router.get("/horaire-travail/:id", middleware.authenticateTokenMecanicien, controller.horaireTravail.bind(controller));
 router.get("/demandes-rdv-en-cours", middleware.authenticateTokenMecanicien, demandeRDVDiagnosticController.demandesRdvEnCours.bind(demandeRDVDiagnosticController));
 router.put("/action-demande-rdv/:id", middleware.authenticateTokenMecanicien, demandeRDVDiagnosticController.actionDemandeRdv.bind(demandeRDVDiagnosticController));
+router.post("/ajout-diagnostic/:idrdv", middleware.authenticateTokenMecanicien, demandeRDVDiagnosticController.ajoutDiagnostic.bind(demandeRDVDiagnosticController));
 
 module.exports=router;

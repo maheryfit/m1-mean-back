@@ -124,6 +124,20 @@ class DemandeRDVDiagnosticController {
             res.status(500).json({message: error.message});
         }
     }
+    
+    /**
+     * 
+     * @param {Request} req 
+     * @param {Response} res 
+     */
+    async ajoutDiagnostic(req, res){
+        try {
+            await this.service.ajoutDiagnostic(req);
+            res.status(204).json({message: 'Évaluation ajoutée'});
+        } catch (error) {
+            res.status(500).json({message: error.message});
+        }
+    }
 
 }
 

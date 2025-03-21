@@ -3,6 +3,7 @@ const Voiture = require('../../models/dashboard-client/Voiture');
 const utils = require("../../utils/tokenUtil");
 const dateUtil = require("../../utils/dateUtil");
 const etatConfig=require("../../config/etats");
+const Diagnostic = require('../../models/dashboard-mecanicien/Diagnostic');
 class DemandeRDVDiagnosticService {
 
     constructor() {
@@ -93,6 +94,19 @@ class DemandeRDVDiagnosticService {
     */
    async actionDemandeRdv(req){
     return DemandeRDVDiagnostic.findByIdAndUpdate(req.params.id, req.body, {runValidators:true, new:true});
+   }
+
+   /**
+    * 
+    * @param {Request} req 
+    */
+   async ajoutDiagnostic(req){
+    const idrdv=req.params.idrdv;
+    let diagnostic=req.body;
+    diagnostic.rdv={
+      $oid: idrdv
+    };
+    return Diagnostic.insertOne(diagnostic);
    }
 
 }
