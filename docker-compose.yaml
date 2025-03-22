@@ -17,6 +17,8 @@ services: # services which our app going to use. (list of containers we want to 
       - "3000:3000"
     depends_on:
       - mongo-cont
+    networks: # adding network
+      - mern-app
 
   redis-cache:
     image: redis:7.4.2-alpine
@@ -29,6 +31,8 @@ services: # services which our app going to use. (list of containers we want to 
     command: redis-server --save 10 1 --loglevel warning --requirepass eYVX7EwVmmxKPCDmwMtyKVge8oLd2t81
     volumes:
       - cache:/data
+    networks: # adding network
+      - mern-app
 
 networks: # allow services to talk to each other while providing isolation from other docker container, running on the same host
   mern-app:

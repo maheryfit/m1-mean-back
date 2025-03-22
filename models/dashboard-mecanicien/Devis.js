@@ -1,4 +1,5 @@
 const mongoose=require("mongoose");
+const etatConfig=require("../../config/etats");
 
 const DevisSchema=new mongoose.Schema({
     voiture:{
@@ -55,8 +56,9 @@ const DevisSchema=new mongoose.Schema({
         }
     },
     etat:{
-        type:Number,
-        default:0
+        type:String,
+        enum:etatConfig.ETAT_DEVIS,
+        default:etatConfig.DEFAULT_ETAT_DEVIS
     }
 }, {timestamps: true});
 
