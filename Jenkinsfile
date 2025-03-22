@@ -8,6 +8,7 @@ pipeline {
     }
 
     stages {
+        
         stage('Checkout') {
             steps {
                 git branch: 'main', url: 'https://github.com/maheryfit/m1-mean-back.git'
@@ -15,13 +16,9 @@ pipeline {
         }
         stage('Build') {
             steps {
-                echo "Creating .env"
                 sh '''
-                    cp .env.development .env
+                    docker build -t ${IMAGE_NAME} .
                 '''
-                script {   
-                    docker.build(IMAGE_NAME)
-                }
                 echo "Docker compose build"
                 sh '''
                     docker compose -f ${DOCKER_COMPOSE_FILE} build
