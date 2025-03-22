@@ -41,4 +41,4 @@ const DemandeRDVDiagnosticSchema = new mongoose.Schema({
 }, {timestamps: true});
 DemandeRDVDiagnosticSchema.index({ date_favorable: 3, voiture: 3 }, { unique: true });
 
-module.exports = new mongoose.model("DemandeRDVDiagnostics", DemandeRDVDiagnosticSchema)
+module.exports = mongoose.model("DemandeRDVDiagnostics", DemandeRDVDiagnosticSchema)

@@ -1,4 +1,5 @@
 const mongoose=require("mongoose");
+const etatConfig=require("../../config/etats");
 
 const MaintenanceSchema=new mongoose.Schema({
     voiture:{
@@ -24,8 +25,9 @@ const MaintenanceSchema=new mongoose.Schema({
         required:true
     },
     etat:{
-        type:Number,
-        default:0
+        type:String,
+        enum:etatConfig.ETAT_MAINTENANCE,
+        default:etatConfig.DEFAULT_ETAT_MAINTENANCE
     }
 }, {timestamps: true});
 
