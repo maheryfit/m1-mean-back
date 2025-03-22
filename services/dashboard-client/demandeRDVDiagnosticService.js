@@ -2,6 +2,8 @@ const DemandeRDVDiagnostic = require('../../models/dashboard-client/DemandeRDVDi
 const Voiture = require('../../models/dashboard-client/Voiture');
 const utils = require("../../utils/tokenUtil");
 const dateUtil = require("../../utils/dateUtil");
+const etatConfig=require("../../config/etats");
+const Diagnostic = require('../../models/dashboard-mecanicien/Diagnostic');
 class DemandeRDVDiagnosticService {
 
     constructor() {
@@ -74,6 +76,37 @@ class DemandeRDVDiagnosticService {
        return DemandeRDVDiagnostic.findById(req.params.id)
            .populate("station")
            .populate("voiture");
+   }
+
+   /**
+     *
+     * @param {Request} req
+     * @returns {Promise<*>}
+     */
+   async demandesRdvEnCours(){
+    return DemandeRDVDiagnostic.find({ etat: etatConfig.ETAT_DEMANDE_RDV_DIAG[0] });
+   }
+
+   /**
+    * 
+    * @param {Request} req 
+    * @returns 
+    */
+   async actionDemandeRdv(req){
+    return DemandeRDVDiagnostic.findByIdAndUpdate(req.params.id, req.body, {runValidators:true, new:true});
+   }
+
+   /**
+    * 
+    * @param {Request} req 
+    */
+   async ajoutDiagnostic(req){
+    const idrdv=req.params.idrdv;
+    let diagnostic=req.body;
+    diagnostic.rdv={
+      $oid: idrdv
+    };
+    await Diagnostic.insertOne(diagnostic);
    }
 
 }

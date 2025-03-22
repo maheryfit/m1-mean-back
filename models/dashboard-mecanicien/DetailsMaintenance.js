@@ -1,4 +1,5 @@
 const mongoose=require("mongoose");
+const etatConfig=require("../../config/etats");
 
 const DetailsMaintenanceSchema=new mongoose.Schema({
     maintenance:{
@@ -33,8 +34,9 @@ const DetailsMaintenanceSchema=new mongoose.Schema({
         required:true
     },
     etat:{
-        type:Number,
-        default:0
+        type:String,
+        enum:etatConfig.ETAT_DETAIL_MAINTENANCE,
+        default:etatConfig.DEFAULT_ETAT_DETAIL_MAINTENANCE
     }
 }, {timestamps: true});
 
