@@ -24,6 +24,6 @@ router.get("/demandes-rdv-en-cours", middleware.authenticateTokenMecanicien, dem
 router.put("/action-demande-rdv/:id", middleware.authenticateTokenMecanicien, demandeRDVDiagnosticController.actionDemandeRdv.bind(demandeRDVDiagnosticController));
 router.post("/ajout-diagnostic/:idrdv", middleware.authenticateTokenMecanicien, demandeRDVDiagnosticController.ajoutDiagnostic.bind(demandeRDVDiagnosticController));
 router.post("/devis", middleware.authenticateTokenMecanicien, devisController.creerDevis.bind(devisController));
-router.post("/detail-maintenance/:idmaintenance", middleware.authenticateTokenMecanicien, maintenanceController.bind(maintenanceController));
+router.post("/detail-maintenance/:idmaintenance", middleware.authenticateTokenMecanicien, maintenanceController.ajouterDetailMaintenance.bind(maintenanceController));
 
 module.exports=router;
