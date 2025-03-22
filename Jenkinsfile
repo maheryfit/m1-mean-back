@@ -8,25 +8,17 @@ pipeline {
     }
 
     stages {
-        stage('Clean Workspace') {
-            steps {
-                script {
-                    sh 'rm -rf *'
-                }
-            }
-        }
         
         stage('Checkout') {
             steps {
-                checkout scm
                 git branch: 'main', url: 'https://github.com/maheryfit/m1-mean-back.git'
             }
         }
         stage('Build') {
             steps {
-                script {   
-                    docker.build(IMAGE_NAME)
-                }
+                sh '''
+                    docker build -t ${IMAGE_NAME} .
+                '''
                 echo "Docker compose build"
                 sh '''
                     docker compose -f ${DOCKER_COMPOSE_FILE} build
