@@ -56,5 +56,5 @@ const upload = multer({
 module.exports = {
     mongodbService,
     redisService,
-    multer: upload
+    multer: upload,
 }

@@ -1,4 +1,3 @@
-const DevisService=require("../../services/dashboard-mecanicien/DevisService")
 class DevisController{
     /**
      * 
@@ -7,14 +6,29 @@ class DevisController{
     constructor(service){
         this.service=service;
     }
+
     /**
      * 
      * @param {Request} req 
      * @param {Response} res 
      */
-    async creerDevis(req, res){
+    async create(req, res){
         try {
-            const devis=await this.service.creerDevis(req);
+            const devis=await this.service.createService(req);
+            res.status(201).json(devis);
+        } catch (error) {
+            res.status(500).json({message: error.message});
+        }
+    }
+
+    /**
+     *
+     * @param {Request} req
+     * @param {Response} res
+     */
+    async update(req, res){
+        try {
+            const devis=await this.service.updateService(req);
             res.status(200).json(devis);
         } catch (error) {
             res.status(500).json({message: error.message});

@@ -80,11 +80,10 @@ class DemandeRDVDiagnosticService {
 
    /**
      *
-     * @param {Request} req
      * @returns {Promise<*>}
      */
    async demandesRdvEnCours(){
-    return DemandeRDVDiagnostic.find({ etat: etatConfig.ETAT_DEMANDE_RDV_DIAG[0] });
+        return DemandeRDVDiagnostic.find({ etat: etatConfig.ETAT_DEMANDE_RDV_DIAG[0] });
    }
 
    /**
@@ -93,7 +92,7 @@ class DemandeRDVDiagnosticService {
     * @returns 
     */
    async actionDemandeRdv(req){
-    return DemandeRDVDiagnostic.findByIdAndUpdate(req.params.id, req.body, {runValidators:true, new:true});
+        return DemandeRDVDiagnostic.findByIdAndUpdate(req.params.id, req.body, {runValidators:true, new:true});
    }
 
    /**
@@ -101,12 +100,12 @@ class DemandeRDVDiagnosticService {
     * @param {Request} req 
     */
    async ajoutDiagnostic(req){
-    const idrdv=req.params.idrdv;
-    let diagnostic=req.body;
-    diagnostic.rdv={
-      $oid: idrdv
-    };
-    await Diagnostic.insertOne(diagnostic);
+        const idrdv=req.params.idrdv;
+        let diagnostic=req.body;
+        diagnostic.rdv={
+            $oid: idrdv
+        };
+        await Diagnostic.insertOne(diagnostic);
    }
 
 }

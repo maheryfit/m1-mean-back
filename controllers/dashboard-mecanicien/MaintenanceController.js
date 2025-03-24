@@ -1,21 +1,21 @@
-const MaintenanceService = require("../../services/dashboard-mecanicien/MaintenanceService");
-
 class MaintenanceController{
     /**
      * 
-     * @param {MaintenanceService} service 
+     * @param {MaintenanceService} maintenanceService
+     * @param {DetailMaintenanceService} detailMaintenanceService
      */
-    constructor(service){
-        this.service=service;
+    constructor(maintenanceService, detailMaintenanceService){
+        this.maintenanceService=maintenanceService;
+        this.detailMaintenanceService=detailMaintenanceService;
     }
     /**
      * 
      * @param {Request} req 
      * @param {Response} res 
      */
-    async ajouterDetailMaintenance(req, res){
+    async create(req, res){
         try {
-            const detail=await this.service.ajouterDetailMaintenance(req);
+            const detail=await this.maintenanceService.createService(req);
             res.status(200).json(detail);
         } catch (error) {
             res.status(500).json({message: error.message});

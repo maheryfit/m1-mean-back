@@ -9,9 +9,9 @@ const middleware = require('../../middlewares/authentificationMiddleware');
 const voitureController = new VoitureController(service);
 const multer = require('../../utils/serviceTierceUtil').multer
 
-router.get('', middleware.authenticateToken,voitureController.getAll.bind(voitureController));
+router.get('/', middleware.authenticateToken,voitureController.getAll.bind(voitureController));
 router.get('/:id', middleware.authenticateToken,voitureController.findById.bind(voitureController));
-router.post('', middleware.authenticateToken, multer.any(), voitureController.create.bind(voitureController));
+router.post('/', middleware.authenticateToken, multer.any(), voitureController.create.bind(voitureController));
 router.put('/:id', middleware.authenticateToken, multer.any(),voitureController.update.bind(voitureController));
 router.delete('/:id', middleware.authenticateToken,voitureController.delete.bind(voitureController));
 

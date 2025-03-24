@@ -24,6 +24,6 @@ router.get('/checkAuthConnected', middleware.authenticateToken, userController.c
 router.get('/checkAuthMecanicien', middleware.authenticateTokenMecanicien, userController.checkAuthMecanicien.bind(userController));
 router.get('/checkAuthManager', middleware.authenticateTokenManager, userController.checkAuthManager.bind(userController));
 
-router.get('', middleware.authenticateTokenManager, userController.getUsers.bind(userController));
+router.get('/', middleware.authenticateTokenManager, userController.getUsers.bind(userController));
 
 module.exports = router

@@ -7,7 +7,7 @@ const ChangementStatutClientController = require('../../controllers/dashboard-ma
 const service = new ChangementStatutClientService();
 const changementStatutClientController = new ChangementStatutClientController(service);
 
-router.get('', changementStatutClientController.getAll.bind(changementStatutClientController));
-router.post('', changementStatutClientController.create.bind(changementStatutClientController));
+router.get('/', changementStatutClientController.getAll.bind(changementStatutClientController));
+router.post('/', changementStatutClientController.create.bind(changementStatutClientController));
 
 module.exports = router;
