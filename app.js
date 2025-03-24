@@ -89,9 +89,13 @@ app.use("/devis", devisRouter);
 const detailMaintenanceRouter=require("./routes/dashboard-mecanicien/maintenanceRouter");
 app.use("/detailMaintenances", detailMaintenanceRouter);
 
+// Station router
 const stationRouter=require("./routes/dashboard-mecanicien/stationRouter");
 app.use("/stations", stationRouter);
 
+// Service router
+const serviceRouter = require('./routes/dashboard-mecanicien/serviceRouter')
+app.use("/services", serviceRouter);
 // --------------------------- Mécanicien --------------------------------------
 
 // --------------------------- Manager --------------------------------------
@@ -122,7 +126,7 @@ const io = socket(server, {
 });
 
 // Singleton
-const SocketPairUtilisateur = new require("./utils/objectSingletonUtil")
+const SocketPairUtilisateur = require("./utils/objectSingletonUtil")
 const socketPairUtilisateur = new SocketPairUtilisateur()
 // Listen for new connection and print a message in console
 io.on('connection', (socket) => {

@@ -8,5 +8,6 @@ const maintenanceService=new MaintenanceService();
 const maintenanceController=new MaintenanceController(maintenanceService);
 
 router.post("/", middleware.authenticateTokenMecanicien, maintenanceController.create.bind(maintenanceController));
+router.delete("/:id", middleware.authenticateTokenMecanicien, maintenanceController.delete.bind(maintenanceController));
 
 module.exports = router;

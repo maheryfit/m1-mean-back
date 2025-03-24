@@ -2,11 +2,6 @@ const mongoose=require("mongoose");
 const etatConfig=require("../../config/etats");
 
 const DetailsMaintenanceSchema=new mongoose.Schema({
-    maintenance:{
-        type:mongoose.Schema.Types.ObjectId,
-        ref: "Maintenances",
-        required:true
-    },
     service:{
         type:mongoose.Schema.Types.ObjectId,
         ref: "Services",
@@ -27,7 +22,8 @@ const DetailsMaintenanceSchema=new mongoose.Schema({
     },
     dateheure_debut:{
         type:Date,
-        default:Date.now
+        default:Date.now,
+        required: true
     },
     dateheure_fin:{
         type:Date,
@@ -41,14 +37,9 @@ const DetailsMaintenanceSchema=new mongoose.Schema({
 }, {timestamps: true});
 
 const MaintenanceSchema=new mongoose.Schema({
-    voiture:{
-        type:mongoose.Schema.Types.ObjectId,
-        ref:"Voitures",
-        required:true
-    },
     dateheure_debut:{
         type:Date,
-        required:true
+        required: true
     },
     dateheure_fin:{
         type:Date
@@ -63,10 +54,14 @@ const MaintenanceSchema=new mongoose.Schema({
         enum:etatConfig.ETAT_MAINTENANCE,
         default:etatConfig.DEFAULT_ETAT_MAINTENANCE
     },
+    devis: {
+        type:mongoose.Schema.Types.ObjectId,
+        ref:"Devis",
+        required: true
+    },
     detailMaintenances : [
         {
             type: DetailsMaintenanceSchema,
-            required: true,
         }
     ]
 }, {timestamps: true});

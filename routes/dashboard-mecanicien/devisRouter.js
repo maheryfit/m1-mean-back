@@ -9,6 +9,7 @@ const devisService=new DevisService();
 const devisController=new DevisController(devisService);
 
 router.post("/", middleware.authenticateTokenMecanicien, devisController.create.bind(devisController));
-router.put("/:id", middleware.authenticateTokenMecanicien, devisController.update.bind(devisController));
+router.put("/payer/:id", middleware.authenticateTokenMecanicien, devisController.payer.bind(devisController));
+router.put("/annuler/:id", middleware.authenticateTokenMecanicien, devisController.annuler.bind(devisController));
 
 module.exports = router;

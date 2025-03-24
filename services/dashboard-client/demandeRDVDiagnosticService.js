@@ -1,7 +1,6 @@
 const DemandeRDVDiagnostic = require('../../models/dashboard-client/DemandeRDVDiagnostic');
 const Voiture = require('../../models/dashboard-client/Voiture');
 const utils = require("../../utils/tokenUtil");
-const dateUtil = require("../../utils/dateUtil");
 const etatConfig=require("../../config/etats");
 const Diagnostic = require('../../models/dashboard-mecanicien/Diagnostic');
 class DemandeRDVDiagnosticService {

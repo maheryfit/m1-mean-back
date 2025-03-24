@@ -1,3 +1,9 @@
+/**
+ *
+ * @param date_1
+ * @param date_2
+ * @returns {number}
+ */
 function dateDiffInDays(date_1, date_2) {
     const _MS_PER_DAY = 1000 * 60 * 60 * 24;
     date_1 = new Date(date_1);
@@ -7,6 +13,17 @@ function dateDiffInDays(date_1, date_2) {
     return Math.floor((utc2 - utc1) / _MS_PER_DAY);
 }
 
+/**
+ *
+ * @param {Date} date
+ * @param {{type: Number | NumberConstructor, required: boolean, validate: {validator: function(*): boolean, message: string}}} days
+ * @returns {Date}
+ */
+function addDays(date, days) {
+    return new Date(date.getTime() + days * 24 * 60 * 60 * 1000);
+}
+
 module.exports = {
-    dateDiffInDays
+    dateDiffInDays,
+    addDays
 }
