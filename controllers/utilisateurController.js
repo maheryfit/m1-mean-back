@@ -39,6 +39,10 @@ class UtilisateurController {
         res.status(200).json(true);
     }
 
+    checkAuthClient(req, res) {
+        res.status(200).json(true);
+    }
+
     checkAuthMecanicien(req, res) {
         res.status(200).json(true);
     }
