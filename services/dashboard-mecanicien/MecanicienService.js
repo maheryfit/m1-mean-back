@@ -1,27 +1,36 @@
-const DetailsMaintenance=require("../../models/dashboard-mecanicien/DetailsMaintenance");
-const mongoose=require("mongoose");
+const Maintenance=require("../../models/dashboard-mecanicien/Maintenance");
 
 class MecanicienService{
     async horaireTravail(id){
-        const horaireTravail=await DetailsMaintenance.aggregate([
+        const result = await Maintenance.aggregate([
             {
-                $match:{
-                    mecaniciens:mongoose.Types.ObjectId(id)
+                $match: {
+                    "detailMaintenances.mecaniciens": id
                 }
             },
             {
-                $project:{
-                    duree:{ $substract: ["dateheure_fin", "dateheure_debut"]}
+                $unwind: "$detailMaintenances"
+            },
+            {
+                $match: {
+                    "detailMaintenances.mecaniciens": id
                 }
             },
             {
-                $group:{
-                    _id:null,
-                    horaireTravail:{$sum:"$duree"}
+                $project: {
+                    duration: {
+                        $subtract: ["$detailMaintenances.dateheure_fin", "$detailMaintenances.dateheure_debut"]
+                    }
+                }
+            },
+            {
+                $group: {
+                    _id: null, // Group everything together
+                    totalDuration: { $sum: "$duration" }
                 }
             }
         ]);
-        return horaireTravail[0]?.horaireTravail||0;
+        return result[0]?.totalDuration || 0;
     }
 }
 

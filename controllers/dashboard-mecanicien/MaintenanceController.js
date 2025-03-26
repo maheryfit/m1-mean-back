@@ -15,11 +15,26 @@ class MaintenanceController{
     async create(req, res){
         try {
             const detail=await this.service.createService(req);
-            res.status(200).json(detail);
+            res.status(201).json(detail);
         } catch (error) {
             res.status(500).json({message: error.message});
         }
     }
+
+    /**
+     *
+     * @param {Request} req
+     * @param {Response} res
+     */
+    async addNewDetailMaintenance(req, res){
+        try {
+            const detail=await this.service.addNewDetailMaintenanceService(req);
+            res.status(201).json(detail);
+        } catch (error) {
+            res.status(500).json({message: error.message});
+        }
+    }
+
 
     /**
      *

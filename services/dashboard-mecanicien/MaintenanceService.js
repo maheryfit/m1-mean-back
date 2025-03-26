@@ -12,13 +12,24 @@ class MaintenanceService{
      * @returns {Promise<*>}
      */
     async createService(req) {
-        let resp = Maintenance.findById(req.body['maintenance_id'])
+        req.body["detailMaintenances"] = await this._calculDateHeureDetailMaintenances(req)
+        req.body["dateheure_fin"] = this._getDateHeureFinMaintenanceFromDetailMaintenances(req.body['detailMaintenances'])
+        const newMaintenance = new Maintenance(req.body)
+        await newMaintenance.save()
+        return newMaintenance
+    }
+
+    /**
+     *
+     * @param {Request} req
+     * @returns {Promise<*>}
+     */
+    async addNewDetailMaintenanceService(req) {
+        let resp = await Maintenance.findById(req.params.id)
         if(resp == null) {
-            resp = await this._createNewMaintenance(req)
-        } else {
-            resp = await this._addNewDetailMaintenance(req, resp)
+            throw new Error("This maintenance doesn't exist")
         }
-        return resp
+        return await this._addNewDetailMaintenance(req, resp)
     }
 
     /**
@@ -32,7 +43,7 @@ class MaintenanceService{
         req.body["detailMaintenances"] = await this._calculDateHeureDetailMaintenances(req)
         response["detailMaintenances"].concat(req.body['detailMaintenances'])
         response["dateheure_fin"] = this._getDateHeureFinMaintenanceFromDetailMaintenances(response['detailMaintenances'])
-        const maintenance_id = req.body["maintenance_id"]
+        const maintenance_id = req.params.id
         await Maintenance.updateOne({id: maintenance_id}, {detailMaintenances: response["detailMaintenances"], dateheure_fin: response["dateheure_fin"]})
         return response;
     }
@@ -49,19 +60,6 @@ class MaintenanceService{
         return new Date(Math.max(...detailMaintenances.map(obj => obj['dateheure_fin'].getTime())));
     }
 
-    /**
-     *
-     * @param {Request} req
-     * @returns {Promise<void>}
-     * @private
-     */
-    async _createNewMaintenance(req) {
-        req.body["detailMaintenances"] = await this._calculDateHeureDetailMaintenances(req)
-        req.body["dateheure_fin"] = this._getDateHeureFinMaintenanceFromDetailMaintenances(req.body['detailMaintenances'])
-        const newMaintenance = new Maintenance(req.body)
-        await newMaintenance.save()
-        return newMaintenance
-    }
 
 
     /**
