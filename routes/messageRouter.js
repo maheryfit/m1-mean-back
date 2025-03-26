@@ -8,7 +8,7 @@ const service = new MessageService();
 const middleware = require('../middlewares/authentificationMiddleware');
 const messageController = new MessageController(service);
 
-router.post('', middleware.authenticateToken,messageController.create.bind(messageController));
+router.post('/', middleware.authenticateToken,messageController.create.bind(messageController));
 router.get('/:id', middleware.authenticateToken,messageController.findById.bind(messageController));
 
 

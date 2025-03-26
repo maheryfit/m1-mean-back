@@ -58,6 +58,18 @@ function authenticateTokenClientAndManager(req, res, next) {
     next()
 }
 
+function authenticateTokenMecanicienAndManager(req, res, next) {
+    const result = authenticateTokenWithProfiles(req, [MECANICIEN, MANAGER]);
+    if (result.hasOwnProperty("error")) {
+        return res.status(403).json({ error: result.error });
+    }
+    if (result === false ) {
+        return res.sendStatus(401);
+    }
+    next()
+}
+
+
 function authenticateTokenWithProfile(req, profil) {
     const result = authenticate(req)
     if (result === false ) {
@@ -119,5 +131,6 @@ module.exports = {
     authenticateTokenClient: authenticateTokenClient,
     authenticateTokenManager: authenticateTokenManager,
     authenticateTokenMecanicien: authenticateTokenMecanicien,
-    authenticateTokenClientAndManager: authenticateTokenClientAndManager
+    authenticateTokenClientAndManager: authenticateTokenClientAndManager,
+    authenticateTokenMecanicienAndManager
 }

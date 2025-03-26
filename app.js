@@ -1,5 +1,6 @@
 const express = require('express');
 const app = express();
+const swaggerUi = require('swagger-ui-express');
 require('dotenv').config();
 
 const cors = require('cors');
@@ -7,6 +8,7 @@ const config = require("./config");
 const socket = require('socket.io');
 const cookieParser = require("cookie-parser");
 const pathFolder = require("path");
+const swaggerFile = require('./swagger_output.json')
 
 // Cookie
 app.use(cookieParser());
@@ -29,6 +31,9 @@ app.use(express.urlencoded({ extended: true }));
 
 // Service connection
 require('./utils/serviceTierceUtil')
+
+// Swagger
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerFile));
 
 
 // --------------------------------------- ROUTER -------------------------------------------------
@@ -74,11 +79,23 @@ app.use("/demandeRDVDiagnostics", demandeRDVDiagnosticRouter);
 // --------------------------- Mécanicien --------------------------------------
 // Mecanicien router
 const mecanicienRouter=require("./routes/dashboard-mecanicien/mecanicienRouter");
-app.use("/mecanicien", mecanicienRouter);
+app.use("/mecaniciens", mecanicienRouter);
 
+// Devis router
+const devisRouter=require("./routes/dashboard-mecanicien/devisRouter");
+app.use("/devis", devisRouter);
+
+// Détail maintenance router
+const detailMaintenanceRouter=require("./routes/dashboard-mecanicien/maintenanceRouter");
+app.use("/detailMaintenances", detailMaintenanceRouter);
+
+// Station router
 const stationRouter=require("./routes/dashboard-mecanicien/stationRouter");
-app.use("/station", stationRouter);
+app.use("/stations", stationRouter);
 
+// Service router
+const serviceRouter = require('./routes/dashboard-mecanicien/serviceRouter')
+app.use("/services", serviceRouter);
 // --------------------------- Mécanicien --------------------------------------
 
 // --------------------------- Manager --------------------------------------
@@ -109,8 +126,7 @@ const io = socket(server, {
 });
 
 // Singleton
-const SocketPairUtilisateur = new require("./utils/objectSingletonUtil")
-const path = require("node:path");
+const SocketPairUtilisateur = require("./utils/objectSingletonUtil")
 const socketPairUtilisateur = new SocketPairUtilisateur()
 // Listen for new connection and print a message in console
 io.on('connection', (socket) => {

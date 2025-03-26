@@ -7,15 +7,24 @@ const ServiceSchema=new mongoose.Schema({
         unique: true
     },
     description:{
-        type:String
+        type:String,
+        required: true
     },
     duree_estimee:{
         type: Number,
-        default: 0
+        required: true,
+        validate: {
+            validator: (value) => value > 0,
+            message: 'Durée estimée ne doit pas être négatif ou null'
+        }
     },
     tarif:{
         type: mongoose.Schema.Types.Decimal128,
-        default: 0
+        required: true,
+        validate: {
+            validator: (value) => value > 0,
+            message: 'Tarif ne doit pas être négatif ou null'
+        }
     }
 }, {timestamps:true});
 
