@@ -104,14 +104,42 @@ class DemandeRDVDiagnosticController {
      */
     async demandesRdvEnCours(req, res){
         try {
-            const demandesRdvEnCours=await this.service.demandesRdvEnCours();
+            const demandesRdvEnCours=await this.service.demandesRdvEnCours(req);
             res.status(200).json(demandesRdvEnCours);
         } catch (error) {
             res.status(500).json({ message : error.message });
         }
     }
-    
+
     /**
+     *
+     * @param {Request} req
+     * @param {Response} res
+     */
+    async demandesRdvRejeter(req, res) {
+        try {
+            const demandesRdvEnCours = await this.service.demandesRdvRejeter(req);
+            res.status(200).json(demandesRdvEnCours);
+        } catch (error) {
+            res.status(500).json({message: error.message});
+        }
+    }
+
+    /**
+     *
+     * @param {Request} req
+     * @param {Response} res
+     */
+    async demandesRdvAccepter(req, res) {
+        try {
+            const demandesRdvEnCours = await this.service.demandesRdvAccepter(req);
+            res.status(200).json(demandesRdvEnCours);
+        } catch (error) {
+            res.status(500).json({message: error.message});
+        }
+    }
+
+        /**
      * 
      * @param {Request} req 
      * @param {Response} res 

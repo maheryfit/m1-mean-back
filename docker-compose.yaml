@@ -1,4 +1,3 @@
-version: '3' # docker-compose version
 services: # services which our app going to use. (list of containers we want to create)
   mongo-cont: # container name
     image: mongo # On which image container will build
@@ -15,6 +14,8 @@ services: # services which our app going to use. (list of containers we want to 
     image: app-server
     ports:
       - "3000:3000"
+    volumes:
+      - uploads:/app/uploads
     depends_on:
       - mongo-cont
     networks: # adding network
@@ -42,4 +43,6 @@ volumes: # enable persistence of database data across container restart
   mongo_db:
     driver: local
   cache:
+    driver: local
+  uploads:
     driver: local

@@ -10,7 +10,7 @@ class MecanicienController{
      */
     async horaireTravail(req, res){
         try{
-            const horaireTravail=await this.service.horaireTravail(req.params.id);
+            const horaireTravail=await this.service.horaireTravail(req);
             res.status(201).json(horaireTravail);
         }catch(error){
             res.status(500).json({message: error.message});

@@ -1,8 +1,8 @@
 const DemandeRDVDiagnostic = require('../../models/dashboard-client/DemandeRDVDiagnostic');
 const Voiture = require('../../models/dashboard-client/Voiture');
 const utils = require("../../utils/tokenUtil");
-const dateUtil = require("../../utils/dateUtil");
 const etatConfig=require("../../config/etats");
+const tokenUtil = require("../../utils/tokenUtil")
 const Diagnostic = require('../../models/dashboard-mecanicien/Diagnostic');
 class DemandeRDVDiagnosticService {
 
@@ -78,22 +78,53 @@ class DemandeRDVDiagnosticService {
            .populate("voiture");
    }
 
-   /**
+    /**
      *
      * @param {Request} req
      * @returns {Promise<*>}
      */
-   async demandesRdvEnCours(){
-    return DemandeRDVDiagnostic.find({ etat: etatConfig.ETAT_DEMANDE_RDV_DIAG[0] });
+   async demandesRdvEnCours(req){
+       return await this._demandeRdvDynamic(req, 0)
    }
 
-   /**
+
+    /**
+     * @param {Request} req
+     * @returns {Promise<*>}
+     */
+    async demandesRdvRejeter(req){
+        return await this._demandeRdvDynamic(req, 2)
+    }
+
+    /**
+     * @param {Request} req
+     * @returns {Promise<*>}
+     */
+    async demandesRdvAccepter(req){
+        return await this._demandeRdvDynamic(req, 1)
+    }
+
+    /**
+     *
+     * @param {Request} req
+     * @param {Number} etatIndex
+     * @returns {Promise<*>}
+     * @private
+     */
+    async _demandeRdvDynamic(req, etatIndex) {
+        const user = tokenUtil.getDataFromRequestToken(req)
+        if(user.profil === "client")
+            return DemandeRDVDiagnostic.find({ etat: etatConfig.ETAT_DEMANDE_RDV_DIAG[etatIndex], "voiture.proprietaire": user.id })
+        return DemandeRDVDiagnostic.find({ etat: etatConfig.ETAT_DEMANDE_RDV_DIAG[etatIndex] });
+    }
+
+    /**
     * 
     * @param {Request} req 
     * @returns 
     */
    async actionDemandeRdv(req){
-    return DemandeRDVDiagnostic.findByIdAndUpdate(req.params.id, req.body, {runValidators:true, new:true});
+        return DemandeRDVDiagnostic.findByIdAndUpdate(req.params.id, req.body, {runValidators:true, new:true});
    }
 
    /**
@@ -101,12 +132,12 @@ class DemandeRDVDiagnosticService {
     * @param {Request} req 
     */
    async ajoutDiagnostic(req){
-    const idrdv=req.params.idrdv;
-    let diagnostic=req.body;
-    diagnostic.rdv={
-      $oid: idrdv
-    };
-    await Diagnostic.insertOne(diagnostic);
+        const idrdv=req.params.idrdv;
+        let diagnostic=req.body;
+        diagnostic.rdv={
+            $oid: idrdv
+        };
+        await Diagnostic.insertOne(diagnostic);
    }
 
 }

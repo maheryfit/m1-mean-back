@@ -1,6 +1,19 @@
 const mongoose=require("mongoose");
 const etatConfig=require("../../config/etats");
 
+const RemiseSchema = new mongoose.Schema({
+    nomRemise: {
+        type: String,
+        required: true,
+        unique: true
+    },
+    valeurRemise: {
+        type: Number,
+        required:true
+    }
+})
+
+
 const DevisSchema=new mongoose.Schema({
     voiture:{
         type:mongoose.Schema.Types.ObjectId,
@@ -9,7 +22,8 @@ const DevisSchema=new mongoose.Schema({
     },
     services:{
         type:[mongoose.Schema.Types.ObjectId],
-        ref:"Services"
+        ref:"Services",
+        required:true
     },
     station:{
         type:mongoose.Schema.Types.ObjectId,
@@ -41,12 +55,7 @@ const DevisSchema=new mongoose.Schema({
         type:Date,
         required:true
     },
-    finition:{
-        type:String,
-        enum:["lente", "rapide", "aucune"],
-        required:true
-    },
-    main_oeuvre:{
+    main_oeuvres:{
         type:[mongoose.Schema.Types.ObjectId],
         ref:"Mecaniciens",
         required:true,
@@ -55,6 +64,11 @@ const DevisSchema=new mongoose.Schema({
             message:"Au moins 1 mécanicien doit être assigné à la maintenance."
         }
     },
+    remises: [
+        {
+            type: RemiseSchema
+        }
+    ],
     etat:{
         type:String,
         enum:etatConfig.ETAT_DEVIS,
