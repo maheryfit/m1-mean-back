@@ -1,6 +1,19 @@
 const mongoose=require("mongoose");
 const etatConfig=require("../../config/etats");
 
+const RemiseSchema = new mongoose.Schema({
+    nomRemise: {
+        type: String,
+        required: true,
+        unique: true
+    },
+    valeurRemise: {
+        type: Number,
+        required:true
+    }
+})
+
+
 const DevisSchema=new mongoose.Schema({
     voiture:{
         type:mongoose.Schema.Types.ObjectId,
@@ -51,6 +64,11 @@ const DevisSchema=new mongoose.Schema({
             message:"Au moins 1 mécanicien doit être assigné à la maintenance."
         }
     },
+    remises: [
+        {
+            type: RemiseSchema
+        }
+    ],
     etat:{
         type:String,
         enum:etatConfig.ETAT_DEVIS,

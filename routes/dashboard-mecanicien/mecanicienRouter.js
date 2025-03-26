@@ -4,6 +4,6 @@ const MecanicienController=require("../../controllers/dashboard-mecanicien/Mecan
 const controller=new MecanicienController();
 const middleware = require('../../middlewares/authentificationMiddleware');
 
-router.get("/horaire-travail/:id", middleware.authenticateTokenMecanicien, controller.horaireTravail.bind(controller));
+router.get("/horaire-travail/:id/:year/:month", middleware.authenticateTokenMecanicien, controller.horaireTravail.bind(controller));
 
 module.exports=router;

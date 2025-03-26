@@ -56,7 +56,7 @@ class ServiceController {
      */
     async findById(req, res) {
         try {
-            const abonnement = await this.service.findByIdService(req);
+            const abonnement = await this.service.findByIdService(req.params.id);
             res.status(200).json(abonnement);
         } catch (error) {
             res.status(400).json({ message: error.message });

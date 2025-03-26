@@ -55,11 +55,70 @@ class DevisController{
      *
      * @param {Request} req
      * @param {Response} res
+     * @returns {Promise<void>}
+     */
+    async getDevisCreer(req, res) {
+        try {
+            const devis=await this.service.getDevisCreer(req);
+            res.status(200).json(devis);
+        } catch (error) {
+            res.status(500).json({message: error.message});
+        }
+    }
+
+    /**
+     *
+     * @param {Request} req
+     * @param {Response} res
+     * @returns {Promise<void>}
+     */
+    async getDevisAnnuler(req, res) {
+        try {
+            const devis=await this.service.getDevisAnnuler(req);
+            res.status(200).json(devis);
+        } catch (error) {
+            res.status(500).json({message: error.message});
+        }
+    }
+
+    /**
+     *
+     * @param {Request} req
+     * @param {Response} res
+     * @returns {Promise<void>}
+     */
+    async getDevisPayer(req, res) {
+        try {
+            const devis=await this.service.getDevisPayer(req);
+            res.status(200).json(devis);
+        } catch (error) {
+            res.status(500).json({message: error.message});
+        }
+    }
+
+    /**
+     *
+     * @param {Request} req
+     * @param {Response} res
      */
     async update(req, res){
         try {
             const devis=await this.service.updateService(req);
             res.status(200).json(devis);
+        } catch (error) {
+            res.status(500).json({message: error.message});
+        }
+    }
+
+    /**
+     *
+     * @param {Request} req
+     * @param {Response} res
+     */
+    async delete(req, res){
+        try {
+            const devis=await this.service.deleteService(req);
+            res.status(204).json({message: "Deleted successfully"});
         } catch (error) {
             res.status(500).json({message: error.message});
         }

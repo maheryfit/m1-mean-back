@@ -43,14 +43,15 @@ class ServiceService {
        return Service.find({});
    }
 
-   /**
+
+    /**
      *
-     * @param {Request} req
+     * @param {string} id
      * @returns {Promise<*>}
      */
-   async findByIdService(req) {
-       return Service.findById(req.params.id);
-   }
+    async findByIdService(id) {
+        return Service.findById(id);
+    }
 
 }
 module.exports = ServiceService;

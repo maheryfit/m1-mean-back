@@ -22,6 +22,15 @@ const StatutClientSchema = new mongoose.Schema({
             message: 'Dépense ne doit pas être négative ou null'
         }
     },
+    pourcentage_reduction: {
+        type:Number,
+        validate: {
+            validator: (value) => value >= 0,
+            message: 'Dépense ne doit pas être négative'
+        },
+        required: true,
+        default: 0
+    }
 }, { timestamps: true })
 
 module.exports = mongoose.model('StatutClients', StatutClientSchema);
