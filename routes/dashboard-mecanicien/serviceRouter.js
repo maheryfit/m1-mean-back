@@ -13,5 +13,6 @@ router.get('/:id', middleware.authenticateToken,serviceController.findById.bind(
 router.post('/', middleware.authenticateTokenManager,serviceController.create.bind(serviceController));
 router.put('/:id', middleware.authenticateTokenManager,serviceController.update.bind(serviceController));
 router.delete('/:id', middleware.authenticateTokenManager,serviceController.delete.bind(serviceController));
+router.post('/insertMany', middleware.authenticateTokenManager,serviceController.insertMany.bind(serviceController));
 
 module.exports = router;

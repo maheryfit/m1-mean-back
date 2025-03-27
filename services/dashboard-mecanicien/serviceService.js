@@ -16,6 +16,17 @@ class ServiceService {
         return newService;
     }
 
+
+    /**
+     *
+     * @param {Request} req
+     * @returns {Promise<*>}
+     */
+    async insertManyService(req) {
+        await Service.insertMany(req.body);
+    }
+
+
    /**
      *
      * @param {Request} req

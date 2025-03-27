@@ -16,8 +16,8 @@ const ArticleSchema=new mongoose.Schema({
     },
     unite:{
         type: String,
-        requi0red: true,
-        enum:["unite"]
+        required: true,
+        enum:["unite", "l", "volts", "cm"]
     },
     prix_unitaire:{
         type: mongoose.Schema.Types.Decimal128,
