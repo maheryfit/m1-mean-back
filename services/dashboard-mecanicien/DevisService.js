@@ -1,8 +1,12 @@
-const Devis = require("../../models/dashboard-mecanicien/Devis");
+const {Devis} = require("../../models/dashboard-mecanicien/Devis");
 const Voiture = require("../../models/dashboard-client/Voiture")
 const Client = require("../../models/dashboard-client/Client")
 const etatConfig = require("../../config/etats")
 const tokenUtil = require("../../utils/tokenUtil")
+
+const Article = require("../../models/dashboard-mecanicien/Article");
+const Service = require("../../models/dashboard-mecanicien/Service");
+
 const {startSession} = require("mongoose");
 const Maintenance = require("../../models/dashboard-mecanicien/Maintenance");
 
@@ -17,7 +21,8 @@ class DevisService{
         const session = await startSession();
         session.startTransaction()
         try {
-            await this._insertRemise(req)
+            req = await this._insertRemise(req)
+            req = await this._getTotalDevisWithRemise(req)
             const devis=new Devis(req.body);
             await devis.save();
             await this._insertMaintenance(req.body['station'], devis._id)
@@ -29,6 +34,100 @@ class DevisService{
         } finally {
             await session.endSession()
         }
+    }
+
+    /**
+     *
+     * @param {string} serviceId
+     * @returns {Promise<Number>}
+     * @private
+     */
+    async _getPrixService(serviceId){
+        const service = await Service.findById(serviceId);
+        if(!service){
+            throw new Error(`Service ${serviceId} not found`)
+        }
+        return service.tarif
+    }
+
+
+    /**
+     *
+     * @param {Request} req
+     * @returns {Promise<number>}
+     * @private
+     */
+    async _getPrixServices(req) {
+        let services
+        if('services' in req.body){
+            services = req.body.services
+        } else {
+            services = await Devis.findById(req.params.id).services
+        }
+        let sum = 0
+        for(let i = 0, len = services.length; i < len; i++){
+            sum += await this._getPrixService(services[i]);
+        }
+        return sum;
+    }
+
+    /**
+     *
+     * @param {string} articleId
+     * @returns {Promise<Number>}
+     * @private
+     */
+    async _getPrixArticle(articleId){
+        const article = await Article.findById(articleId);
+        if(!article){
+            throw new Error(`Service ${articleId} not found`)
+        }
+        return article.prix_unitaire
+    }
+
+    /**
+     *
+     * @param {Request} req
+     * @returns {Promise<number>}
+     * @private
+     */
+    async _getPrixArticles(req) {
+        let articles_quantites
+        if('articles_quantites' in req.body){
+            articles_quantites = req.body.articles_quantites
+        } else {
+            articles_quantites = await Devis.findById(req.params.id).articles_quantites
+        }
+        let sum = 0
+        for(let i = 0, len = articles_quantites.length; i < len; i++){
+            sum += (await this._getPrixArticle(articles_quantites[i].article) * parseFloat(articles_quantites[i].quantite) );
+        }
+        return sum;
+    }
+
+    async _getTotalDevis(req) {
+        return await this._getPrixArticles(req) + await this._getPrixServices(req);
+    }
+
+    /**
+     *
+     * @param {Request} req
+     * @returns {Promise<number>}
+     * @private
+     */
+    async _getTotalDevisWithRemise(req) {
+        const totalDevis = await this._getTotalDevis(req);
+        let total = 0
+        let remises
+        if('remises' in req.body) {
+            remises = req.body.remises
+        } else {
+            remises = await Devis.findById(req.params.id).remises;
+        }
+        for (let i = 0, len = remises.length; i < len; i++){
+            total += (totalDevis * remises[i]['valeurRemise']) / 100;
+        }
+        return req.body["montant"] = totalDevis - total;
     }
 
     /**
@@ -53,7 +152,11 @@ class DevisService{
      * @private
      */
     async _insertRemise(req) {
-        const voiture = await Voiture.findById(req.body["voiture"])
+        let voiture;
+        if("voiture" in req.body)
+            voiture = await Voiture.findById(req.body["voiture"])
+        else
+            voiture = await Devis.findById(req.params.id).populate("voiture").voiture
         if(voiture === undefined)
             throw new Error("Voiture not found")
         const client = await Client.findOne({utilisateur: voiture.proprietaire.toString()})
@@ -183,7 +286,13 @@ class DevisService{
             .populate("station")
             .populate("mecanicien")
             .populate("main_oeuvres")
-            .populate("articles")
+            .populate({
+                path: "articles_quantites",
+                populate: {
+                    path: "article",
+                    model: "Articles"
+                }
+            })
             .populate("remises")
             .populate({
                 path: "voiture",
@@ -210,6 +319,8 @@ class DevisService{
         const session = await startSession();
         session.startTransaction()
         try {
+            req = await this._insertRemise(req)
+            req = await this._getTotalDevisWithRemise(req)
             await Maintenance.updateMany({devis: id}, { station: station })
             await session.commitTransaction()
             return await Devis.findByIdAndUpdate(id, req.body, {new: true})

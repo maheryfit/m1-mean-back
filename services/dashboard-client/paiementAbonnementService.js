@@ -1,6 +1,6 @@
 const PaiementAbonnement = require('../../models/dashboard-client/PaiementAbonnement');
-const Client = require('../../models/dashboard-client/Client');
-const Abonnement = require('../../models/dashboard-client/Abonnement');
+const {Client} = require('../../models/dashboard-client/Client');
+const {Abonnement} = require('../../models/dashboard-client/Abonnement');
 const {startSession} = require("mongoose");
 const tokenUtil = require("../../utils/tokenUtil");
 
@@ -15,15 +15,15 @@ class PaiementAbonnementService {
      * @returns {Promise<*>}
      */
     async createService(req) {
-        const client = await tokenUtil.getRealProfileUserFromRequestParam(req, Client)
-        req.body['client'] = client.id
-        const newPaiementAbonnement = new PaiementAbonnement(req.body);
-        await this._setMontantPayeFromAbonnement(newPaiementAbonnement);
+        req = await this._setClient(req)
+        req = await this._setAbonnement(req)
+        req = await this._setMontantPayeFromAbonnement(req);
+        let newPaiementAbonnement = new PaiementAbonnement(req.body);
         const session = await startSession();
         session.startTransaction()
         try {
             await newPaiementAbonnement.save();
-            await this._modifyAbonnementClient(newPaiementAbonnement);
+            await this._modifyAbonnementClient(req);
             await session.commitTransaction()
             return newPaiementAbonnement;
         } catch (error) {
@@ -34,21 +34,56 @@ class PaiementAbonnementService {
         }
     }
 
-    async _modifyAbonnementClient(paiementAbonnement) {
-        // Modification du paiement de l'abonnement du client
-        const client = await Client.findById(paiementAbonnement.client.toString());
-        if (!client) {
+    /**
+     *
+     * @param {Request} req
+     * @returns {Promise<*>}
+     * @private
+     */
+    async _setClient(req) {
+        const client = await tokenUtil.getRealProfileUserFromRequestParam(req, Client)
+        if(!client)
             throw new Error('Client does not exist');
-        }
-        await Client.updateOne({ _id: client._id }, { abonnement: paiementAbonnement.abonnement.toString() })
+        req.body['client'] = await Client.findById(client.id)
+        return req
     }
 
-    async _setMontantPayeFromAbonnement(paiementAbonnement) {
-        const abonnement = await Abonnement.findById(paiementAbonnement.abonnement.toString());
-        if (!abonnement) {
-            throw new Error('Abonnement not found');
-        }
-        paiementAbonnement.montant_paye = abonnement.prix
+    /**
+     *
+     * @param {Request} req
+     * @returns {Promise<*>}
+     * @private
+     */
+    async _setAbonnement(req) {
+        const abonnement = await Abonnement.findById(req.body['abonnement'])
+        if(!abonnement)
+            throw new Error('Client does not exist');
+        req.body['abonnement'] = abonnement;
+        return req
+    }
+
+    /**
+     *
+     * @param {Request} req
+     * @returns {Promise<*>}
+     * @private
+     */
+    async _modifyAbonnementClient(req) {
+        // Modification du paiement de l'abonnement du client
+        const client = req.body['client']
+        const abonnement = req.body['abonnement'];
+        await Client.updateOne({ _id: client._id }, { abonnement: abonnement._id.toString() })
+    }
+
+    /**
+     *
+     * @param {Request} req
+     * @returns {Promise<*>}
+     * @private
+     */
+    async _setMontantPayeFromAbonnement(req) {
+        req.body.montant = req.body.abonnement.prix
+        return req;
     }
 
    /**

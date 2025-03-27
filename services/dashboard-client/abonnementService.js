@@ -1,4 +1,4 @@
-const Abonnement = require('../../models/dashboard-client/Abonnement');
+const {Abonnement} = require('../../models/dashboard-client/Abonnement');
 
 class AbonnementService {
 

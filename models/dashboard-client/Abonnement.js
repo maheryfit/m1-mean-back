@@ -25,4 +25,7 @@ const AbonnementSchema = new mongoose.Schema({
     }
 }, { timestamps: true })
 
-module.exports = new mongoose.model("Abonnements", AbonnementSchema);
+module.exports = {
+    Abonnement: new mongoose.model("Abonnements", AbonnementSchema),
+    AbonnementSchema
+};

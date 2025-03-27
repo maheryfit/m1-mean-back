@@ -1,20 +1,15 @@
 const mongoose = require('mongoose');
-const {AbonnementSchema} = require("./Abonnement");
+const {DevisSchema} = require("../dashboard-mecanicien/Devis");
 const {ClientSchema} = require("./Client");
 
-const PaiementAbonnementSchema = new mongoose.Schema({
+const PaiementDevisSchema = new mongoose.Schema({
     client: {
         type: ClientSchema,
         required: true
     },
-    abonnement: {
-        type: AbonnementSchema,
+    devis: {
+        type: DevisSchema,
         required: true,
-    },
-    date_heure: {
-        type: Date,
-        required: true,
-        default: Date.now()
     },
     montant: {
         type:mongoose.Schema.Types.Decimal128,
@@ -23,7 +18,12 @@ const PaiementAbonnementSchema = new mongoose.Schema({
             validator: (value) => value > 0,
             message: 'Montant ne doit pas être négatif ou null'
         }
+    },
+    date_heure: {
+        type: Date,
+        required: true,
+        default: Date.now()
     }
 }, { timestamps: true })
 
-module.exports = new mongoose.model('PaiementAbonnements', PaiementAbonnementSchema);
+module.exports = new mongoose.model('PaiementDevis', PaiementDevisSchema);

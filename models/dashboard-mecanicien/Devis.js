@@ -13,6 +13,23 @@ const RemiseSchema = new mongoose.Schema({
     }
 })
 
+const ArticleQuantiteSchema = new mongoose.Schema({
+    article: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Articles",
+        required: true,
+        unique: true
+    },
+    quantite: {
+        type: Number,
+        required:true,
+        validate: {
+            validator: (value) => value > 0,
+            message: 'Quantité ne doit pas être négatif ou null'
+        }
+    }
+})
+
 
 const DevisSchema=new mongoose.Schema({
     voiture:{
@@ -20,20 +37,19 @@ const DevisSchema=new mongoose.Schema({
         ref:"Voitures",
         required:true
     },
-    services:{
-        type:[mongoose.Schema.Types.ObjectId],
+    services: [{
+        type:mongoose.Schema.Types.ObjectId,
         ref:"Services",
         required:true
-    },
-    station:{
+    }],
+    station: {
         type:mongoose.Schema.Types.ObjectId,
         ref:"Stations",
         required:true
     },
-    articles:{
-        type:[mongoose.Schema.Types.ObjectId],
-        ref:"Articles"
-    },
+    articles_quantites: [{
+        type:ArticleQuantiteSchema
+    }],
     mecanicien:{
         type:mongoose.Schema.Types.ObjectId,
         ref:"Mecaniciens",
@@ -76,4 +92,7 @@ const DevisSchema=new mongoose.Schema({
     }
 }, {timestamps: true});
 
-module.exports=mongoose.model("Devis", DevisSchema);
+module.exports= {
+    Devis: mongoose.model("Devis", DevisSchema),
+    DevisSchema
+};

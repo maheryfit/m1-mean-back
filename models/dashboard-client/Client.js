@@ -29,4 +29,7 @@ const ClientSchema = new mongoose.Schema({
     }
 }, { timestamps: true })
 
-module.exports = new mongoose.model('Clients', ClientSchema);
+module.exports = {
+    Client: new mongoose.model('Clients', ClientSchema),
+    ClientSchema
+};
