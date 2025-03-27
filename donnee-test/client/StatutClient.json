@@ -11,6 +11,7 @@
   "updatedAt": {
     "$date": "2025-03-16T16:44:13.970Z"
   },
+  "pourcentage_reduction": 0,
   "__v": 0
 },
 {
@@ -26,5 +27,6 @@
   "updatedAt": {
     "$date": "2025-03-16T16:44:13.970Z"
   },
+  "pourcentage_reduction": 25,
   "__v": 0
 }]
