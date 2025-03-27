@@ -96,6 +96,10 @@ app.use("/stations", stationRouter);
 // Service router
 const serviceRouter = require('./routes/dashboard-mecanicien/serviceRouter')
 app.use("/services", serviceRouter);
+
+// Diagnostic router
+const diagnosticRouter = require('./routes/dashboard-mecanicien/diagnosticRouter')
+app.use("/diagnostics", diagnosticRouter);
 // --------------------------- Mécanicien --------------------------------------
 
 // --------------------------- Manager --------------------------------------

@@ -1,7 +1,7 @@
-class DevisController{
+class DiagnosticController{
     /**
      * 
-     * @param {DevisService} service 
+     * @param {DiagnosticService} service
      */
     constructor(service){
         this.service=service;
@@ -14,27 +14,13 @@ class DevisController{
      */
     async create(req, res){
         try {
-            const devis=await this.service.createService(req);
-            res.status(201).json(devis);
+            const diagnostics=await this.service.createService(req);
+            res.status(201).json(diagnostics);
         } catch (error) {
             res.status(500).json({message: error.message});
         }
     }
 
-    /**
-     *
-     * @param {Request} req
-     * @param {Response} res
-     * @returns {Promise<void>}
-     */
-    async payer(req, res) {
-        try {
-            const devis=await this.service.payerService(req);
-            res.status(200).json(devis);
-        } catch (error) {
-            res.status(500).json({message: error.message});
-        }
-    }
 
     /**
      *
@@ -44,8 +30,8 @@ class DevisController{
      */
     async annuler(req, res) {
         try {
-            const devis=await this.service.annulerService(req);
-            res.status(200).json(devis);
+            const diagnostics=await this.service.annulerService(req);
+            res.status(200).json(diagnostics);
         } catch (error) {
             res.status(500).json({message: error.message});
         }
@@ -57,10 +43,10 @@ class DevisController{
      * @param {Response} res
      * @returns {Promise<void>}
      */
-    async getDevisCreer(req, res) {
+    async findAllAnnuler(req, res) {
         try {
-            const devis=await this.service.getDevisCreer(req);
-            res.status(200).json(devis);
+            const diagnostics=await this.service.findAllAnnuler(req);
+            res.status(200).json(diagnostics);
         } catch (error) {
             res.status(500).json({message: error.message});
         }
@@ -72,25 +58,10 @@ class DevisController{
      * @param {Response} res
      * @returns {Promise<void>}
      */
-    async getDevisAnnuler(req, res) {
+    async findAllEffectuer(req, res) {
         try {
-            const devis=await this.service.getDevisAnnuler(req);
-            res.status(200).json(devis);
-        } catch (error) {
-            res.status(500).json({message: error.message});
-        }
-    }
-
-    /**
-     *
-     * @param {Request} req
-     * @param {Response} res
-     * @returns {Promise<void>}
-     */
-    async getDevisPayer(req, res) {
-        try {
-            const devis=await this.service.getDevisPayer(req);
-            res.status(200).json(devis);
+            const diagnostics=await this.service.findAllEffectuer(req);
+            res.status(200).json(diagnostics);
         } catch (error) {
             res.status(500).json({message: error.message});
         }
@@ -103,8 +74,8 @@ class DevisController{
      */
     async update(req, res){
         try {
-            const devis=await this.service.updateService(req);
-            res.status(200).json(devis);
+            const diagnostics=await this.service.updateService(req);
+            res.status(200).json(diagnostics);
         } catch (error) {
             res.status(500).json({message: error.message});
         }
@@ -131,11 +102,11 @@ class DevisController{
      */
     async findById(req, res){
         try {
-            const devis = await this.service.findByIdService(req);
-            res.status(200).json(devis);
+            const diagnostics = await this.service.findByIdService(req);
+            res.status(200).json(diagnostics);
         } catch (error) {
             res.status(500).json({message: error.message});
         }
     }
 }
-module.exports=DevisController;
+module.exports=DiagnosticController;
