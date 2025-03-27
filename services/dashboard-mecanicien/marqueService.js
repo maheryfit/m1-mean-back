@@ -20,6 +20,15 @@ class MarqueService{
      * @param {Request} req
      * @returns {Promise<*>}
      */
+    async insertManyService(req) {
+        await Marque.insertMany(req.body);
+    }
+
+    /**
+     *
+     * @param {Request} req
+     * @returns {Promise<*>}
+     */
     async updateService(req) {
         return Marque.findByIdAndUpdate(req.params.id,
             req.body, {new: true});

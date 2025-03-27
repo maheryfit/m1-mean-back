@@ -48,6 +48,20 @@ class ArticleController {
         }
     }
 
+    /**
+     *
+     * @param {Request} req
+     * @param {Response} res
+     */
+    async insertMany(req, res) {
+        try {
+            await this.service.insertManyService(req);
+            res.status(201).json({message: 'Inserted'});
+        } catch (error) {
+            res.status(400).json({ message: error.message });
+        }
+    }
+
 
     /**
      *

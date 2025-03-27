@@ -20,6 +20,16 @@ class ArticleService{
      * @param {Request} req
      * @returns {Promise<*>}
      */
+    async insertManyService(req) {
+        await Article.insertMany(req.body);
+    }
+
+
+    /**
+     *
+     * @param {Request} req
+     * @returns {Promise<*>}
+     */
     async updateService(req) {
         return Article.findByIdAndUpdate(req.params.id,
             req.body, {new: true});
