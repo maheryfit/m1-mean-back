@@ -16,6 +16,7 @@ router.get("/payer", middleware.authenticateToken, devisController.getDevisPayer
 router.get("/creer", middleware.authenticateToken, devisController.getDevisCreer.bind(devisController));
 router.get("/annuler", middleware.authenticateToken, devisController.getDevisAnnuler.bind(devisController));
 router.delete("/:id", middleware.authenticateTokenMecanicienAndManager, devisController.delete.bind(devisController));
+router.get("/:id", middleware.authenticateToken, devisController.findById.bind(devisController));
 
 
 module.exports = router;

@@ -8,8 +8,8 @@ const service = new ServiceService();
 const middleware = require('../../middlewares/authentificationMiddleware');
 const serviceController = new ServiceController(service);
 
-router.get('/', middleware.authenticateTokenClientAndManager,serviceController.getAll.bind(serviceController));
-router.get('/:id', middleware.authenticateTokenManager,serviceController.findById.bind(serviceController));
+router.get('/', middleware.authenticateToken,serviceController.getAll.bind(serviceController));
+router.get('/:id', middleware.authenticateToken,serviceController.findById.bind(serviceController));
 router.post('/', middleware.authenticateTokenManager,serviceController.create.bind(serviceController));
 router.put('/:id', middleware.authenticateTokenManager,serviceController.update.bind(serviceController));
 router.delete('/:id', middleware.authenticateTokenManager,serviceController.delete.bind(serviceController));

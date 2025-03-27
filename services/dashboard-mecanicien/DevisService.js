@@ -177,7 +177,7 @@ class DevisService{
      * @returns {Promise<*>}
      *
      */
-    async getAllById(req) {
+    async findByIdService(req) {
         return Devis.findById(req.params.id)
             .populate("voiture")
             .populate("station")
@@ -203,7 +203,7 @@ class DevisService{
         const id = req.params.id
         const devis = await Devis.findById(id)
         let station;
-        if(req.body.include("station"))
+        if("station" in req.body)
             station = req.body['station']
         else
             station = devis.station
