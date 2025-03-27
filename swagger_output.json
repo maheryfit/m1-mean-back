@@ -1134,6 +1134,19 @@
         }
       }
     },
+    "/services/insertMany": {
+      "post": {
+        "description": "",
+        "responses": {
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
     "/diagnostics/": {
       "post": {
         "description": "",
@@ -1309,6 +1322,19 @@
         }
       }
     },
+    "/marques/insertMany": {
+      "post": {
+        "description": "",
+        "responses": {
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
     "/articles/": {
       "get": {
         "description": "",
@@ -1382,6 +1408,19 @@
             }
           }
         ],
+        "responses": {
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/articles/insertMany": {
+      "post": {
+        "description": "",
         "responses": {
           "401": {
             "description": "Unauthorized"
