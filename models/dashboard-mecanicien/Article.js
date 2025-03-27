@@ -16,7 +16,7 @@ const ArticleSchema=new mongoose.Schema({
     },
     unite:{
         type: String,
-        required: true,
+        requi0red: true,
         enum:["unite"]
     },
     prix_unitaire:{

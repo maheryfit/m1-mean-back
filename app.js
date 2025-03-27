@@ -100,6 +100,14 @@ app.use("/services", serviceRouter);
 // Diagnostic router
 const diagnosticRouter = require('./routes/dashboard-mecanicien/diagnosticRouter')
 app.use("/diagnostics", diagnosticRouter);
+
+// Marque router
+const marqueRouter = require('./routes/dashboard-mecanicien/marqueRouter')
+app.use("/marques", marqueRouter);
+
+// Article router
+const articleRouter = require('./routes/dashboard-mecanicien/articleRouter')
+app.use("/articles", articleRouter);
 // --------------------------- Mécanicien --------------------------------------
 
 // --------------------------- Manager --------------------------------------
