@@ -1,8 +1,12 @@
-const Devis = require("../../models/dashboard-mecanicien/Devis");
+const {Devis} = require("../../models/dashboard-mecanicien/Devis");
 const Voiture = require("../../models/dashboard-client/Voiture")
 const Client = require("../../models/dashboard-client/Client")
 const etatConfig = require("../../config/etats")
 const tokenUtil = require("../../utils/tokenUtil")
+
+const Article = require("../../models/dashboard-mecanicien/Article");
+const Service = require("../../models/dashboard-mecanicien/Service");
+
 const {startSession} = require("mongoose");
 const Maintenance = require("../../models/dashboard-mecanicien/Maintenance");
 
@@ -18,9 +22,10 @@ class DevisService{
         session.startTransaction()
         try {
             await this._insertRemise(req)
+            await this._getTotalDevisWithRemise(req)
             const devis=new Devis(req.body);
             await devis.save();
-            await this._insertMaintenance(req.body['station'], devis._id)
+            await this._insertMaintenance(req.body["dateheure_debut_maintenance"], req.body['station'], devis._id)
             await session.commitTransaction()
             return devis;
         } catch (error) {
@@ -33,14 +38,121 @@ class DevisService{
 
     /**
      *
+     * @param {string} serviceId
+     * @returns {Promise<Number>}
+     * @private
+     */
+    async _getPrixService(serviceId){
+        const service = await Service.findById(serviceId);
+        if(!service){
+            throw new Error(`Service ${serviceId} not found`)
+        }
+        return service.tarif
+    }
+
+
+    /**
+     *
+     * @param {Request} req
+     * @param devis
+     * @returns {Promise<number>}
+     * @private
+     */
+    async _getPrixServices(req, devis = null) {
+        let services
+        if('services' in req.body){
+            services = req.body.services
+        } else {
+            services = devis.services
+        }
+        let sum = 0
+        for(let i = 0, len = services.length; i < len; i++){
+            sum += Number.parseFloat(await this._getPrixService(services[i]));
+        }
+        return sum;
+    }
+
+    /**
+     *
+     * @param {string} articleId
+     * @returns {Promise<Number>}
+     * @private
+     */
+    async _getPrixArticle(articleId){
+        const article = await Article.findById(articleId);
+        if(!article){
+            throw new Error(`Service ${articleId} not found`)
+        }
+        return article.prix_unitaire
+    }
+
+    /**
+     *
+     * @param {Request} req
+     * @param devis
+     * @returns {Promise<number>}
+     * @private
+     */
+    async _getPrixArticles(req, devis = null) {
+        let articles_quantites
+        if('articles_quantites' in req.body){
+            articles_quantites = req.body.articles_quantites
+        } else {
+            articles_quantites = devis.articles_quantites
+        }
+        let sum = 0
+        for(let i = 0, len = articles_quantites.length; i < len; i++){
+            sum += (await this._getPrixArticle(articles_quantites[i].article) * parseFloat(articles_quantites[i].quantite) );
+        }
+        return sum;
+    }
+
+    /**
+     *
+     * @param {Request} req
+     * @param devis
+     * @returns {Promise<number>}
+     * @private
+     */
+    async _getTotalDevis(req, devis = null) {
+        const article = await this._getPrixArticles(req, devis)
+        const service = await this._getPrixServices(req, devis)
+        return article + service;
+    }
+
+    /**
+     *
+     * @param {Request} req
+     * @param devis
+     * @returns {Promise<number>}
+     * @private
+     */
+    async _getTotalDevisWithRemise(req, devis = null )  {
+        const totalDevis = await this._getTotalDevis(req, devis);
+        let total = 0
+        let remises
+        if('remises' in req.body) {
+            remises = req.body.remises
+        } else {
+            remises = devis.remises;
+        }
+        for (let i = 0, len = remises.length; i < len; i++){
+            total = ((totalDevis * remises[i]['valeurRemise']) / 100) + total;
+        }
+        req.body["montant"] = totalDevis - total;
+    }
+
+    /**
+     * @param {string| Date} dateheure_debut_maintenance
      * @param {string} station
      * @param {string} devis_id
      * @returns {Promise<void>}
      * @private
      */
-    async _insertMaintenance(station, devis_id) {
+    async _insertMaintenance(dateheure_debut_maintenance, station, devis_id) {
         const maintenance = new Maintenance({
             station: station,
+            dateheure_debut: dateheure_debut_maintenance,
             devis: devis_id
         })
         await maintenance.save()
@@ -49,11 +161,17 @@ class DevisService{
     /**
      *
      * @param {Request} req
+     * @param devis
      * @returns {Promise<Request>}
      * @private
      */
-    async _insertRemise(req) {
-        const voiture = await Voiture.findById(req.body["voiture"])
+    async _insertRemise(req, devis = null) {
+        let voiture;
+        if("voiture" in req.body)
+            voiture = await Voiture.findById(req.body["voiture"])
+        else {
+            voiture = devis['voiture']
+        }
         if(voiture === undefined)
             throw new Error("Voiture not found")
         const client = await Client.findOne({utilisateur: voiture.proprietaire.toString()})
@@ -74,7 +192,6 @@ class DevisService{
                 }
             }
         }
-        return req
     }
 
     /**
@@ -107,14 +224,6 @@ class DevisService{
         return Devis.updateOne({ id: req.params.id}, { etat: etatConfig.ETAT_DEVIS[2] });
     }
 
-    /**
-     *
-     * @param {Request} req
-     * @returns {Promise<*>}
-     */
-    async payerService(req) {
-        return Devis.updateOne({ id: req.params.id}, { etat: etatConfig.ETAT_DEVIS[1] });
-    }
 
     /**
      *
@@ -162,10 +271,12 @@ class DevisService{
      */
     async _devisDynamic(req, etatIndex) {
         const user = tokenUtil.getDataFromRequestToken(req)
-        if(user.profil === "client")
-            return Devis.find({ etat: etatConfig.ETAT_DEVIS[etatIndex], "voiture.proprietaire": user.id })
+        if(user.profil === "client") {
+            const voitures = await Voiture.find({proprietaire: user.id}).select({"_id": 1})
+            return Devis.find({ etat: etatConfig.ETAT_DEVIS[etatIndex], voiture: voitures })
                 .populate('voiture')
                 .populate("station")
+        }
         return Devis.find({ etat: etatConfig.ETAT_DEVIS[etatIndex] })
             .populate('voiture')
             .populate("station")
@@ -182,9 +293,16 @@ class DevisService{
             .populate("voiture")
             .populate("station")
             .populate("mecanicien")
-            .populate("main_oeuvres")
-            .populate("articles")
+            //.populate("main_oeuvres")
+            .populate({
+                path: "articles_quantites",
+                populate: {
+                    path: "article",
+                    model: "Articles"
+                }
+            })
             .populate("remises")
+            .populate("services")
             .populate({
                 path: "voiture",
                 populate: {
@@ -201,7 +319,7 @@ class DevisService{
      */
     async updateService(req) {
         const id = req.params.id
-        const devis = await Devis.findById(id)
+        const devis = await Devis.findById(id).populate("voiture")
         let station;
         if("station" in req.body)
             station = req.body['station']
@@ -210,6 +328,8 @@ class DevisService{
         const session = await startSession();
         session.startTransaction()
         try {
+            await this._insertRemise(req, devis)
+            await this._getTotalDevisWithRemise(req, devis)
             await Maintenance.updateMany({devis: id}, { station: station })
             await session.commitTransaction()
             return await Devis.findByIdAndUpdate(id, req.body, {new: true})

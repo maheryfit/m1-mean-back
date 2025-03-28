@@ -34,7 +34,7 @@ const DemandeRDVDiagnosticSchema = new mongoose.Schema({
     },
     etat: {
         type: String,
-        required: false,
+        required: true,
         enum: etatConfig.ETAT_DEMANDE_RDV_DIAG,
         default: etatConfig.DEFAULT_ETAT_DEMANDE_RDV_DIAG
     }

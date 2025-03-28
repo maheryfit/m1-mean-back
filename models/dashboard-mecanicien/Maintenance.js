@@ -57,7 +57,8 @@ const MaintenanceSchema=new mongoose.Schema({
     devis: {
         type:mongoose.Schema.Types.ObjectId,
         ref:"Devis",
-        required: true
+        required: true,
+        unique:true,
     },
     detailMaintenances : [
         {
