@@ -29,7 +29,4 @@ const ClientSchema = new mongoose.Schema({
     }
 }, { timestamps: true })
 
-module.exports = {
-    Client: new mongoose.model('Clients', ClientSchema),
-    ClientSchema
-};
+module.exports = new mongoose.model('Clients', ClientSchema);

@@ -74,6 +74,10 @@ app.use("/paiementAbonnements", paiementAbonnementRouter);
 const demandeRDVDiagnosticRouter = require('./routes/dashboard-client/demandeRDVDiagnosticRouter')
 app.use("/demandeRDVDiagnostics", demandeRDVDiagnosticRouter);
 
+// Paiement devis router
+const paiementDevisRouter = require('./routes/dashboard-client/paiementDevisRouter')
+app.use("/paiementDevis", paiementDevisRouter);
+
 // --------------------------- Client --------------------------------------
 
 // --------------------------- Mécanicien --------------------------------------

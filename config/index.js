@@ -25,6 +25,8 @@ const config = {
     ALLOWED_EXTENSION_FILE_IMAGE: [".jpg", ".png", ".jpeg"],
     ROOT_FOLDER: rootPath.rootPath.toString(),
     SERVER_URL: process.env.SERVER_URL,
+    MODES_PAIEMENT: ["carte bancaire", "mobile money", "cash"],
+    DEFAULT_MODE_PAIEMENT: "cash"
 }
 module.exports = config
 

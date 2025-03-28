@@ -1,4 +1,4 @@
-const {Client} = require('../../models/dashboard-client/Client');
+const Client = require('../../models/dashboard-client/Client');
 const tokenUtil = require("../../utils/tokenUtil");
 const dateUtil = require("../../utils/dateUtil");
 class ClientService {

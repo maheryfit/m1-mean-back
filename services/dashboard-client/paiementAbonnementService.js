@@ -1,5 +1,5 @@
 const PaiementAbonnement = require('../../models/dashboard-client/PaiementAbonnement');
-const {Client} = require('../../models/dashboard-client/Client');
+const Client = require('../../models/dashboard-client/Client');
 const {Abonnement} = require('../../models/dashboard-client/Abonnement');
 const {startSession} = require("mongoose");
 const tokenUtil = require("../../utils/tokenUtil");
@@ -15,8 +15,8 @@ class PaiementAbonnementService {
      * @returns {Promise<*>}
      */
     async createService(req) {
-        req = await this._setClient(req)
         req = await this._setAbonnement(req)
+        req = await this._setClient(req)
         req = await this._setMontantPayeFromAbonnement(req);
         let newPaiementAbonnement = new PaiementAbonnement(req.body);
         const session = await startSession();
@@ -34,19 +34,6 @@ class PaiementAbonnementService {
         }
     }
 
-    /**
-     *
-     * @param {Request} req
-     * @returns {Promise<*>}
-     * @private
-     */
-    async _setClient(req) {
-        const client = await tokenUtil.getRealProfileUserFromRequestParam(req, Client)
-        if(!client)
-            throw new Error('Client does not exist');
-        req.body['client'] = await Client.findById(client.id)
-        return req
-    }
 
     /**
      *
@@ -65,6 +52,23 @@ class PaiementAbonnementService {
     /**
      *
      * @param {Request} req
+     * @returns {Promise<void>}
+     * @private
+     */
+    async _setClient(req) {
+        const user = tokenUtil.getDataFromRequestToken(req)
+        if(!user)
+            throw new Error('User does not exist');
+        const client = await Client.findOne({ utilisateur: user.id});
+        if(!client)
+            throw new Error('Client does not exist');
+        req.body['client'] = client._id;
+        return req
+    }
+
+    /**
+     *
+     * @param {Request} req
      * @returns {Promise<*>}
      * @private
      */
@@ -72,7 +76,7 @@ class PaiementAbonnementService {
         // Modification du paiement de l'abonnement du client
         const client = req.body['client']
         const abonnement = req.body['abonnement'];
-        await Client.updateOne({ _id: client._id }, { abonnement: abonnement._id.toString() })
+        await Client.updateOne({ _id: client }, { abonnement: abonnement._id.toString() })
     }
 
     /**

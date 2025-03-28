@@ -1,8 +1,9 @@
 const PaiementDevis = require('../../models/dashboard-client/PaiementDevis');
-const {Client} = require('../../models/dashboard-client/Client');
 const {Devis} = require('../../models/dashboard-mecanicien/Devis');
 const {startSession} = require("mongoose");
 const tokenUtil = require("../../utils/tokenUtil");
+const etatConfig = require("../../config/etats");
+const Client = require("../../models/dashboard-client/Client")
 
 class PaiementDevisService {
 
@@ -15,12 +16,11 @@ class PaiementDevisService {
      * @returns {Promise<*>}
      */
     async createService(req) {
-        req = await this._setClient(req);
-        req = await this._setDevis(req);
         let newPaiementDevis = new PaiementDevis(req.body);
         const session = await startSession();
         session.startTransaction()
         try {
+            await this._checkIfDevisPayedFully(req)
             await newPaiementDevis.save();
             await session.commitTransaction()
             return newPaiementDevis;
@@ -35,32 +35,53 @@ class PaiementDevisService {
     /**
      *
      * @param {Request} req
-     * @returns {Promise<*>}
+     * @returns {Promise<void>}
      * @private
      */
-    async _setDevis(req) {
-        const devis = await Devis.findById(req.body['devis'])
-        if (!devis) {
-            throw new Error("Devis not found");
+    async _checkIfDevisPayedFully(req) {
+        const devis = await Devis.findOne({ id: req.body["devis"] });
+        if (devis.etat === etatConfig.ETAT_DEVIS[1])
+            throw new Error(`Devis pleinement payé`);
+        const sumDevis = await this._getSumDevis(req.body["devis"]) + Number.parseFloat(req.body["montant"]);
+        const totalDevis = devis.montant
+        if (sumDevis >= totalDevis) {
+            throw new Error(`Le total de montant que vous avez payé: ${sumDevis} est supérieur au prix total du devis: ${totalDevis}`);
         }
-        req.body['devis'] = devis;
-        return req
+        if(sumDevis === totalDevis){
+            await Devis.updateOne( { id: req.body["devis"] }, { etat: etatConfig.ETAT_DEVIS[1] } );
+        }
     }
 
     /**
      *
-     * @param {Request} req
-     * @returns {Promise<*>}
+     * @param devis
+     * @returns {Promise<number>}
      * @private
      */
-    async _setClient(req) {
-        const client = await tokenUtil.getRealProfileUserFromRequestParam(req, Client)
-        if (!client) {
-            throw new Error("Client does not exist");
-        }
-        req.body['client'] = await Client.findById(client.id)
-        return req
+    async _getSumDevis(devis) {
+        const etats = [etatConfig.ETAT_PAIEMENT_DEVIS[0], etatConfig.ETAT_PAIEMENT_DEVIS[2]]
+        const result = await PaiementDevis.aggregate([
+            {
+                $match: {
+                    $expr: {
+                        $and: [
+                            { $eq: ["devis", devis] },
+                            { $eq: ["etat", etats] }
+                        ]
+                    }
+                }
+            },
+            {
+                $group: {
+                    _id: null,
+                    sumDevis: { $sum: "$montant" }
+                }
+            }
+        ])
+        const resp = result[0]?.sumDevis || 0;
+        return Number.parseFloat(resp)
     }
+
 
    /**
      *
@@ -71,14 +92,54 @@ class PaiementDevisService {
        return PaiementDevis.findByIdAndDelete(req.params.id);
    }
 
+    /**
+     *
+     * @param {Request} req
+     * @returns {Promise<*>}
+     */
+   async getPaiementEffectuer(req) {
+        return await this._paiementDevisDynamic(req, 0)
+   }
+
    /**
-    *
-    * @returns {Promise<*>}
-    */
-   async getAllService() {
-       return PaiementDevis.find({})
-           .populate("client")
-           .populate("abonnement");
+     *
+     * @param {Request} req
+     * @returns {Promise<*>}
+     */
+   async getPaiementAnnuler(req) {
+        return await this._paiementDevisDynamic(req, 1)
+   }
+
+   /**
+     *
+     * @param {Request} req
+     * @returns {Promise<*>}
+     */
+   async getPaiementValider(req) {
+        return await this._paiementDevisDynamic(req, 2)
+   }
+
+   /**
+     *
+     * @param {Request} req
+     * @param {Number} etatIndex
+     * @returns {Promise<*>}
+     * @private
+     */
+   async _paiementDevisDynamic(req, etatIndex) {
+       const user = tokenUtil.getDataFromRequestToken(req)
+       if(!user) {
+           throw new Error("User not found");
+       }
+       if(user.profil === "client") {
+           const client = await Client.findOne({ utilisateur: user.id });
+           return PaiementDevis.find({ etat: etatConfig.ETAT_PAIEMENT_DEVIS[etatIndex], client: client._id })
+               .populate('voiture')
+               .populate("station")
+       }
+       return PaiementDevis.find({ etat: etatConfig.ETAT_PAIEMENT_DEVIS[etatIndex] })
+           .populate('voiture')
+           .populate("station")
    }
 
    /**

@@ -1,10 +1,9 @@
 const mongoose = require('mongoose');
 const {AbonnementSchema} = require("./Abonnement");
-const {ClientSchema} = require("./Client");
-
 const PaiementAbonnementSchema = new mongoose.Schema({
     client: {
-        type: ClientSchema,
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Clients",
         required: true
     },
     abonnement: {

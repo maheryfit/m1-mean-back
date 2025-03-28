@@ -53,7 +53,7 @@ const DevisSchema=new mongoose.Schema({
     mecanicien:{
         type:mongoose.Schema.Types.ObjectId,
         ref:"Mecaniciens",
-        required:true
+        required:false
     },
     duree_estimee:{
         type:Number,
@@ -71,24 +71,16 @@ const DevisSchema=new mongoose.Schema({
         type:Date,
         required:true
     },
-    main_oeuvres:{
-        type:[mongoose.Schema.Types.ObjectId],
-        ref:"Mecaniciens",
-        required:true,
-        validate:{
-            validator:function(mecaniciens){ return Array.isArray(mecaniciens) && mecaniciens.length>0; },
-            message:"Au moins 1 mécanicien doit être assigné à la maintenance."
-        }
-    },
     remises: [
         {
             type: RemiseSchema
         }
     ],
-    etat:{
-        type:String,
-        enum:etatConfig.ETAT_DEVIS,
-        default:etatConfig.DEFAULT_ETAT_DEVIS
+    etat: {
+        type: String,
+        enum: etatConfig.ETAT_DEVIS,
+        required: true,
+        default: etatConfig.DEFAULT_ETAT_DEVIS
     }
 }, {timestamps: true});
 

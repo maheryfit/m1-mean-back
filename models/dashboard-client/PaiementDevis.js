@@ -1,14 +1,16 @@
 const mongoose = require('mongoose');
-const {DevisSchema} = require("../dashboard-mecanicien/Devis");
-const {ClientSchema} = require("./Client");
+const etatConfig = require("../../config/etats");
+const config = require("../../config");
 
 const PaiementDevisSchema = new mongoose.Schema({
     client: {
-        type: ClientSchema,
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Clients",
         required: true
     },
     devis: {
-        type: DevisSchema,
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Devis",
         required: true,
     },
     montant: {
@@ -23,6 +25,21 @@ const PaiementDevisSchema = new mongoose.Schema({
         type: Date,
         required: true,
         default: Date.now()
+    },
+    etat: {
+        type: String,
+        required: true,
+        enum: etatConfig.ETAT_PAIEMENT_DEVIS,
+        default: etatConfig.DEFAULT_ETAT_PAIEMENT_DEVIS
+    },
+    mode_paiement: {
+        type: String,
+        required: true,
+        enum: config.MODES_PAIEMENT,
+        default: config.DEFAULT_MODE_PAIEMENT
+    },
+    date_heure_validation: {
+        type: Date,
     }
 }, { timestamps: true })
 
