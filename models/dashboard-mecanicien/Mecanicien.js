@@ -4,10 +4,13 @@ const MecanicienSchema=new mongoose.Schema({
     utilisateur:{
         type:mongoose.Schema.Types.ObjectId,
         ref:"Utilisateurs",
-        required: true
+        required: true,
+        unique: true
     },
     telephone:{
-        type:String
+        type:String,
+        unique:true,
+        required: true
     },
     role:{
         type: mongoose.Schema.Types.ObjectId,
