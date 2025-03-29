@@ -11,12 +11,12 @@ class MaintenanceService{
      * @param {Request} req
      * @returns {Promise<*>}
      */
-    async createService(req) {
-        req.body["detailMaintenances"] = await this._calculDateHeureDetailMaintenances(req)
-        req.body["dateheure_fin"] = this._getDateHeureFinMaintenanceFromDetailMaintenances(req.body['detailMaintenances'])
-        const newMaintenance = new Maintenance(req.body)
-        await newMaintenance.save()
-        return newMaintenance
+    async addNewDetailMaintenanceService(req) {
+        let resp = await Maintenance.findById(req.params.id)
+        if(resp == null) {
+            throw new Error("This maintenance doesn't exist")
+        }
+        return await this._addNewDetailMaintenance(req, resp)
     }
 
     /**
@@ -24,12 +24,33 @@ class MaintenanceService{
      * @param {Request} req
      * @returns {Promise<*>}
      */
-    async addNewDetailMaintenanceService(req) {
-        let resp = await Maintenance.findById(req.params.id)
-        if(resp == null) {
+    async setDateheureFinReelleDetailMaintenance(req) {
+        let maintenance = await Maintenance.findById(req.params.id)
+        if(maintenance == null) {
             throw new Error("This maintenance doesn't exist")
         }
-        return await this._addNewDetailMaintenance(req, resp)
+        return await this._findAndUpdateDetailMaintenance(req, maintenance)
+    }
+
+    /**
+     *
+     * @param {Request} req
+     * @param maintenance
+     * @returns {Promise<*>}
+     * @private
+     */
+    async _findAndUpdateDetailMaintenance(req, maintenance) {
+        // Trouver l'index
+        const index = maintenance['detailMaintenances'].findIndex(val => {
+            if (val["_id"] === req.params["detail_maintenance"]) {
+                return val
+            }
+        })
+        if (index === -1 ) {
+            throw new Error("This detail maintenance doesn't exist")
+        }
+        maintenance['detailMaintenances'][index]["dateheure_fin_reelle"] = req.body["dateheure_fin_reelle"]
+        return Maintenance.findByIdAndUpdate(req.params.id, maintenance["detailMaintenances"], {new: true});
     }
 
     /**

@@ -86,5 +86,6 @@ const DevisSchema=new mongoose.Schema({
 
 module.exports= {
     Devis: mongoose.model("Devis", DevisSchema),
-    DevisSchema
+    DevisSchema,
+    ArticleQuantiteSchema
 };

@@ -89,9 +89,9 @@ app.use("/mecaniciens", mecanicienRouter);
 const devisRouter=require("./routes/dashboard-mecanicien/devisRouter");
 app.use("/devis", devisRouter);
 
-// Détail maintenance router
-const detailMaintenanceRouter=require("./routes/dashboard-mecanicien/maintenanceRouter");
-app.use("/detailMaintenances", detailMaintenanceRouter);
+// Maintenance router
+const maintenanceRouter=require("./routes/dashboard-mecanicien/maintenanceRouter");
+app.use("/maintenances", maintenanceRouter);
 
 // Station router
 const stationRouter=require("./routes/dashboard-mecanicien/stationRouter");
@@ -112,6 +112,15 @@ app.use("/marques", marqueRouter);
 // Article router
 const articleRouter = require('./routes/dashboard-mecanicien/articleRouter')
 app.use("/articles", articleRouter);
+
+// Role mécanicien router
+const roleMecanicienRouter = require('./routes/dashboard-mecanicien/roleMecanicienRouter')
+app.use("/roleMecaniciens", roleMecanicienRouter);
+
+// Niveau mécanicien router
+const niveauMecanicienRouter = require('./routes/dashboard-mecanicien/niveauMecanicienRouter')
+app.use("/niveauMecaniciens", niveauMecanicienRouter);
+
 // --------------------------- Mécanicien --------------------------------------
 
 // --------------------------- Manager --------------------------------------

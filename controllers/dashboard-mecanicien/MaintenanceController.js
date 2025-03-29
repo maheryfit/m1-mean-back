@@ -7,14 +7,15 @@ class MaintenanceController{
         this.service=service;
     }
 
+
     /**
-     * 
-     * @param {Request} req 
-     * @param {Response} res 
+     *
+     * @param {Request} req
+     * @param {Response} res
      */
-    async create(req, res){
+    async addNewDetailMaintenance(req, res){
         try {
-            const detail=await this.service.createService(req);
+            const detail=await this.service.addNewDetailMaintenanceService(req);
             res.status(201).json(detail);
         } catch (error) {
             res.status(500).json({message: error.message});
@@ -26,10 +27,24 @@ class MaintenanceController{
      * @param {Request} req
      * @param {Response} res
      */
-    async addNewDetailMaintenance(req, res){
+    async setDateheureFinReelleDetailMaintenance(req, res){
         try {
-            const detail=await this.service.addNewDetailMaintenanceService(req);
-            res.status(201).json(detail);
+            const detail=await this.service.setDateheureFinReelleDetailMaintenance(req);
+            res.status(200).json(detail);
+        } catch (error) {
+            res.status(500).json({message: error.message});
+        }
+    }
+
+    /**
+     *
+     * @param {Request} req
+     * @param {Response} res
+     */
+    async findById(req, res){
+        try {
+            const detail=await this.service.findByIdService(req);
+            res.status(200).json(detail);
         } catch (error) {
             res.status(500).json({message: error.message});
         }

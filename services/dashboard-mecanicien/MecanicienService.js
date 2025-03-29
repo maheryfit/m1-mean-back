@@ -4,7 +4,7 @@ class MecanicienService{
     /**
      *
      * @param {string} req
-     * @returns {Promise<{$sum: string}|number>}
+     * @returns {Promise<number>}
      */
     async horaireTravail(req){
         const id = req.params.id
@@ -48,7 +48,7 @@ class MecanicienService{
                 }
             }
         ]);
-        return result[0]?.totalDuration || 0;
+        return Number.parseFloat(result[0]?.totalDuration) || 0;
     }
 }
 
