@@ -1,4 +1,4 @@
-class VoitureController {
+class RoleMecanicienController {
 
     constructor(service) {
         this.service = service;
@@ -11,8 +11,8 @@ class VoitureController {
      */
     async create(req, res) {
         try {
-            const newVoiture = await this.service.createService(req);
-            res.status(201).json(newVoiture);
+            const newRoleMecanicien = await this.service.createService(req);
+            res.status(201).json(newRoleMecanicien);
         } catch (error) {
             res.status(400).json({ message: error.message });
         }
@@ -26,8 +26,8 @@ class VoitureController {
      */
     async update(req, res) {
         try {
-            const voiture = await this.service.updateService(req);
-            res.status(200).json(voiture);
+            const station = await this.service.updateService(req);
+            res.status(200).json(station);
         } catch (error) {
             res.status(400).json({ message: error.message });
         }
@@ -41,8 +41,8 @@ class VoitureController {
      */
     async getAll(req, res) {
         try {
-            const voitures = await this.service.getAllService(req);
-            res.status(200).json(voitures);
+            const stations = await this.service.getAllService();
+            res.status(200).json(stations);
         } catch (error) {
             res.status(400).json({ message: error.message });
         }
@@ -56,8 +56,8 @@ class VoitureController {
      */
     async findById(req, res) {
         try {
-            const voiture = await this.service.findByIdService(req);
-            res.status(200).json(voiture);
+            const station = await this.service.findByIdService(req);
+            res.status(200).json(station);
         } catch (error) {
             res.status(400).json({ message: error.message });
         }
@@ -80,5 +80,4 @@ class VoitureController {
 
 }
 
-module.exports = VoitureController;
-
+module.exports = RoleMecanicienController;

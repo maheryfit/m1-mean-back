@@ -1,5 +1,6 @@
 const mongoose=require("mongoose");
 const etatConfig=require("../../config/etats");
+const {ArticleQuantiteSchema} = require("./Devis");
 
 const DetailsMaintenanceSchema=new mongoose.Schema({
     service:{
@@ -16,10 +17,9 @@ const DetailsMaintenanceSchema=new mongoose.Schema({
             message:"Au moins 1 mécanicien doit être assigné au service en cours."
         }
     },
-    articles:{
-        type:[mongoose.Schema.Types.ObjectId],
-        ref:"Articles"
-    },
+    articles_quantites: [{
+        type:ArticleQuantiteSchema
+    }],
     dateheure_debut:{
         type:Date,
         default:Date.now,
@@ -28,6 +28,9 @@ const DetailsMaintenanceSchema=new mongoose.Schema({
     dateheure_fin:{
         type:Date,
         required:true
+    },
+    dateheure_fin_reelle: {
+        type:Date
     },
     etat:{
         type:String,

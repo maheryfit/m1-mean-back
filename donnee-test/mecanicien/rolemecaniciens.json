@@ -1,0 +1,48 @@
+[{
+  "_id": {
+    "$oid": "67e954c70f1ab58986ed626f"
+  },
+  "titre": "Chef mécanicien",
+  "salaire_mensuel": {
+    "$numberDecimal": "1000000"
+  },
+  "createdAt": {
+    "$date": "2025-03-30T14:27:19.806Z"
+  },
+  "updatedAt": {
+    "$date": "2025-03-30T14:27:19.806Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67e954d80f1ab58986ed6271"
+  },
+  "titre": "Mécanicien",
+  "salaire_mensuel": {
+    "$numberDecimal": "600000"
+  },
+  "createdAt": {
+    "$date": "2025-03-30T14:27:36.787Z"
+  },
+  "updatedAt": {
+    "$date": "2025-03-30T14:27:36.787Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67e954fb0f1ab58986ed6273"
+  },
+  "titre": "Mécanicien analyste",
+  "salaire_mensuel": {
+    "$numberDecimal": "800000"
+  },
+  "createdAt": {
+    "$date": "2025-03-30T14:28:11.930Z"
+  },
+  "updatedAt": {
+    "$date": "2025-03-30T14:28:11.930Z"
+  },
+  "__v": 0
+}]

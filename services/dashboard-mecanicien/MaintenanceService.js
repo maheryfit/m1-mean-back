@@ -2,22 +2,10 @@ const Maintenance = require("../../models/dashboard-mecanicien/Maintenance");
 const ServiceService = require("./serviceService")
 const serviceService = new ServiceService()
 const dateUtil = require("../../utils/dateUtil")
+const ObjectID = require("bson-objectid");
 class MaintenanceService{
 
     constructor(){}
-
-    /**
-     *
-     * @param {Request} req
-     * @returns {Promise<*>}
-     */
-    async createService(req) {
-        req.body["detailMaintenances"] = await this._calculDateHeureDetailMaintenances(req)
-        req.body["dateheure_fin"] = this._getDateHeureFinMaintenanceFromDetailMaintenances(req.body['detailMaintenances'])
-        const newMaintenance = new Maintenance(req.body)
-        await newMaintenance.save()
-        return newMaintenance
-    }
 
     /**
      *
@@ -35,16 +23,51 @@ class MaintenanceService{
     /**
      *
      * @param {Request} req
+     * @returns {Promise<*>}
+     */
+    async setDateheureFinReelleDetailMaintenance(req) {
+        let maintenance = await Maintenance.findById(req.params.id)
+        if(maintenance == null) {
+            throw new Error("This maintenance doesn't exist")
+        }
+        return await this._findAndUpdateDetailMaintenance(req, maintenance)
+    }
+
+    /**
+     *
+     * @param {Request} req
+     * @param maintenance
+     * @returns {Promise<*>}
+     * @private
+     */
+    async _findAndUpdateDetailMaintenance(req, maintenance) {
+        // Trouver l'index
+        const index = maintenance['detailMaintenances'].findIndex((val) => {
+            if (val["_id"].toString() === req.params["detail_maintenance"]) {
+                return val
+            }
+        })
+        if (index === -1 ) {
+            throw new Error("This detail maintenance doesn't exist")
+        }
+        maintenance['detailMaintenances'][index]["dateheure_fin_reelle"] = req.body["dateheure_fin_reelle"]
+        await Maintenance.updateOne({ "_id": req.params.id} , {"detailMaintenances": maintenance["detailMaintenances"]});
+        return maintenance
+    }
+
+    /**
+     *
+     * @param {Request} req
      * @param {*} response
      * @returns {Promise<*>}
      * @private
      */
     async _addNewDetailMaintenance(req, response) {
-        req.body["detailMaintenances"] = await this._calculDateHeureDetailMaintenances(req)
-        response["detailMaintenances"].concat(req.body['detailMaintenances'])
+        await this._calculDateHeureDetailMaintenances(req)
+        response["detailMaintenances"] = response["detailMaintenances"].concat(req.body['detailMaintenances'])
         response["dateheure_fin"] = this._getDateHeureFinMaintenanceFromDetailMaintenances(response['detailMaintenances'])
         const maintenance_id = req.params.id
-        await Maintenance.updateOne({id: maintenance_id}, {detailMaintenances: response["detailMaintenances"], dateheure_fin: response["dateheure_fin"]})
+        await Maintenance.updateOne({_id: maintenance_id}, {detailMaintenances: response["detailMaintenances"], dateheure_fin: response["dateheure_fin"]})
         return response;
     }
 
@@ -72,7 +95,7 @@ class MaintenanceService{
         const service = await serviceService.findByIdService(detailMaintenance['service'])
         if (service == null)
             throw new Error("Service not found")
-        detailMaintenance['dateheure_debut'] = new Date(detailMaintenance['dateheure_debut']);
+        detailMaintenance['dateheure_debut'] = new Date(Date.now());
         detailMaintenance['dateheure_fin'] = dateUtil.addDays(detailMaintenance['dateheure_debut'], service['duree_estimee'])
         return detailMaintenance
     }
@@ -87,9 +110,9 @@ class MaintenanceService{
         let newDetailMaintenance = [];
         const detailMaintenances = req.body['detailMaintenances']
         for(let i = 0; i < detailMaintenances.length; i++) {
-            newDetailMaintenance.push(this._calculDateHeureDetailMaintenance(detailMaintenances[i]))
+            newDetailMaintenance.push(await this._calculDateHeureDetailMaintenance(detailMaintenances[i]))
         }
-        return newDetailMaintenance
+        req.body['detailMaintenances'] = newDetailMaintenance
     }
 
    /**
@@ -113,7 +136,7 @@ class MaintenanceService{
             .populate({
                 path: "detailMaintenances",
                 populate: {
-                    path: "service",
+                    path: "services",
                     model: "Services",
                 }
             });

@@ -48,7 +48,7 @@ class PaiementDevisService {
             throw new Error(`Le total de montant que vous avez payé: ${sumDevis} est supérieur au prix total du devis: ${totalDevis}`);
         }
         if(sumDevis === totalDevis){
-            await Devis.updateOne( { id: req.body["devis"] }, { etat: etatConfig.ETAT_DEVIS[1] } );
+            await Devis.updateOne( { _id: req.body["devis"] }, { etat: etatConfig.ETAT_DEVIS[1] } );
         }
     }
 

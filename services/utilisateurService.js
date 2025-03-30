@@ -46,7 +46,10 @@ class UtilisateurService {
      */
     async registerManyService(request) {
         const data = request.body
-        await User.insertMany(data)
+        data.forEach(async item => {
+            const user = new Utilisateur(item)
+            await user.save()
+        })
     }
 
     getUsersService() {
