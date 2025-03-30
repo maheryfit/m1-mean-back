@@ -1,5 +1,7 @@
 const Maintenance=require("../../models/dashboard-mecanicien/Maintenance");
 const Mecanicien = require("../../models/dashboard-mecanicien/Mecanicien")
+const { ObjectId } = require('mongodb');
+
 class MecanicienService{
     constructor() {
     }
@@ -14,6 +16,17 @@ class MecanicienService{
         await newMecanicien.save();
         return newMecanicien;
     }
+
+    /**
+     *
+     * @param {Request<?>} request
+     * @returns {void}
+     */
+    async registerManyService(request) {
+        const data = request.body
+        await Mecanicien.insertMany(data)
+    }
+
 
     /**
      *
@@ -80,7 +93,7 @@ class MecanicienService{
      * @param {Request} req
      * @returns {Promise<number>}
      */
-    async getKPIMecanicien(req) {
+    async getKPIMecanicienService(req) {
         const horaire = await this.horaireTravail(req)
         const horaireReel = await this.horaireTravailReel(req)
         return (horaireReel * 100) / horaire
@@ -95,28 +108,20 @@ class MecanicienService{
      */
     async _horaireTravailDynamic(req, columns) {
         const id = req.params.id
-        const year = req.params.year
-        const month = req.params.month
+        const year = Number.parseInt(req.params.year)
+        const month = Number.parseInt(req.params.month)
+        const FORMAT = 1000 * 60 // En minutes
         const result = await Maintenance.aggregate([
             {
-                $match: {
-                    "detailMaintenances.mecaniciens": id
-                }
-            },
-            {
-                $unwind: "$detailMaintenances"
-            },
-            {
-                $match: {
-                    "detailMaintenances.mecaniciens": id
-                }
+                $unwind: "$detailMaintenances" // Flatten the array first
             },
             {
                 $match: {
                     $expr: {
                         $and: [
                             { $eq: [{ $year: "$detailMaintenances.dateheure_debut" }, year] },
-                            { $eq: [{ $month: "$detailMaintenances.dateheure_debut" }, month] }
+                            { $eq: [{ $month: "$detailMaintenances.dateheure_debut" }, month] },
+                            { $in: [new ObjectId(id), "$detailMaintenances.mecaniciens"] }
                         ]
                     }
                 }
@@ -124,7 +129,10 @@ class MecanicienService{
             {
                 $project: {
                     duration: {
-                        $subtract: columns
+                        $divide: [
+                            { $subtract: columns },
+                                FORMAT
+                        ]
                     }
                 }
             },

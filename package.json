@@ -28,6 +28,7 @@
     "gopd": "^1.2.0",
     "jsonwebtoken": "^9.0.2",
     "math-intrinsics": "^1.1.0",
+    "mongodb": "^6.15.0",
     "mongoose": "^8.12.1",
     "multer": "^1.4.5-lts.1",
     "path": "^0.12.7",

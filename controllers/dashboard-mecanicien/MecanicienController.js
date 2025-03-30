@@ -11,7 +11,21 @@ class MecanicienController{
     async horaireTravail(req, res){
         try{
             const horaireTravail=await this.service.horaireTravail(req);
-            res.status(201).json(horaireTravail);
+            res.status(200).json(horaireTravail);
+        }catch(error){
+            res.status(500).json({message: error.message});
+        }
+    }
+
+    /**
+     *
+     * @param {Request} req
+     * @param {Response} res
+     */
+    async getKPIMecanicien(req, res){
+        try{
+            const kpi=await this.service.getKPIMecanicienService(req);
+            res.status(200).json(kpi);
         }catch(error){
             res.status(500).json({message: error.message});
         }
@@ -25,7 +39,7 @@ class MecanicienController{
     async horaireTravailReel(req, res){
         try{
             const horaireTravail=await this.service.horaireTravailReel(req);
-            res.status(201).json(horaireTravail);
+            res.status(200).json(horaireTravail);
         }catch(error){
             res.status(500).json({message: error.message});
         }
@@ -45,6 +59,20 @@ class MecanicienController{
         }
     }
 
+    /**
+     *
+     *
+     * @param {Request} req
+     * @param {Response} res
+     */
+    async registerMany(req, res){
+        try {
+            await this.service.registerManyService(req);
+            res.status(201).json({message: "Success"});
+        } catch (error) {
+            res.status(400).json({ message: error.message });
+        }
+    }
 
     /**
      *

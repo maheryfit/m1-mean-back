@@ -15,9 +15,9 @@ class PaiementAbonnementService {
      * @returns {Promise<*>}
      */
     async createService(req) {
-        req = await this._setAbonnement(req)
-        req = await this._setClient(req)
-        req = await this._setMontantPayeFromAbonnement(req);
+        await this._setAbonnement(req)
+        await this._setClient(req)
+        await this._setMontantPayeFromAbonnement(req);
         let newPaiementAbonnement = new PaiementAbonnement(req.body);
         const session = await startSession();
         session.startTransaction()
@@ -46,7 +46,7 @@ class PaiementAbonnementService {
         if(!abonnement)
             throw new Error('Client does not exist');
         req.body['abonnement'] = abonnement;
-        return req
+
     }
 
     /**
@@ -63,7 +63,6 @@ class PaiementAbonnementService {
         if(!client)
             throw new Error('Client does not exist');
         req.body['client'] = client._id;
-        return req
     }
 
     /**
@@ -87,7 +86,6 @@ class PaiementAbonnementService {
      */
     async _setMontantPayeFromAbonnement(req) {
         req.body.montant = req.body.abonnement.prix
-        return req;
     }
 
    /**

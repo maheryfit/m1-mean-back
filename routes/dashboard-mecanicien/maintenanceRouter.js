@@ -9,7 +9,7 @@ const maintenanceController=new MaintenanceController(maintenanceService);
 
 router.delete("/:id", middleware.authenticateTokenMecanicien, maintenanceController.delete.bind(maintenanceController));
 router.get("/:id", middleware.authenticateTokenMecanicien, maintenanceController.findById.bind(maintenanceController));
-router.post("/detail-maintenances/:id", middleware.authenticateTokenMecanicien, maintenanceController.addNewDetailMaintenance.bind(maintenanceController));
-router.put("/:id/setdateheurerellefin/:detail_maintenance", middleware.authenticateTokenMecanicien, maintenanceController.setDateheureFinReelleDetailMaintenance.bind(maintenanceController));
+router.post("/detail-maintenances/:id", middleware.authenticateTokenMecanicienAndManager, maintenanceController.addNewDetailMaintenance.bind(maintenanceController));
+router.put("/:id/setdateheurerellefin/:detail_maintenance", middleware.authenticateTokenMecanicienAndManager, maintenanceController.setDateheureFinReelleDetailMaintenance.bind(maintenanceController));
 
 module.exports = router;

@@ -53,7 +53,7 @@ const DevisSchema=new mongoose.Schema({
     mecanicien:{
         type:mongoose.Schema.Types.ObjectId,
         ref:"Mecaniciens",
-        required:false
+        required:true
     },
     duree_estimee:{
         type:Number,

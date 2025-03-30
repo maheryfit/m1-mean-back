@@ -41,7 +41,7 @@ class VoitureController {
      */
     async getAll(req, res) {
         try {
-            const voitures = await this.service.getAllService();
+            const voitures = await this.service.getAllService(req);
             res.status(200).json(voitures);
         } catch (error) {
             res.status(400).json({ message: error.message });

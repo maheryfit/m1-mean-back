@@ -50,6 +50,22 @@ class VoitureService {
     /**
      *
      * @param {Request} req
+     * @returns {Promise<*>}
+     * @private
+     */
+    async _voitureDynamic(req) {
+        const user = utils.getDataFromRequestToken(req)
+        if(user.profil === "client") {
+            return Voiture.find({ proprietaire: user.id })
+                .populate("specification")
+        }
+        return Voiture.find({})
+            .populate("specification")
+    }
+
+    /**
+     *
+     * @param {Request} req
      * @returns {Promise<void>}
      */
    async _checkIfHavePermissionFromRequestBody(req) {
@@ -66,11 +82,11 @@ class VoitureService {
    }
 
    /**
-     *
+     * @param {Request} req
      * @returns {Promise<*>}
      */
-   async getAllService() {
-       return Voiture.find({});
+   async getAllService(req) {
+       return await this._voitureDynamic(req);
    }
 
    /**
