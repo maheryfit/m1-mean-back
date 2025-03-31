@@ -4,8 +4,7 @@ const etatConfig=require("../../config/etats");
 const RemiseSchema = new mongoose.Schema({
     nomRemise: {
         type: String,
-        required: true,
-        unique: true
+        required: true
     },
     valeurRemise: {
         type: Number,
@@ -17,8 +16,7 @@ const ArticleQuantiteSchema = new mongoose.Schema({
     article: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Articles",
-        required: true,
-        unique: true
+        required: true
     },
     quantite: {
         type: Number,
@@ -46,6 +44,12 @@ const DevisSchema=new mongoose.Schema({
         type:mongoose.Schema.Types.ObjectId,
         ref:"Stations",
         required:true
+    },
+    diagnostic: {
+        type:mongoose.Schema.Types.ObjectId,
+        ref:"Diagnostics",
+        required:true,
+        unique: true
     },
     articles_quantites: [{
         type:ArticleQuantiteSchema

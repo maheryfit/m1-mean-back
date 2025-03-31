@@ -14,6 +14,7 @@ router.get("/effectuer", middleware.authenticateToken, diagnosticController.find
 router.get("/annuler", middleware.authenticateToken, diagnosticController.findAllAnnuler.bind(diagnosticController));
 router.delete("/:id", middleware.authenticateTokenMecanicienAndManager, diagnosticController.delete.bind(diagnosticController));
 router.get("/:id", middleware.authenticateToken, diagnosticController.findById.bind(diagnosticController));
+router.post('/insertMany', middleware.authenticateTokenManager,diagnosticController.insertMany.bind(diagnosticController));
 
 
 module.exports = router;
