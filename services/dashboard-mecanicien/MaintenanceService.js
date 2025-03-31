@@ -51,7 +51,9 @@ class MaintenanceService{
             throw new Error("This detail maintenance doesn't exist")
         }
         maintenance['detailMaintenances'][index]["dateheure_fin_reelle"] = req.body["dateheure_fin_reelle"]
-        await Maintenance.updateOne({ "_id": req.params.id} , {"detailMaintenances": maintenance["detailMaintenances"]});
+        //
+        maintenance["dateheure_fin_reelle"] = this._getDateHeureFinReelMaintenanceFromDetailMaintenances(maintenance["detailMaintenances"])
+        await Maintenance.updateOne({ "_id": req.params.id} , {"detailMaintenances": maintenance["detailMaintenances"], "dateheure_fin_reelle": maintenance["dateheure_fin_reelle"]});
         return maintenance
     }
 
@@ -81,6 +83,18 @@ class MaintenanceService{
         if(detailMaintenances.length === 0)
             return null
         return new Date(Math.max(...detailMaintenances.map(obj => obj['dateheure_fin'].getTime())));
+    }
+
+    /**
+     *
+     * @param {Array<*>} detailMaintenances
+     * @returns {Date}
+     * @private
+     */
+    _getDateHeureFinReelMaintenanceFromDetailMaintenances(detailMaintenances) {
+        if(detailMaintenances.length === 0)
+            return null
+        return new Date(Math.max(...detailMaintenances.map(obj => obj['dateheure_fin_reelle'].getTime())));
     }
 
 
@@ -131,7 +145,6 @@ class MaintenanceService{
      */
     async findByIdService(req) {
         return Maintenance.findById(req.params.id)
-            .populate("voiture")
             .populate("station")
             .populate({
                 path: "detailMaintenances",

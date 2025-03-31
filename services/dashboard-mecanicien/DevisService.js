@@ -132,9 +132,12 @@ class DevisService{
         let total = 0
         let remises
         if('remises' in req.body) {
-            remises = req.body.remises
+            remises = req.body.remises;
         } else {
-            remises = devis.remises;
+            if(devis != null)
+                remises = devis.remises;
+            else
+                remises = []
         }
         for (let i = 0, len = remises.length; i < len; i++){
             total = ((totalDevis * remises[i]['valeurRemise']) / 100) + total;
@@ -321,16 +324,21 @@ class DevisService{
         const id = req.params.id
         const devis = await Devis.findById(id).populate("voiture")
         let station;
+        let dateheure_debut_maintenance
         if("station" in req.body)
             station = req.body['station']
         else
             station = devis.station
+        if("dateheure_debut_maintenance" in req.body)
+            dateheure_debut_maintenance = req.body['dateheure_debut_maintenance']
+        else
+            dateheure_debut_maintenance = devis.dateheure_debut_maintenance
         const session = await startSession();
         session.startTransaction()
         try {
             await this._insertRemise(req, devis)
             await this._getTotalDevisWithRemise(req, devis)
-            await Maintenance.updateMany({devis: id}, { station: station })
+            await Maintenance.updateMany({devis: id}, { station: station, dateheure_debut_maintenance: dateheure_debut_maintenance })
             await session.commitTransaction()
             return await Devis.findByIdAndUpdate(id, req.body, {new: true})
         } catch (error) {

@@ -37,6 +37,15 @@ class DiagnosticService {
        return Diagnostic.findByIdAndDelete(req.params.id);
    }
 
+    /**
+     *
+     * @param {Request} req
+     * @returns {Promise<*>}
+     */
+    async insertManyService(req) {
+        await Diagnostic.insertMany(req.body);
+    }
+
    /**
      *
      * @param {Request} req

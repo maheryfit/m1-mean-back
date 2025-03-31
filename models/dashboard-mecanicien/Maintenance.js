@@ -67,7 +67,10 @@ const MaintenanceSchema=new mongoose.Schema({
         {
             type: DetailsMaintenanceSchema,
         }
-    ]
+    ],
+    dateheure_fin_reelle: {
+        type: Date
+    }
 }, {timestamps: true});
 
 module.exports=mongoose.model("Maintenances", MaintenanceSchema);
