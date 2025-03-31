@@ -1,0 +1,92 @@
+[{
+  "_id": {
+    "$oid": "67ea6bcd3eb7691363640c53"
+  },
+  "dateheure_debut": {
+    "$date": "2025-04-12T00:00:00.000Z"
+  },
+  "station": {
+    "$oid": "65f1a3b1c9e77a001c1a0001"
+  },
+  "etat": "en cours",
+  "devis": {
+    "$oid": "67ea6bcd3eb7691363640c4e"
+  },
+  "detailMaintenances": [],
+  "createdAt": {
+    "$date": "2025-03-31T10:17:49.331Z"
+  },
+  "updatedAt": {
+    "$date": "2025-03-31T10:17:49.331Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67ea6c883eb7691363640c5d"
+  },
+  "dateheure_debut": {
+    "$date": "2025-04-05T00:00:00.000Z"
+  },
+  "station": {
+    "$oid": "65f1a3b1c9e77a001c1a0001"
+  },
+  "etat": "en cours",
+  "devis": {
+    "$oid": "67ea6c883eb7691363640c5a"
+  },
+  "detailMaintenances": [],
+  "createdAt": {
+    "$date": "2025-03-31T10:20:56.065Z"
+  },
+  "updatedAt": {
+    "$date": "2025-03-31T10:20:56.065Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67ea70033eb7691363640c6e"
+  },
+  "dateheure_debut": {
+    "$date": "2025-04-01T00:00:00.000Z"
+  },
+  "station": {
+    "$oid": "65f1a3b1c9e77a001c1a0001"
+  },
+  "etat": "en cours",
+  "devis": {
+    "$oid": "67ea70033eb7691363640c6b"
+  },
+  "detailMaintenances": [],
+  "createdAt": {
+    "$date": "2025-03-31T10:35:47.127Z"
+  },
+  "updatedAt": {
+    "$date": "2025-03-31T10:35:47.127Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67ea75aa3eb7691363640c78"
+  },
+  "dateheure_debut": {
+    "$date": "2025-05-01T00:00:00.000Z"
+  },
+  "station": {
+    "$oid": "65f1a3b1c9e77a001c1a0001"
+  },
+  "etat": "en cours",
+  "devis": {
+    "$oid": "67ea75aa3eb7691363640c75"
+  },
+  "detailMaintenances": [],
+  "createdAt": {
+    "$date": "2025-03-31T10:59:54.437Z"
+  },
+  "updatedAt": {
+    "$date": "2025-03-31T10:59:54.437Z"
+  },
+  "__v": 0
+}]
