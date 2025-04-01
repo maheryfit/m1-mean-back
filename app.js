@@ -121,6 +121,10 @@ app.use("/roleMecaniciens", roleMecanicienRouter);
 const niveauMecanicienRouter = require('./routes/dashboard-mecanicien/niveauMecanicienRouter')
 app.use("/niveauMecaniciens", niveauMecanicienRouter);
 
+// Confirmation paiement devis router
+const confirmationPaiementDevisRouter = require('./routes/dashboard-mecanicien/confirmationPaiementDevisRouter')
+app.use("/confirmationPaiementDevis", confirmationPaiementDevisRouter);
+
 // --------------------------- Mécanicien --------------------------------------
 
 // --------------------------- Manager --------------------------------------

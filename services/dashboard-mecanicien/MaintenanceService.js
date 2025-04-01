@@ -2,7 +2,7 @@ const Maintenance = require("../../models/dashboard-mecanicien/Maintenance");
 const ServiceService = require("./serviceService")
 const serviceService = new ServiceService()
 const dateUtil = require("../../utils/dateUtil")
-const ObjectID = require("bson-objectid");
+const etatConfig = require("../../config/etats");
 class MaintenanceService{
 
     constructor(){}
@@ -51,10 +51,33 @@ class MaintenanceService{
             throw new Error("This detail maintenance doesn't exist")
         }
         maintenance['detailMaintenances'][index]["dateheure_fin_reelle"] = req.body["dateheure_fin_reelle"]
+        maintenance['detailMaintenances'][index]["etat"] = etatConfig.ETAT_DETAIL_MAINTENANCE[2]
         //
         maintenance["dateheure_fin_reelle"] = this._getDateHeureFinReelMaintenanceFromDetailMaintenances(maintenance["detailMaintenances"])
-        await Maintenance.updateOne({ "_id": req.params.id} , {"detailMaintenances": maintenance["detailMaintenances"], "dateheure_fin_reelle": maintenance["dateheure_fin_reelle"]});
+        const isAllDetailMaintenanceFinished = this._checkIfAllDetailMaintenanceFinished(maintenance)
+        let update = {
+            "detailMaintenances": maintenance["detailMaintenances"],
+            "dateheure_fin_reelle": maintenance["dateheure_fin_reelle"]
+        }
+        if(isAllDetailMaintenanceFinished) {
+            update["etat"] = etatConfig.ETAT_MAINTENANCE[1]
+        }
+        await Maintenance.updateOne({ "_id": req.params.id} , update);
         return maintenance
+    }
+
+    /**
+     *
+     * @param {Array} maintenance
+     * @returns {boolean}
+     * @private
+     */
+    _checkIfAllDetailMaintenanceFinished(maintenance) {
+        for (let i = 0; i < maintenance['detailMaintenances'].length; i++) {
+            if (maintenance["detailMaintenances"][i]["etat"] !== etatConfig.ETAT_DETAIL_MAINTENANCE[2])
+                return false
+        }
+        return true
     }
 
     /**
@@ -94,10 +117,13 @@ class MaintenanceService{
     _getDateHeureFinReelMaintenanceFromDetailMaintenances(detailMaintenances) {
         if(detailMaintenances.length === 0)
             return null
-        return new Date(Math.max(...detailMaintenances.map(obj => obj['dateheure_fin_reelle'].getTime())));
+        return new Date(Math.max(...detailMaintenances.map(obj => {
+            if(obj['dateheure_fin_reelle'] === undefined)  {
+                return new Date(1, 0, 1).getTime();
+            }
+            return obj['dateheure_fin_reelle'].getTime()
+        })));
     }
-
-
 
     /**
      *

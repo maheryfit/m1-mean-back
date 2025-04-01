@@ -15,7 +15,7 @@ class PaiementDevisController {
      */
     async create(req, res) {
         try {
-            const newPaiementDevis = await this.service.createService(req);
+            const newPaiementDevis = await this.service.createServicePaiement(req);
             res.status(201).json(newPaiementDevis);
         } catch (error) {
             res.status(400).json({ message: error.message });

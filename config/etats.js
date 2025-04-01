@@ -5,7 +5,7 @@ const etatConfig={
     DEFAULT_ETAT_MAINTENANCE: "en cours",
     ETAT_DEVIS: ["créé", "payé", "annulé"],
     DEFAULT_ETAT_DEVIS: "créé",
-    ETAT_DETAIL_MAINTENANCE: ["effectué", "annulé"],
+    ETAT_DETAIL_MAINTENANCE: ["effectué", "annulé", "terminé"],
     DEFAULT_ETAT_DETAIL_MAINTENANCE: "effectué",
     ETAT_PAIEMENT_DEVIS: ["effectué", "annulé", "validé"],
     DEFAULT_ETAT_PAIEMENT_DEVIS: "effectué",

@@ -16,7 +16,7 @@ class MaintenanceController{
     async addNewDetailMaintenance(req, res){
         try {
             const detail=await this.service.addNewDetailMaintenanceService(req);
-            res.status(201).json(detail);
+            res.status(200).json(detail);
         } catch (error) {
             res.status(500).json({message: error.message});
         }

@@ -1,6 +1,8 @@
 const Diagnostic = require('../../models/dashboard-mecanicien/Diagnostic');
 const tokenUtil = require("../../utils/tokenUtil")
 const etatConfig = require("../../config/etats")
+const DemandeRDVDiagnostic = require("../../models/dashboard-client/DemandeRDVDiagnostic");
+const {startSession} = require("mongoose");
 
 class DiagnosticService {
 
@@ -14,8 +16,19 @@ class DiagnosticService {
      */
     async createService(req) {
         const newDiagnostic = new Diagnostic(req.body);
-        await newDiagnostic.save();
-        return newDiagnostic;
+        const session = await startSession();
+        session.startTransaction()
+        try {
+            await newDiagnostic.save();
+            await DemandeRDVDiagnostic.updateOne({ _id: req.body["rdv"] }, { etat: etatConfig.ETAT_DEMANDE_RDV_DIAG[1] })
+            await session.commitTransaction()
+            return newDiagnostic;
+        } catch (error) {
+            await session.abortTransaction()
+            throw error;
+        } finally {
+            await session.endSession()
+        }
     }
 
    /**
