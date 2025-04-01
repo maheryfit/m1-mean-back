@@ -25,7 +25,7 @@ class PaiementDevisStationService {
     /**
      *
      * @param {Request} req
-     * @returns {Promise<void>}
+     * @returns {Promise<*>}
      * @private
      */
     async _findByStation(req) {
@@ -75,7 +75,7 @@ class PaiementDevisStationService {
     async _addNewPaiementForStation(req, response) {
         const paiementDevis = await this._getPaiementDevis(req)
         response["paiements"].push({ date_heure: Date.now(), montant: paiementDevis.montant })
-        await PaiementDevisStation.updateOne({ id: response._id }, response)
+        await PaiementDevisStation.updateOne({ _id: response._id }, {paiements: response["paiements"]} )
         return response;
     }
 
