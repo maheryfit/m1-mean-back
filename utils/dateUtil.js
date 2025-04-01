@@ -23,7 +23,31 @@ function addDays(date, days) {
     return new Date(date.getTime() + days * 24 * 60 * 60 * 1000);
 }
 
+/**
+ *
+ * @param year
+ * @param month
+ * @returns Array<{date: Date}>
+ */
+function getAllDaysOfMonth(year, month) {
+    // Get the first and last day of the current month
+    const startOfMonth = new Date(year, month - 1, 1);
+    const endOfMonth = new Date(year, month, 0);
+    // Generate an array of all dates in April
+    const daysInMonth = [];
+    for (let d = new Date(startOfMonth.getTime()); d <= endOfMonth; d.setDate(d.getDate() + 1)) {
+        const year = d.getFullYear();
+        const month = d.getMonth();
+        const day = d.getDate();
+        daysInMonth.push({
+            date: `${year}-${month}-${day}` // Store exact date
+        });
+    }
+    return daysInMonth;
+}
+
 module.exports = {
     dateDiffInDays,
-    addDays
+    addDays,
+    getAllDaysOfMonth
 }
