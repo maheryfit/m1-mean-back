@@ -1,4 +1,4 @@
-const PaiementDevisStation = require("../../models/dashboard-client/PaiementDevisStation");
+const PaiementDevisStation = require("../../models/dashboard-mecanicien/PaiementDevisStation");
 const PaiementDevis = require("../../models/dashboard-client/PaiementDevis");
 
 class PaiementDevisStationService {
@@ -42,7 +42,7 @@ class PaiementDevisStationService {
      */
     async _getPaiementDevis(req) {
         const paiementDevis = await PaiementDevis.findOne({
-            id: req.body['paiementDevis']
+            _id: req.body['paiementDevis']
         })
         if (!paiementDevis) {
             throw new Error("No paiement devis found");
@@ -58,7 +58,7 @@ class PaiementDevisStationService {
      * @private
      */
     async _getStation(req) {
-        const paiementDevis = await PaiementDevis.findOne({ id: req.body['paiementDevis']})
+        const paiementDevis = await PaiementDevis.findOne({ _id: req.body['paiementDevis']}).populate("devis")
         if (!paiementDevis) {
             throw new Error("No paiement devis found");
         }

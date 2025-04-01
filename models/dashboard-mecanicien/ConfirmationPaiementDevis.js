@@ -4,7 +4,8 @@ const ConfirmationPaiementDevisSchema = new mongoose.Schema({
     paiementDevis: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "PaiementDevis",
-        required: true
+        required: true,
+        unique: true
     },
     mecanicien: {
         type: mongoose.Schema.Types.ObjectId,
