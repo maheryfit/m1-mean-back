@@ -62,11 +62,14 @@ class ConfirmationPaiementDevisService {
      */
     async _modifyEtatPaiementDevis(req) {
         const paiement = await PaiementDevis.findById(req.body['paiementDevis'])
+            .populate("devis")
         if (!paiement) {
             throw new Error('No paiement found.');
         }
-        await paiementDevisService.checkIfDevisPayedFully(paiement.devis.toString(), paiement.montant)
-        await PaiementDevis.updateOne({ _id: req.body['paiementDevis'] }, { etat: etatConfig.ETAT_PAIEMENT_DEVIS[2], date_heure_validation: Date.now() });
+        req.body["station"] = paiement.devis.station.toString()
+        await paiementDevisService.checkIfDevisPayedFully(paiement.devis._id.toString(), paiement.montant)
+        //await PaiementDevis.updateOne({ _id: req.body['paiementDevis'] }, { etat: etatConfig.ETAT_PAIEMENT_DEVIS[2], date_heure_validation: Date.now() });
+        await PaiementDevis.updateOne({ _id: req.body['paiementDevis'] }, { etat: etatConfig.ETAT_PAIEMENT_DEVIS[2], date_heure_validation: req.body["date_heure_validation"] });
     }
 
 
