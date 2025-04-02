@@ -138,6 +138,10 @@ app.use("/managers", middleware.authenticateTokenManager, managerRouter);
 const changementStatutClientRouter=require("./routes/dashboard-manager/changementStatutClientRouter");
 app.use("/changementStatutClients", middleware.authenticateTokenManager, changementStatutClientRouter);
 
+// Revenue router
+const revenueRouter=require("./routes/dashboard-manager/revenueRouter");
+app.use("/revenues", middleware.authenticateTokenManager, revenueRouter);
+
 // --------------------------- Manager --------------------------------------
 
 // --------------------------------------- ROUTER -------------------------------------------------

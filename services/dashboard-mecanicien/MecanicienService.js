@@ -145,6 +145,57 @@ class MecanicienService{
         ]);
         return Number.parseFloat(result[0]?.totalDuration) || 0;
     }
+
+    /**
+     *
+     * @param {Number} year
+     * @param {Number} month
+     * @return {Promise<[]>}
+     */
+    async getMecaniciensWorkByYearAndMonth(year, month) {
+        const result = await Maintenance.aggregate([
+            {
+                $unwind: "$detailMaintenances" // Flatten the array first
+            },
+            {
+                $match: {
+                    $expr: {
+                        $and: [
+                            { $eq: [{ $year: "$detailMaintenances.dateheure_debut"}, year] },
+                            { $eq: [{ $month: "$detailMaintenances.dateheure_debut"}, month] },
+                        ]
+                    }
+                }
+            },
+            {
+                $unwind: "$detailMaintenances.mecaniciens" // Flatten the mecaniciens array
+            },
+            {
+                $group: {
+                    _id: "$detailMaintenances.mecaniciens" // Group by mecanicien ID
+                }
+            },
+            {
+                $project: {
+                    _id: 0, // Remove default MongoDB _id
+                    mecaniciens: "$_id"
+                }
+            }
+        ])
+        const mecanicienList = result.map((mecanicien) => {
+            return mecanicien.mecaniciens
+        })
+        const mecaniciens = await Mecanicien.aggregate([
+            {
+                $match: {
+                    $expr: {
+                        $in: ["$_id", mecanicienList]
+                    }
+                }
+            }
+        ]);
+        return Mecanicien.populate(mecaniciens, { path: "role" });
+    }
 }
 
 module.exports=MecanicienService;

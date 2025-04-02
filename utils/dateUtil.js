@@ -25,29 +25,80 @@ function addDays(date, days) {
 
 /**
  *
- * @param year
- * @param month
- * @returns Array<{date: Date}>
+ * @param {Number} year
+ * @param {Number} month
+ * @returns {Array<{date: string}>}
  */
 function getAllDaysOfMonth(year, month) {
-    // Get the first and last day of the current month
-    const startOfMonth = new Date(year, month - 1, 1);
-    const endOfMonth = new Date(year, month, 0);
-    // Generate an array of all dates in April
-    const daysInMonth = [];
-    for (let d = new Date(startOfMonth.getTime()); d <= endOfMonth; d.setDate(d.getDate() + 1)) {
-        const year = d.getFullYear();
-        const month = d.getMonth();
-        const day = d.getDate();
+    const endOfMonth = new Date(year, month, 0).getDate();
+    let daysInMonth = [];
+    for (let day = 1; day <= endOfMonth; day++) {
+        let newDate;
+        if (day === 1) {
+            newDate = new Date(year, month, day).toISOString();
+        } else {
+            newDate = new Date(year, month - 1, day).toISOString();
+        }
         daysInMonth.push({
-            date: `${year}-${month}-${day}` // Store exact date
+            date:`${newDate.split("T")[0]}` // Store exact date
         });
     }
+     daysInMonth = daysInMonth.sort(function (a, b) {
+        if (new Date(a.date) >= new Date(b.date)) return 0;
+        return -1;
+    })
     return daysInMonth;
+}
+
+/**
+ *
+ * @param {Number} year
+ * @returns {[{date: string},{date: string},{date: string},{date: string},{date: string},null,null,null,null,null,null,null]}
+ */
+function getAllMonths(year) {
+    return [
+        {
+            date: `${year}-01`
+        },
+        {
+            date: `${year}-02`
+        },
+        {
+            date: `${year}-03`
+        },
+        {
+            date: `${year}-04`
+        },
+        {
+            date: `${year}-05`
+        },
+        {
+            date: `${year}-06`
+        },
+        {
+            date: `${year}-07`
+        },
+        {
+            date: `${year}-08`
+        },
+        {
+            date: `${year}-09`
+        },
+        {
+            date: `${year}-10`
+        },
+        {
+            date: `${year}-11`
+        },
+        {
+            date: `${year}-12`
+        }
+    ]
 }
 
 module.exports = {
     dateDiffInDays,
     addDays,
-    getAllDaysOfMonth
+    getAllDaysOfMonth,
+    getAllMonths,
 }
