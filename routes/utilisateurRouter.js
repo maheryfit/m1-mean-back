@@ -21,7 +21,7 @@ router.get('/:id/voitures', middleware.authenticateToken, userController.findVoi
  * Is user connected following a role ?
  */
 router.get('/checkAuthConnected', middleware.authenticateToken, userController.checkAuthConnected.bind(userController));
-router.get('/checkAuthClient', middleware.authenticateToken, userController.checkAuthClient.bind(userController));
+router.get('/checkAuthClient', middleware.authenticateTokenClient, userController.checkAuthClient.bind(userController));
 router.get('/checkAuthMecanicien', middleware.authenticateTokenMecanicien, userController.checkAuthMecanicien.bind(userController));
 router.get('/checkAuthManager', middleware.authenticateTokenManager, userController.checkAuthManager.bind(userController));
 
