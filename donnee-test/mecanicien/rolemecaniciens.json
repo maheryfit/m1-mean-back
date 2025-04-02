@@ -4,7 +4,7 @@
   },
   "titre": "Chef mécanicien",
   "salaire_mensuel": {
-    "$numberDecimal": "1000000"
+    "$numberDecimal": "100000"
   },
   "createdAt": {
     "$date": "2025-03-30T14:27:19.806Z"
@@ -20,7 +20,7 @@
   },
   "titre": "Mécanicien",
   "salaire_mensuel": {
-    "$numberDecimal": "600000"
+    "$numberDecimal": "60000"
   },
   "createdAt": {
     "$date": "2025-03-30T14:27:36.787Z"
@@ -36,7 +36,7 @@
   },
   "titre": "Mécanicien analyste",
   "salaire_mensuel": {
-    "$numberDecimal": "800000"
+    "$numberDecimal": "80000"
   },
   "createdAt": {
     "$date": "2025-03-30T14:28:11.930Z"
