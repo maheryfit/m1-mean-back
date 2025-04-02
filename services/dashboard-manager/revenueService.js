@@ -3,6 +3,8 @@ const {getAllDaysOfMonth, getAllMonths} = require("../../utils/dateUtil");
 const etatConfig = require("../../config/etats")
 const MecancienService = require("../../services/dashboard-mecanicien/MecanicienService");
 const mecancienService = new MecancienService();
+const ClientService = require("../../services/dashboard-client/clientService");
+const clientService = new ClientService();
 class RevenueService {
     constructor() {
     }
@@ -20,7 +22,8 @@ class RevenueService {
         for (let date in paiementDevis) {
             const yearMonth = date.split("-")
             const sumSalary = await this._getSumSalary(Number.parseInt(yearMonth[0]), Number.parseInt(yearMonth[1]));
-            paiementDevis[date] = Math.max(0, paiementDevis[date] - sumSalary);
+            const sumAbonnement = await this._getSumAbonnement(Number.parseInt(yearMonth[0]), Number.parseInt(yearMonth[1]));
+            paiementDevis[date] = Math.max(0, (paiementDevis[date] + sumAbonnement) - sumSalary);
         }
         return paiementDevis;
     }
@@ -52,6 +55,32 @@ class RevenueService {
         return sum
     }
 
+    /**
+     *
+     * @param {Number} year
+     * @param {Number} month
+     * @returns {Promise<number>}
+     * @private
+     */
+    async _getSumAbonnement(year, month) {
+        const clients = await clientService.getClientFromPaiementDevisByYearAndMonth(year, month)
+        let sum = 0;
+        for(let i=0; i<clients.length; i++){
+            const abonnement = clients[i].abonnement
+            if(abonnement){
+                sum += Number.parseFloat(abonnement.prix)
+            }
+        }
+        return sum
+    }
+
+    /**
+     *
+     * @param {Number} year
+     * @param {string} etat
+     * @returns {Promise<{}>}
+     * @private
+     */
     async _getPaiementDevisPerMonth(year, etat) {
         const months = getAllMonths(year)
         const paiementDevis = await PaiementDevis.aggregate([
@@ -89,7 +118,7 @@ class RevenueService {
                     break
                 }
             }
-            toReturn[date] = value
+            toReturn[date] = value + await this._getSumAbonnement(year, Number.parseFloat(date.split("-")[1]))
         }
         return toReturn
     }
