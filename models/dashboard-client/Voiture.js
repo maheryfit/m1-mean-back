@@ -29,4 +29,4 @@ const VoitureSchema = new mongoose.Schema({
 }, { timestamps: true })
 VoitureSchema.index({ proprietaire: 2, specification: 2, immatriculation: 2 }, { unique: true });
 
-module.exports = new mongoose.model('Voitures', VoitureSchema);
+module.exports = mongoose.model('Voitures', VoitureSchema);

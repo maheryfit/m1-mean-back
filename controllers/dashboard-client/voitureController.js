@@ -48,6 +48,20 @@ class VoitureController {
         }
     }
 
+    /**
+     *
+     * @param {Request} req
+     * @param {Response} res
+     */
+    async getAllPaginate(req, res) {
+        try {
+            const voitures = await this.service.getAllServicePaginate(req);
+            res.status(200).json(voitures);
+        } catch (error) {
+            res.status(400).json({ message: error.message });
+        }
+    }
+
 
     /**
      *
@@ -75,6 +89,20 @@ class VoitureController {
             res.status(204).json({message: 'deleted'});
         } catch (error) {
             res.status(400).json({ message: error.message });
+        }
+    }
+
+    /**
+     * 
+     * @param {Request} req 
+     * @param {Response} res 
+     */
+    async count(req, res){
+        try {
+            const count=await this.service.count(req);
+            res.status(200).json(count[0].count);
+        } catch (error) {
+            res.status(400).json({message: error.message});
         }
     }
 
