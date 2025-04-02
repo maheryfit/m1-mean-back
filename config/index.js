@@ -10,7 +10,7 @@ const config = {
     MOTEUR: ["essence", "diesel", "électrique"],
     TRACTION: ["traction avant", "propulsion", "4*4"],
     DEFAULT_PROFIL: "client",
-    ORIGINS: ["http://localhost:4200"],
+    ORIGINS: ["http://localhost:4200", "http://10.106.0.3:4200"],
     PRODUCTION: process.env.PRODUCTION || false,
     COOKIE_KEY: process.env.COOKIE_KEY,
     COOKIE_CONFIG: {
