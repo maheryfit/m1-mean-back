@@ -234,9 +234,22 @@ class DevisService{
      * @returns {Promise<*>}
      */
     async getAllService() {
-        return Devis.find({})
+        return await this._getAllServiceDynamic({})
+    }
+
+    /**
+     * @param {Object} condition
+     * @returns {Promise<*>}
+     */
+    async _getAllServiceDynamic(condition) {
+        const responses = await Devis.find(condition)
             .populate('voiture')
             .populate("station")
+            .lean()
+        responses.map(response => {
+            response["montant"] = Number.parseFloat(response["montant"].toString());
+        });
+        return responses;
     }
 
     /**
@@ -245,11 +258,10 @@ class DevisService{
      */
     async getAllServiceByStation(req) {
         const station = req.params.station;
-        return Devis.find({
-            station: new ObjectId(station)
+        return await this._getAllServiceDynamic({
+            station: new ObjectId(station),
+            etat: etatConfig.ETAT_DEVIS[1]
         })
-            .populate('voiture')
-            .populate("station")
     }
 
 
