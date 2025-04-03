@@ -1,5 +1,9 @@
 class MessageController {
 
+    /**
+     *
+     * @param {MessageService} service
+     */
     constructor(service) {
         this.service = service;
     }
@@ -27,7 +31,7 @@ class MessageController {
     async findById(req, res) {
         try {
             const newMessage = await this.service.findByIdService(req);
-            res.status(201).json(newMessage);
+            res.status(200).json(newMessage);
         } catch (error) {
             res.status(400).json({ message: error.message });
         }
