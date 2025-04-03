@@ -1,14 +1,13 @@
-const PaiementDevisStation = require("../../models/dashboard-mecanicien/PaiementDevisStation");
+const PaiementDevisStation = require("../../models/dashboard-manager/PaiementDevisStation");
 const PaiementDevis = require("../../models/dashboard-client/PaiementDevis");
-
 class PaiementDevisStationService {
     constructor() {
     }
 
-     /**
+    /**
      *
      * @param {Request} req
-     * @returns {Promise<void>}
+     * @returns {Promise<*>}
      */
     async createService(req) {
         const station = await this._getStation(req)
@@ -19,6 +18,32 @@ class PaiementDevisStationService {
             paiementDevisStation = await this._addNewPaiementForStation(req, paiementDevisStation)
         }
         return paiementDevisStation;
+    }
+
+    /**
+     *
+     * @returns {Promise<*>}
+     */
+    async getAllService() {
+        const resutl = await PaiementDevisStation.aggregate([
+            {
+                $unwind: "$paiements"
+            },
+            {
+                $group: {
+                    _id: "$station",
+                    sumMontant: { $sum: "$paiements.montant" },
+                }
+            }
+        ])
+        const responses = await PaiementDevisStation.populate(resutl, {
+            path: "_id",
+            model: "Stations",
+        })
+        responses.map(response => {
+            response["sumMontant"] = Number.parseFloat(response["sumMontant"]);
+        })
+        return responses;
     }
 
 

@@ -3,6 +3,7 @@ const ServiceService = require("./serviceService")
 const serviceService = new ServiceService()
 const dateUtil = require("../../utils/dateUtil")
 const etatConfig = require("../../config/etats");
+const {ObjectId} = require("mongodb");
 class MaintenanceService{
 
     constructor(){}
@@ -175,12 +176,30 @@ class MaintenanceService{
             .populate({
                 path: "detailMaintenances",
                 populate: {
-                    path: "services",
+                    path: "service",
                     model: "Services",
                 }
             });
     }
 
-
+    /**
+     *
+     * @param {Request} req
+     * @returns {Promise<*>}
+     */
+    async findByDevisService(req) {
+        const devis = req.params.devis;
+        return Maintenance.findOne({
+            devis: new ObjectId(devis)
+        })
+            .populate("station")
+            .populate({
+                path: "detailMaintenances",
+                populate: {
+                    path: "service",
+                    model: "Services",
+                }
+            });
+    }
 }
 module.exports=MaintenanceService;

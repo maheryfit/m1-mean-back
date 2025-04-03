@@ -50,6 +50,19 @@ class MaintenanceController{
         }
     }
 
+    /**
+     *
+     * @param {Request} req
+     * @param {Response} res
+     */
+    async findByDevis(req, res){
+        try {
+            const maintenance = await this.service.findByDevisService(req);
+            res.status(200).json(maintenance);
+        } catch (error) {
+            res.status(500).json({message: error.message});
+        }
+    }
 
     /**
      *

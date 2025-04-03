@@ -9,6 +9,7 @@ const Service = require("../../models/dashboard-mecanicien/Service");
 
 const {startSession} = require("mongoose");
 const Maintenance = require("../../models/dashboard-mecanicien/Maintenance");
+const { ObjectId } = require('mongodb');
 
 class DevisService{
     constructor(){}
@@ -237,6 +238,20 @@ class DevisService{
             .populate('voiture')
             .populate("station")
     }
+
+    /**
+     *
+     * @returns {Promise<*>}
+     */
+    async getAllServiceByStation(req) {
+        const station = req.params.station;
+        return Devis.find({
+            station: new ObjectId(station)
+        })
+            .populate('voiture')
+            .populate("station")
+    }
+
 
     /**
      *

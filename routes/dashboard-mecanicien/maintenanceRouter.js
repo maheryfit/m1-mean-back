@@ -11,5 +11,6 @@ router.delete("/:id", middleware.authenticateTokenMecanicien, maintenanceControl
 router.get("/:id", middleware.authenticateTokenMecanicien, maintenanceController.findById.bind(maintenanceController));
 router.post("/detail-maintenances/:id", middleware.authenticateTokenMecanicienAndManager, maintenanceController.addNewDetailMaintenance.bind(maintenanceController));
 router.put("/:id/setdateheurerellefin/:detail_maintenance", middleware.authenticateTokenMecanicienAndManager, maintenanceController.setDateheureFinReelleDetailMaintenance.bind(maintenanceController));
+router.get('/:devis/devis', middleware.authenticateToken,maintenanceController.findByDevis.bind(maintenanceController));
 
 module.exports = router;

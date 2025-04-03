@@ -122,5 +122,19 @@ class DevisController{
             res.status(500).json({message: error.message});
         }
     }
+
+    /**
+     *
+     * @param {Request} req
+     * @param {Response} res
+     */
+    async getAllServiceByStation(req, res){
+        try {
+            const devis = await this.service.getAllServiceByStation(req);
+            res.status(200).json(devis);
+        } catch (error) {
+            res.status(500).json({message: error.message});
+        }
+    }
 }
 module.exports=DevisController;

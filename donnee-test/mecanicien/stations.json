@@ -7,7 +7,7 @@
       "lieu": "Downtown",
       "coordonnees": {
         "type": "Point",
-        "coordinates": [40.712776, -74.005974]
+        "coordinates": [-18.9864204,47.5319636]
       }
     },
     {
@@ -18,7 +18,7 @@
       "lieu": "Uptown",
       "coordonnees": {
         "type": "Point",
-        "coordinates": [34.052235, -118.243683]
+        "coordinates": [-18.9611346,47.535132]
       }
     },
     {
@@ -29,7 +29,7 @@
       "lieu": "Suburb West",
       "coordonnees": {
         "type": "Point",
-        "coordinates": [51.507351, -0.127758]
+        "coordinates": [-18.9568501,47.5249058]
       }
     },
     {
@@ -40,7 +40,7 @@
       "lieu": "Suburb East",
       "coordonnees": {
         "type": "Point",
-        "coordinates": [48.856613, 2.352222]
+        "coordinates": [-18.9381315,47.541967]
       }
     },
     {
@@ -51,7 +51,7 @@
       "lieu": "City Center",
       "coordonnees": {
         "type": "Point",
-        "coordinates": [35.689487, 139.691711]
+        "coordinates": [-18.9327336,47.5361215]
       }
     },
     {
@@ -62,7 +62,7 @@
       "lieu": "Industrial Zone",
       "coordonnees": {
         "type": "Point",
-        "coordinates": [-33.868820, 151.209290]
+        "coordinates": [-18.9319334,47.5245486]
       }
     }
   ]
