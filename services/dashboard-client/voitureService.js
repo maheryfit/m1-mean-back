@@ -31,12 +31,12 @@ class VoitureService {
      */
    async updateService(req) {
        await this._checkIfHavePermission(req)
-       req.body["images_name"] = []
-       req.files.forEach((file) => {
-           req.body["images_name"].push(file["filename"]);
-       })
+    //    req.body["images_name"] = []
+    //    req.files.forEach((file) => {
+    //        req.body["images_name"].push(file["filename"]);
+    //    })
        return Voiture.findByIdAndUpdate(req.params.id,
-           req.body, {new: true});
+           req.body, {new: true}).populate("specification");
    }
 
    /**
@@ -129,7 +129,6 @@ class VoitureService {
 
    async count(req){
     const user=utils.getDataFromRequestToken(req);
-    console.log(user);
     if(user.profil==='client'){
         return Voiture.aggregate([
             {

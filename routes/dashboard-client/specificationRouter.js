@@ -9,9 +9,9 @@ const middleware = require('../..//middlewares/authentificationMiddleware');
 const specificationController = new SpecificationController(service);
 
 router.get('/', middleware.authenticateTokenClientAndManager,specificationController.getAll.bind(specificationController));
-router.get('/:id', middleware.authenticateTokenManager,specificationController.findById.bind(specificationController));
-router.post('/', middleware.authenticateTokenManager,specificationController.create.bind(specificationController));
-router.put('/:id', middleware.authenticateTokenManager,specificationController.update.bind(specificationController));
-router.delete('/:id', middleware.authenticateTokenManager,specificationController.delete.bind(specificationController));
+router.get('/:id', middleware.authenticateTokenClient,specificationController.findById.bind(specificationController));
+router.post('/', middleware.authenticateTokenClient,specificationController.create.bind(specificationController));
+router.put('/:id', middleware.authenticateTokenClient,specificationController.update.bind(specificationController));
+router.delete('/:id', middleware.authenticateTokenClient,specificationController.delete.bind(specificationController));
 
 module.exports = router;

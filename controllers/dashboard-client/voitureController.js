@@ -71,6 +71,9 @@ class VoitureController {
     async findById(req, res) {
         try {
             const voiture = await this.service.findByIdService(req);
+            if(!voiture){
+                return res.status(404).json({message: "Voiture introuvable"});
+            }
             res.status(200).json(voiture);
         } catch (error) {
             res.status(400).json({ message: error.message });
