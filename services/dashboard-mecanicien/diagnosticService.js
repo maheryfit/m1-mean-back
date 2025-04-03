@@ -2,7 +2,8 @@ const Diagnostic = require('../../models/dashboard-mecanicien/Diagnostic');
 const tokenUtil = require("../../utils/tokenUtil")
 const etatConfig = require("../../config/etats")
 const DemandeRDVDiagnostic = require("../../models/dashboard-client/DemandeRDVDiagnostic");
-const {startSession} = require("mongoose");
+const {startSession, default: mongoose} = require("mongoose");
+const ObjectId=mongoose.Types.ObjectId;
 
 class DiagnosticService {
 
@@ -102,6 +103,39 @@ class DiagnosticService {
         return Diagnostic.findById(req.params.id)
             .populate("rdv")
             .populate("mecaniciens");
+    }
+
+    /**
+     * 
+     * @param {Request} req 
+     */
+    async findByRdv(req){
+        const index=Number(req.params.index);
+        const pagelimit=Number(req.params.pagelimit);
+        const idrdv=req.params.idrdv;
+        return Diagnostic.find({
+                rdv:idrdv
+            }).skip((index-1)*pagelimit)
+            .limit(pagelimit)
+            .populate({
+                path: "mecaniciens",
+                populate:{
+                    path:"utilisateur",
+                    select:"nom prenom nom_utilisateur"
+                }
+            });
+    }
+
+    async count(req){
+        const idrdv=req.params.idrdv;
+        return Diagnostic.aggregate([
+            {
+                $match:{ rdv: new ObjectId(idrdv) }
+            },
+            {
+                $count:"count"
+            }
+        ]);
     }
 
 }

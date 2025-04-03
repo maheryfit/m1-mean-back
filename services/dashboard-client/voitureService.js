@@ -1,6 +1,8 @@
 const Voiture = require('../../models/dashboard-client/Voiture');
 const utils = require('../../utils/tokenUtil');
 const Utilisateur = require('../../models/Utilisateur');
+const mongoose=require("mongoose");
+const ObjectId=mongoose.Types.ObjectId;
 class VoitureService {
 
     constructor() {
@@ -29,12 +31,12 @@ class VoitureService {
      */
    async updateService(req) {
        await this._checkIfHavePermission(req)
-       req.body["images_name"] = []
-       req.files.forEach((file) => {
-           req.body["images_name"].push(file["filename"]);
-       })
+    //    req.body["images_name"] = []
+    //    req.files.forEach((file) => {
+    //        req.body["images_name"].push(file["filename"]);
+    //    })
        return Voiture.findByIdAndUpdate(req.params.id,
-           req.body, {new: true});
+           req.body, {new: true}).populate("specification");
    }
 
    /**
@@ -57,6 +59,25 @@ class VoitureService {
         const user = utils.getDataFromRequestToken(req)
         if(user.profil === "client") {
             return Voiture.find({ proprietaire: user.id })
+                .populate("specification")
+        }
+        return Voiture.find({})
+            .populate("specification")
+    }
+
+    /**
+     * 
+     * @param {Request} req 
+     * @returns {Promise<*>}
+     */
+    async _voitureDynamicPaginate(req) {
+        const index=req.params.index;
+        const pagelimit=req.params.pagelimit;
+        const user = utils.getDataFromRequestToken(req)
+        if(user.profil === "client") {
+            return Voiture.find({ proprietaire: user.id })
+                .skip((index-1)*pagelimit)
+                .limit(pagelimit)
                 .populate("specification")
         }
         return Voiture.find({})
@@ -90,12 +111,41 @@ class VoitureService {
    }
 
    /**
+     * @param {Request} req
+     * @returns {Promise<*>}
+     */
+   async getAllServicePaginate(req) {
+    return await this._voitureDynamicPaginate(req);
+}
+
+   /**
      *
      * @param {Request} req
      * @returns {Promise<*>}
      */
    async findByIdService(req) {
        return Voiture.findById(req.params.id).populate("specification");
+   }
+
+   async count(req){
+    const user=utils.getDataFromRequestToken(req);
+    if(user.profil==='client'){
+        return Voiture.aggregate([
+            {
+                $match: {
+                    proprietaire: new ObjectId(user.id)
+                }
+            },
+            {
+                $count: "count"
+            }
+        ]);    
+    }
+    return Voiture.aggregate([
+        {
+            $count: "count"
+        }
+    ]);
    }
 
 }

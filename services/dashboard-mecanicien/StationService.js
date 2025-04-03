@@ -42,6 +42,12 @@ class StationService{
         return Station.find({});
     }
 
+    async getAllServicePaginate(index, pagelimit) {
+        return Station.find({})
+                .skip((index-1)*pagelimit)
+                .limit(pagelimit);
+    }
+
     /**
      *
      * @param {Request} req
@@ -49,6 +55,12 @@ class StationService{
      */
     async findByIdService(req) {
         return Station.findById(req.params.id);
+    }
+
+    async count(){
+        return Station.aggregate([{
+            $count:"count"
+        }]);
     }
 }
 module.exports=StationService;
