@@ -142,6 +142,10 @@ app.use("/changementStatutClients", middleware.authenticateTokenManager, changem
 const revenueRouter=require("./routes/dashboard-manager/revenueRouter");
 app.use("/revenues", middleware.authenticateTokenManager, revenueRouter);
 
+// Paiement devis station router
+const paiementDevisStationRouter=require("./routes/dashboard-manager/paiementDevisStationRouter");
+app.use("/paiementDevisStations", middleware.authenticateTokenManager, paiementDevisStationRouter);
+
 // --------------------------- Manager --------------------------------------
 
 // --------------------------------------- ROUTER -------------------------------------------------

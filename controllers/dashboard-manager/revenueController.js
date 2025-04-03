@@ -1,4 +1,4 @@
-class ManagerController {
+class RevenueController {
 
     /**
      *
@@ -52,4 +52,4 @@ class ManagerController {
     }
 
 }
-module.exports = ManagerController;
+module.exports = RevenueController;

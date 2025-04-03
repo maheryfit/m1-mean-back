@@ -27,8 +27,7 @@ const PaiementDevisStationSchema = new mongoose.Schema({
             type: PaiementSchema,
             required: true,
         }
-    ],
-
+    ]
 }, { timestamps: true })
 
 module.exports = new mongoose.model('PaiementDevisStations', PaiementDevisStationSchema);

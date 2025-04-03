@@ -1,6 +1,6 @@
 const ConfirmationPaiementDevis = require('../../models/dashboard-mecanicien/ConfirmationPaiementDevis');
 const PaiementDevis = require('../../models/dashboard-client/PaiementDevis');
-const PaiementDevisStationService = require('./paiementDevisStationService');
+const PaiementDevisStationService = require('../dashboard-manager/paiementDevisStationService');
 const paiementDevisStationService = new PaiementDevisStationService();
 const {startSession} = require("mongoose");
 const etatConfig = require("../../config/etats");
