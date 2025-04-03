@@ -246,7 +246,8 @@ class DevisService{
     async getAllServiceByStation(req) {
         const station = req.params.station;
         return Devis.find({
-            station: new ObjectId(station)
+            station: new ObjectId(station),
+            etat: etatConfig.ETAT_DEVIS[1]
         })
             .populate('voiture')
             .populate("station")
