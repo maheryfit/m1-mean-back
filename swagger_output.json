@@ -1150,6 +1150,26 @@
         }
       }
     },
+    "/devis/{station}/station": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "station",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "401": {
+            "description": "Unauthorized"
+          }
+        }
+      }
+    },
     "/maintenances/{id}": {
       "delete": {
         "description": "",
@@ -1244,6 +1264,26 @@
           },
           "403": {
             "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/maintenances/{devis}/devis": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "devis",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "401": {
+            "description": "Unauthorized"
           }
         }
       }
@@ -2150,6 +2190,19 @@
             }
           }
         ],
+        "responses": {
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/paiementDevisStations/": {
+      "get": {
+        "description": "",
         "responses": {
           "401": {
             "description": "Unauthorized"
