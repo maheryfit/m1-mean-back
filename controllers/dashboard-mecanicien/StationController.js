@@ -48,6 +48,17 @@ class StationController {
         }
     }
 
+    async getAllPaginate(req, res) {
+        try {
+            const index=req.params.index;
+            const pageLimit=req.params.pagelimit;
+            const stations = await this.service.getAllServicePaginate(index, pageLimit);
+            res.status(200).json(stations);
+        } catch (error) {
+            res.status(400).json({ message: error.message });
+        }
+    }
+
 
     /**
      *
@@ -74,6 +85,15 @@ class StationController {
             await this.service.deleteService(req);
             res.status(204).json({message: 'deleted'});
         } catch (error) {
+            res.status(400).json({ message: error.message });
+        }
+    }
+
+    async count(req, res){
+        try{
+            const count=await this.service.count();
+            res.status(200).json(count[0].count)
+        }catch(error){
             res.status(400).json({ message: error.message });
         }
     }
