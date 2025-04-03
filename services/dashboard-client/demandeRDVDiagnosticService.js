@@ -4,6 +4,8 @@ const utils = require("../../utils/tokenUtil");
 const etatConfig=require("../../config/etats");
 const tokenUtil = require("../../utils/tokenUtil")
 const Diagnostic = require('../../models/dashboard-mecanicien/Diagnostic');
+const { default: mongoose } = require('mongoose');
+const ObjectId=mongoose.Types.ObjectId;
 class DemandeRDVDiagnosticService {
 
     constructor() {
@@ -118,6 +120,50 @@ class DemandeRDVDiagnosticService {
         return DemandeRDVDiagnostic.find({ etat: etatConfig.ETAT_DEMANDE_RDV_DIAG[etatIndex] });
     }
 
+    async _demandeRdvDynamicPaginate(req) {
+        const index=Number(req.params.index);
+        const pageLimit=Number(req.params.pagelimit);
+        const user = tokenUtil.getDataFromRequestToken(req)
+        if(user.profil === "client")
+            return DemandeRDVDiagnostic.aggregate([
+                {
+                    $lookup:{
+                        from:"voitures",
+                        localField:"voiture",
+                        foreignField:"_id",
+                        as:"voiture"
+                    }
+                },
+                {
+                    $unwind:"$voiture"
+                },
+                {
+                    $match: { "voiture.proprietaire":new ObjectId(user.id) }
+                },
+                {
+                    $lookup:{
+                        from:"stations",
+                        localField:"station",
+                        foreignField:"_id",
+                        as:"station"
+                    }
+                },
+                {
+                    $unwind:"$station"
+                },
+                {
+                    $skip:(index-1)*pageLimit
+                },
+                {
+                    $limit: pageLimit
+                }
+            ])
+        return DemandeRDVDiagnostic.find({})
+            .skip((index-1)*pageLimit)
+            .limit(pageLimit)
+            .populate(["voiture", "station"]);
+    }
+
     /**
     * 
     * @param {Request} req 
@@ -138,6 +184,36 @@ class DemandeRDVDiagnosticService {
             $oid: idrdv
         };
         await Diagnostic.insertOne(diagnostic);
+   }
+
+   async count(req){
+    const user=utils.getDataFromRequestToken(req);
+    if(user.profil==='client'){
+        return DemandeRDVDiagnostic.aggregate([
+            {
+                $lookup:{
+                    from:"voitures",
+                    localField:"voiture",
+                    foreignField:"_id",
+                    as:"voiture"
+                }
+            },
+            {
+                $unwind:"$voiture"
+            },
+            {
+                $match: { "voiture.proprietaire":new ObjectId(user.id) }
+            },
+            {
+                $count: "count"
+            }
+        ]);    
+    }
+    return DemandeRDVDiagnostic.aggregate([
+        {
+            $count: "count"
+        }
+    ]);
    }
 
 }

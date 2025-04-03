@@ -8,6 +8,8 @@ const service = new DemandeRDVDiagnosticService();
 const middleware = require('../../middlewares/authentificationMiddleware');
 const demandeRDVDiagnosticController = new DemandeRDVDiagnosticController(service);
 
+router.get('/:index/:pagelimit', middleware.authenticateToken,demandeRDVDiagnosticController.getAllPaginate.bind(demandeRDVDiagnosticController));
+router.get('/count', middleware.authenticateToken,demandeRDVDiagnosticController.count.bind(demandeRDVDiagnosticController));
 router.get('/', middleware.authenticateToken,demandeRDVDiagnosticController.getAll.bind(demandeRDVDiagnosticController));
 router.get('/:id', middleware.authenticateToken,demandeRDVDiagnosticController.findById.bind(demandeRDVDiagnosticController));
 router.post('/', middleware.authenticateToken,demandeRDVDiagnosticController.create.bind(demandeRDVDiagnosticController));
