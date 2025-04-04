@@ -31,10 +31,12 @@ class VoitureService {
      */
    async updateService(req) {
        await this._checkIfHavePermission(req)
-    //    req.body["images_name"] = []
-    //    req.files.forEach((file) => {
-    //        req.body["images_name"].push(file["filename"]);
-    //    })
+       if(req.files !== null) {
+           req.body["images_name"] = []
+           req.files.forEach((file) => {
+               req.body["images_name"].push(file["filename"]);
+           })
+       }
        return Voiture.findByIdAndUpdate(req.params.id,
            req.body, {new: true}).populate("specification");
    }
