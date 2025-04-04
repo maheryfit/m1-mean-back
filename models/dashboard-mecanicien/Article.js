@@ -27,6 +27,14 @@ const ArticleSchema=new mongoose.Schema({
         type: String,
         required: true,
         enum: ["piece", "consommable"]
+    },
+    cout_unitaire_mensuel:{
+        type: mongoose.Schema.Types.Decimal128,
+        default: 0
+    },
+    qte_restock_mensuel:{
+        type: Number,
+        default: 0
     }
 }, {timestamps: true});
 

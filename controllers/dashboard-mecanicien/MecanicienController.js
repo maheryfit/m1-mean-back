@@ -118,6 +118,15 @@ class MecanicienController{
         }
     }
 
+    async findByUser(req, res) {
+        try {
+            const mecanicien = await this.service.findByUser(req);
+            res.status(200).json(mecanicien[0]);
+        } catch (error) {
+            res.status(400).json({ message: error.message });
+        }
+    }
+
 
     /**
      *

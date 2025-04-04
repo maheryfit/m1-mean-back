@@ -101,8 +101,24 @@ class DiagnosticService {
      */
     async findByIdService(req) {
         return Diagnostic.findById(req.params.id)
-            .populate("rdv")
-            .populate("mecaniciens");
+            .populate({
+                path:"mecaniciens",
+                populate:{
+                    path:"utilisateur",
+                    select:"nom prenom nom_utilisateur"
+                }
+            });
+    }
+
+    async findByIdServiceNoRequest(id) {
+        return Diagnostic.findById(id)
+            .populate({
+                path:"mecaniciens",
+                populate:{
+                    path:"utilisateur",
+                    select:"nom prenom nom_utilisateur"
+                }
+            });
     }
 
     /**

@@ -1,4 +1,5 @@
 const DemandeRDVDiagnosticService = require("../../services/dashboard-client/demandeRDVDiagnosticService");
+const DiagnosticService = require("../../services/dashboard-mecanicien/diagnosticService");
 
 class DemandeRDVDiagnosticController {
 
@@ -83,6 +84,15 @@ class DemandeRDVDiagnosticController {
         }
     }
 
+    async findByIdMecanicien(req, res) {
+        try {
+            const demandeRDVDiagnostic = await this.service.findByIdServiceMecanicien(req);
+            res.status(200).json(demandeRDVDiagnostic);
+        } catch (error) {
+            res.status(400).json({ message: error.message });
+        }
+    }
+
 
     /**
      *
@@ -160,8 +170,10 @@ class DemandeRDVDiagnosticController {
      */
     async ajoutDiagnostic(req, res){
         try {
-            await this.service.ajoutDiagnostic(req);
-            res.status(204).json({message: 'Évaluation ajoutée'});
+            const diagnostic=await this.service.ajoutDiagnostic(req);
+            const diagService=new DiagnosticService();
+            const diagDetails=await diagService.findByIdServiceNoRequest(diagnostic._id);
+            res.status(204).json(diagDetails);
         } catch (error) {
             res.status(500).json({message: error.message});
         }

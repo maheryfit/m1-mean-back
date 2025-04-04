@@ -47,7 +47,7 @@ const DevisSchema=new mongoose.Schema({
     },
     diagnostic: {
         type:mongoose.Schema.Types.ObjectId,
-        ref:"Diagnostics",
+        ref:"DemandeRDVDiagnostics",
         required:true,
         unique: true
     },

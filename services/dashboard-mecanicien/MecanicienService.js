@@ -70,6 +70,16 @@ class MecanicienService{
             .populate("niveau");
     }
 
+    async findByUser(req){
+        return Mecanicien.find({utilisateur:req.params.iduser})
+            .populate("role")
+            .populate("niveau")
+            .populate({
+                path:"utilisateur",
+                select:"nom prenom nom_utilisateur"
+            });
+    }
+
     /**
      *
      * @param {Request} req

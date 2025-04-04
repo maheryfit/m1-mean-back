@@ -80,6 +80,18 @@ class DemandeRDVDiagnosticService {
            .populate("voiture");
    }
 
+   async findByIdServiceMecanicien(req) {
+    return DemandeRDVDiagnostic.findById(req.params.id)
+        .populate("station")
+        .populate({
+            path: "voiture",
+            populate:{
+                path:"proprietaire",
+                select:"nom prenom nom_utilisateur"
+            }
+        });
+}
+
     /**
      *
      * @param {Request} req
@@ -127,6 +139,12 @@ class DemandeRDVDiagnosticService {
         if(user.profil === "client")
             return DemandeRDVDiagnostic.aggregate([
                 {
+                    $skip:(index-1)*pageLimit
+                },
+                {
+                    $limit: pageLimit
+                },
+                {
                     $lookup:{
                         from:"voitures",
                         localField:"voiture",
@@ -150,18 +168,18 @@ class DemandeRDVDiagnosticService {
                 },
                 {
                     $unwind:"$station"
-                },
-                {
-                    $skip:(index-1)*pageLimit
-                },
-                {
-                    $limit: pageLimit
                 }
             ])
-        return DemandeRDVDiagnostic.find({})
+        return DemandeRDVDiagnostic.find()
             .skip((index-1)*pageLimit)
             .limit(pageLimit)
-            .populate(["voiture", "station"]);
+            .populate({
+                path:"voiture",
+                populate:{
+                    path:"proprietaire",
+                    select:"nom prenom nom_utilisateur"
+                }
+            }).populate("station");
     }
 
     /**
@@ -180,10 +198,13 @@ class DemandeRDVDiagnosticService {
    async ajoutDiagnostic(req){
         const idrdv=req.params.idrdv;
         let diagnostic=req.body;
-        diagnostic.rdv={
-            $oid: idrdv
-        };
-        await Diagnostic.insertOne(diagnostic);
+        diagnostic.rdv=new ObjectId(idrdv);
+        let mecaniciens=[];
+        for(let i=0;i<diagnostic.mecaniciens.length;i++){
+            mecaniciens.push(new ObjectId(diagnostic.mecaniciens[i]))
+        }
+        diagnostic.mecaniciens=mecaniciens;
+        return await Diagnostic.insertOne(diagnostic);
    }
 
    async count(req){
