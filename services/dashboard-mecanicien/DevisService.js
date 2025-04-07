@@ -10,6 +10,7 @@ const Service = require("../../models/dashboard-mecanicien/Service");
 const {startSession} = require("mongoose");
 const Maintenance = require("../../models/dashboard-mecanicien/Maintenance");
 const { ObjectId } = require('mongodb');
+const DemandeRDVDiagnosticService = require("../dashboard-client/demandeRDVDiagnosticService");
 
 class DevisService{
     constructor(){}
@@ -19,20 +20,21 @@ class DevisService{
      * @param {Request} req
      */
     async createService(req){
+        const demandeService=new DemandeRDVDiagnosticService();
         const session = await startSession();
-        // session.startTransaction()
+        session.startTransaction()
         try {
             await this._insertRemise(req)
             await this._getTotalDevisWithRemise(req)
             await this._setDureeEstimeeDansRequete(req)
             const devis=new Devis(req.body);
-            console.log(devis)
-            // await devis.save();
-            // await this._insertMaintenance(req.body["dateheure_debut_maintenance"], req.body['station'], devis._id)
-            // await session.commitTransaction()
+            await devis.save();
+            await this._insertMaintenance(req.body["dateheure_debut_maintenance"], req.body['station'], devis._id)
+            await demandeService.accepterDemandeRDV(req);
+            await session.commitTransaction()
             return devis;
         } catch (error) {
-            // await session.abortTransaction()
+            await session.abortTransaction()
             throw error;
         } finally {
             await session.endSession()

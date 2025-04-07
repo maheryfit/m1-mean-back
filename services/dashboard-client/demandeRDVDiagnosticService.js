@@ -190,6 +190,13 @@ class DemandeRDVDiagnosticService {
    async actionDemandeRdv(req){
         return DemandeRDVDiagnostic.findByIdAndUpdate(req.params.id, req.body, {runValidators:true, new:true});
    }
+   
+   async accepterDemandeRDV(req){
+        const accepterDemande={
+            etat:etatConfig.ETAT_DEMANDE_RDV_DIAG[1]
+        }
+        return await DemandeRDVDiagnostic.findByIdAndUpdate(req.body.diagnostic, accepterDemande, {runValidators:true, new:true});
+   }
 
    /**
     * 
