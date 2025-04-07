@@ -10,6 +10,7 @@ router.get("/horaire-travail-reel/:id/:year/:month", middleware.authenticateToke
 router.get("/kpi/:id/:year/:month", middleware.authenticateTokenManager, controller.getKPIMecanicien.bind(controller));
 
 router.get('/', middleware.authenticateTokenMecanicienAndManager,controller.getAll.bind(controller));
+router.get('/findByUser/:iduser', middleware.authenticateTokenMecanicienAndManager,controller.findByUser.bind(controller));
 router.get('/:id', middleware.authenticateTokenMecanicienAndManager,controller.findById.bind(controller));
 router.post('/', middleware.authenticateTokenManager,controller.create.bind(controller));
 router.put('/:id', middleware.authenticateTokenManager,controller.update.bind(controller));
