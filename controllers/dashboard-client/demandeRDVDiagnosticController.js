@@ -173,7 +173,7 @@ class DemandeRDVDiagnosticController {
             const diagnostic=await this.service.ajoutDiagnostic(req);
             const diagService=new DiagnosticService();
             const diagDetails=await diagService.findByIdServiceNoRequest(diagnostic._id);
-            res.status(204).json(diagDetails);
+            res.status(200).json(diagDetails);
         } catch (error) {
             res.status(500).json({message: error.message});
         }

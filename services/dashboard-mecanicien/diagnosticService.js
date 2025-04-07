@@ -133,6 +133,7 @@ class DiagnosticService {
                 rdv:idrdv
             }).skip((index-1)*pagelimit)
             .limit(pagelimit)
+            .sort({dateheure:-1})
             .populate({
                 path: "mecaniciens",
                 populate:{
