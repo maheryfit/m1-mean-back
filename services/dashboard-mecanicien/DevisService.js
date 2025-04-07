@@ -20,17 +20,19 @@ class DevisService{
      */
     async createService(req){
         const session = await startSession();
-        session.startTransaction()
+        // session.startTransaction()
         try {
             await this._insertRemise(req)
             await this._getTotalDevisWithRemise(req)
+            await this._setDureeEstimeeDansRequete(req)
             const devis=new Devis(req.body);
-            await devis.save();
-            await this._insertMaintenance(req.body["dateheure_debut_maintenance"], req.body['station'], devis._id)
-            await session.commitTransaction()
+            console.log(devis)
+            // await devis.save();
+            // await this._insertMaintenance(req.body["dateheure_debut_maintenance"], req.body['station'], devis._id)
+            // await session.commitTransaction()
             return devis;
         } catch (error) {
-            await session.abortTransaction()
+            // await session.abortTransaction()
             throw error;
         } finally {
             await session.endSession()
@@ -375,7 +377,30 @@ class DevisService{
             await session.endSession()
         }
     }
-
+    
+    async _setDureeEstimeeDansRequete(req){
+        const dureeEstimee=await this._getDureeServices(req.body.services);
+        req.body.duree_estimee=dureeEstimee;
+    }
+    async _getDureeServices(services){
+        const idservices=[];
+        for(let i=0;i<services.length;i++){
+            idservices.push(new ObjectId(services[i]));
+        }
+        const resultat=await Service.aggregate([
+            {
+                $match:{_id:{$in:idservices}}
+            },
+            {
+                $group:{
+                    _id:null,
+                    duree_estimee:{$sum:"$duree_estimee"}
+                }
+            }
+        ]);
+        const dureeEstimee=resultat[0]?.duree_estimee||0;
+        return dureeEstimee;
+    }
 }
 
 module.exports=DevisService;
