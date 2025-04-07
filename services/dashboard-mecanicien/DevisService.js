@@ -324,26 +324,59 @@ class DevisService{
      */
     async findByIdService(req) {
         return Devis.findById(req.params.id)
-            .populate("voiture")
+            .populate({
+                path:"voiture",
+                populate:{
+                    path:"proprietaire",
+                    select:"nom prenom nom_utilisateur"
+                }
+            })
             .populate("station")
-            .populate("mecanicien")
+            .populate({
+                path:"mecanicien",
+                populate:{
+                    path:"utilisateur",
+                    select:"nom prenom nom_utilisateur"
+                }
+            })
             //.populate("main_oeuvres")
             .populate({
                 path: "articles_quantites",
                 populate: {
-                    path: "article",
-                    model: "Articles"
+                    path: "article"
                 }
             })
             .populate("remises")
-            .populate("services")
+            .populate("services");
+    }
+
+    async findByIdDemande(req) {
+        const iddemande=req.params.iddemande;
+        return Devis.find({diagnostic:iddemande})
             .populate({
-                path: "voiture",
-                populate: {
-                    path: "proprietaire",
-                    model: "Utilisateurs",
+                path:"voiture",
+                populate:{
+                    path:"proprietaire",
+                    select:"nom prenom nom_utilisateur"
                 }
-            });
+            })
+            .populate("station")
+            .populate({
+                path:"mecanicien",
+                populate:{
+                    path:"utilisateur",
+                    select:"nom prenom nom_utilisateur"
+                }
+            })
+            //.populate("main_oeuvres")
+            .populate({
+                path: "articles_quantites.article",
+                populate:{
+                    path:"marque"
+                }
+            })
+            .populate("remises")
+            .populate("services");
     }
 
     /**

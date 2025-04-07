@@ -128,6 +128,20 @@ class DevisController{
      * @param {Request} req
      * @param {Response} res
      */
+    async findByIdDemande(req, res){
+        try {
+            const devis = await this.service.findByIdDemande(req);
+            res.status(200).json(devis[0]);
+        } catch (error) {
+            res.status(500).json({message: error.message});
+        }
+    }
+
+    /**
+     *
+     * @param {Request} req
+     * @param {Response} res
+     */
     async getAllServiceByStation(req, res){
         try {
             const devis = await this.service.getAllServiceByStation(req);
