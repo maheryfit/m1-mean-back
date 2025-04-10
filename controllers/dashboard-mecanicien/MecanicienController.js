@@ -96,8 +96,12 @@ class MecanicienController{
      */
     async getAll(req, res) {
         try {
-            const stations = await this.service.getAllService();
-            res.status(200).json(stations);
+            const mecaniciens = await this.service.getAllService();
+            mecaniciens.forEach(mecanicien=> {
+                mecanicien.createdAt = mecanicien.createdAt.toLocaleString()
+                mecanicien.updatedAt = mecanicien.updatedAt.toLocaleString()
+            })
+            res.status(200).json(mecaniciens);
         } catch (error) {
             res.status(400).json({ message: error.message });
         }
@@ -136,7 +140,7 @@ class MecanicienController{
     async delete(req, res) {
         try {
             await this.service.deleteService(req);
-            res.status(204).json({message: 'deleted'});
+            res.status(204).json({message: 'Mécanicien deleted'});
         } catch (error) {
             res.status(400).json({ message: error.message });
         }

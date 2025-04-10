@@ -55,7 +55,8 @@ class MecanicienService{
         return Mecanicien.find({})
             .populate("utilisateur")
             .populate("role")
-            .populate("niveau");
+            .populate("niveau")
+            .lean();
     }
 
     /**
