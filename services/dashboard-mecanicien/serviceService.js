@@ -1,8 +1,33 @@
 const Service = require('../../models/dashboard-mecanicien/Service');
+const DemandeRDVDiagnostic = require("../../models/dashboard-client/DemandeRDVDiagnostic");
+const {formatCreatedAndUpdatedDateForList} = require("../../utils/listUtil");
 
 class ServiceService {
 
     constructor() {
+    }
+
+    async count() {
+        return Service.aggregate([
+            {
+                $count: "count"
+            }
+        ])
+    }
+
+    /**
+     *
+     * @param {Request} req
+     * @returns {Promise<*>}
+     */
+    async findAllPaginate(req){
+        const index=Number(req.params.index);
+        const pageLimit=Number(req.params.pagelimit);
+        const resp = await Service.find()
+            .skip((index-1)*pageLimit)
+            .limit(pageLimit)
+            .lean();
+        return formatCreatedAndUpdatedDateForList(resp);
     }
 
     /**

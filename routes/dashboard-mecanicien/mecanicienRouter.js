@@ -9,6 +9,8 @@ router.get("/horaire-travail/:id/:year/:month", middleware.authenticateTokenMeca
 router.get("/horaire-travail-reel/:id/:year/:month", middleware.authenticateTokenMecanicienAndManager, controller.horaireTravailReel.bind(controller));
 router.get("/kpi/:id/:year/:month", middleware.authenticateTokenManager, controller.getKPIMecanicien.bind(controller));
 
+router.get('/:index/:pagelimit', middleware.authenticateToken,controller.getAllPaginate.bind(controller));
+router.get('/count', middleware.authenticateToken,controller.count.bind(controller));
 router.get('/', middleware.authenticateTokenMecanicienAndManager,controller.getAll.bind(controller));
 router.get('/findByUser/:iduser', middleware.authenticateTokenMecanicienAndManager,controller.findByUser.bind(controller));
 router.get('/:id', middleware.authenticateTokenMecanicienAndManager,controller.findById.bind(controller));

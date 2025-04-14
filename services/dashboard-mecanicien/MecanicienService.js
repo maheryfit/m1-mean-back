@@ -1,6 +1,8 @@
 const Maintenance=require("../../models/dashboard-mecanicien/Maintenance");
 const Mecanicien = require("../../models/dashboard-mecanicien/Mecanicien")
 const { ObjectId } = require('mongodb');
+const Service = require("../../models/dashboard-mecanicien/Service");
+const {formatCreatedAndUpdatedDateForList} = require("../../utils/listUtil");
 
 class MecanicienService{
     constructor() {
@@ -45,6 +47,32 @@ class MecanicienService{
      */
     async deleteService(req) {
         return Mecanicien.findByIdAndDelete(req.params.id);
+    }
+
+    async count() {
+        return Mecanicien.aggregate([
+            {
+                $count: "count"
+            }
+        ])
+    }
+
+    /**
+     *
+     * @param {Request} req
+     * @returns {Promise<*>}
+     */
+    async findAllPaginate(req){
+        const index=Number(req.params.index);
+        const pageLimit=Number(req.params.pagelimit);
+        const resp = await Mecanicien.find()
+            .skip((index-1)*pageLimit)
+            .limit(pageLimit)
+            .populate("utilisateur")
+            .populate("role")
+            .populate("niveau")
+            .lean();
+        return formatCreatedAndUpdatedDateForList(resp);
     }
 
     /**

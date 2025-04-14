@@ -196,7 +196,7 @@ class DemandeRDVDiagnosticController {
     async count(req, res){
         try {
             const count=await this.service.count(req);
-            res.status(200).json(count.length==0?0:count[0].count);
+            res.status(200).json(count.length===0?0:count[0].count);
         } catch (error) {
             res.status(400).json({message:error.message});
         }

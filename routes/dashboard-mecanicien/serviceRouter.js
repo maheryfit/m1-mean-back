@@ -8,6 +8,8 @@ const service = new ServiceService();
 const middleware = require('../../middlewares/authentificationMiddleware');
 const serviceController = new ServiceController(service);
 
+router.get('/:index/:pagelimit', middleware.authenticateToken,serviceController.getAllPaginate.bind(serviceController));
+router.get('/count', middleware.authenticateToken,serviceController.count.bind(serviceController));
 router.get('/', middleware.authenticateToken,serviceController.getAll.bind(serviceController));
 router.get('/:id', middleware.authenticateToken,serviceController.findById.bind(serviceController));
 router.post('/', middleware.authenticateTokenManager,serviceController.create.bind(serviceController));
