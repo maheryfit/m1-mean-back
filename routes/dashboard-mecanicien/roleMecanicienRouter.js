@@ -8,6 +8,8 @@ const service = new RoleMecanicienService();
 const middleware = require('../../middlewares/authentificationMiddleware');
 const roleMecanicienController = new RoleMecanicienController(service);
 
+router.get('/:index/:pagelimit', middleware.authenticateToken,roleMecanicienController.getAllPaginate.bind(roleMecanicienController));
+router.get('/count', middleware.authenticateToken,roleMecanicienController.count.bind(roleMecanicienController));
 router.get('/', middleware.authenticateTokenMecanicienAndManager,roleMecanicienController.getAll.bind(roleMecanicienController));
 router.get('/:id', middleware.authenticateTokenMecanicienAndManager,roleMecanicienController.findById.bind(roleMecanicienController));
 router.post('/', middleware.authenticateTokenManager,roleMecanicienController.create.bind(roleMecanicienController));

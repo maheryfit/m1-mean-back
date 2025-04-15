@@ -83,8 +83,8 @@ class MecanicienController{
      */
     async update(req, res) {
         try {
-            const station = await this.service.updateService(req);
-            res.status(200).json(station);
+            const mecanicien = await this.service.updateService(req);
+            res.status(200).json(mecanicien);
         } catch (error) {
             res.status(400).json({ message: error.message });
         }
@@ -142,8 +142,8 @@ class MecanicienController{
      */
     async findById(req, res) {
         try {
-            const station = await this.service.findByIdService(req);
-            res.status(200).json(station);
+            const mecanicien = await this.service.findByIdService(req);
+            res.status(200).json(mecanicien);
         } catch (error) {
             res.status(400).json({ message: error.message });
         }
