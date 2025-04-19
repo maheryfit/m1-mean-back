@@ -15,8 +15,8 @@ class RoleMecanicienController {
      */
     async getAllPaginate(req, res){
         try {
-            const mecaniciens=await this.service.findAllPaginate(req);
-            res.status(200).json(mecaniciens);
+            const roleMecaniciens=await this.service.findAllPaginate(req);
+            res.status(200).json(roleMecaniciens);
         } catch (error) {
             res.status(400).json({message: error.message});
         }

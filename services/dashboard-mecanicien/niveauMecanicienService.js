@@ -1,4 +1,5 @@
 const NiveauMecanicien=require("../../models/dashboard-mecanicien/NiveauMecanicien");
+const {formatCreatedAndUpdatedDateForList} = require("../../utils/listUtil");
 
 class NiveauMecanicienService{
     constructor() {
@@ -40,6 +41,29 @@ class NiveauMecanicienService{
     */
     async getAllService() {
         return NiveauMecanicien.find({});
+    }
+
+    async count() {
+        return NiveauMecanicien.aggregate([
+            {
+                $count: "count"
+            }
+        ])
+    }
+
+    /**
+     *
+     * @param {Request} req
+     * @returns {Promise<*>}
+     */
+    async findAllPaginate(req){
+        const index=Number(req.params.index);
+        const pageLimit=Number(req.params.pagelimit);
+        const resp = await NiveauMecanicien.find()
+            .skip((index-1)*pageLimit)
+            .limit(pageLimit)
+            .lean();
+        return formatCreatedAndUpdatedDateForList(resp);
     }
 
     /**
