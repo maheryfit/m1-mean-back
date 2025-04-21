@@ -1,8 +1,14 @@
 import {Constantes} from "../utils/Constantes.js";
 import bcrypt from "bcrypt";
+import * as console from "node:console";
 
 export class Utilisateur{
     static #table="utilisateurs";
+
+    static get table() {
+        return this.#table;
+    }
+
     #nomUtilisateur;
     #motDePasse;
 
@@ -39,7 +45,7 @@ export class Utilisateur{
             openedSession=true;
         }
         try{
-            const collection=connection.db().collection(Utilisateur.#table);
+            const collection=connection.db().collection(Utilisateur.table);
             if(openedSession) {
                 session.startTransaction();
             }

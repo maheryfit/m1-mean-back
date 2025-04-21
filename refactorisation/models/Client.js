@@ -1,8 +1,13 @@
 import {Utilisateur} from "./Utilisateur.js";
 import {Constantes} from "../utils/Constantes.js";
+import * as console from "node:console";
 
 export class Client extends Utilisateur{
     static #table="clients";
+    static get table() {
+        return this.#table;
+    }
+
     #nom;
     #prenom;
     #telephone;
@@ -73,7 +78,7 @@ export class Client extends Utilisateur{
             openedSession=true;
         }
         try{
-            const collection=connection.db().collection(Client.#table);
+            const collection=connection.db().collection(Client.table);
             if(openedSession){
                 session.startTransaction();
             }
