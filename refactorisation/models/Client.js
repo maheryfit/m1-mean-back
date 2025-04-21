@@ -1,5 +1,4 @@
 import {Utilisateur} from "./Utilisateur.js";
-import {Constantes} from "../utils/Constantes.js";
 import * as console from "node:console";
 
 export class Client extends Utilisateur{
@@ -70,7 +69,7 @@ export class Client extends Utilisateur{
             statut: this.statut
         }
     }
-    async inscription(connection,sess){
+    async inscription(connection,sess,config){
         let session=sess;
         let openedSession=false;
         if(sess===null){
@@ -82,13 +81,13 @@ export class Client extends Utilisateur{
             if(openedSession){
                 session.startTransaction();
             }
-            const utilisateurInserted=await super.inscription(connection,session);
+            const utilisateurInserted=await super.inscription(connection,session,config);
             const clientToInsert={
                 nom:this.nom,
                 prenom:this.prenom,
                 telephone:this.telephone,
                 dateInscription:new Date(),
-                statut:Constantes.STATUT_CLIENT_SIMPLE_ID,
+                statut:config.STATUT_CLIENT_SIMPLE_ID,
                 idutilisateur:utilisateurInserted._id
             }
             await collection.insertOne(clientToInsert,{session});
@@ -101,6 +100,52 @@ export class Client extends Utilisateur{
             }
             console.log(error);
             throw error;
+        }finally{
+            if(openedSession){
+                await session.endSession();
+            }
+        }
+    }
+    async connexion(connection,sess){
+        let session=sess;
+        let openedSession=false;
+        if(sess===null){
+            session=connection.startSession();
+            openedSession=true;
+        }
+        try{
+            const collection=connection.db().collection(Client.table);
+            const utilisateur=await super.connexion(connection,session);
+            let client=await collection.aggregate([
+                {
+                    $match:{
+                        idutilisateur:utilisateur._id
+                    }
+                },
+                {
+                    $lookup:{
+                        from:"utilisateurs",
+                        foreignField:"_id",
+                        localField:"idutilisateur",
+                        as:"utilisateur"
+                    }
+                },
+                {
+                    $unwind:{
+                        path:"$utilisateur"
+                    }
+                },
+                {
+                    $project:{
+                        _id:1,
+                        "utilisateur.nom_utilisateur":1,
+                        idutilisateur:1,
+                        "utilisateur.profil":1
+                    }
+                }
+            ]).toArray();
+            client=client[0];
+            return client;
         }finally{
             if(openedSession){
                 await session.endSession();

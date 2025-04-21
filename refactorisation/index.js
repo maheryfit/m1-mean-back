@@ -3,19 +3,32 @@ import express from "express";
 import bodyParser from "body-parser";
 
 import clientRouter from "./routers/ClientRouter.js";
-import {ConnectionPoolMiddleware} from "./middlewares/ConnectionPoolMiddleware.js";
+import {ToolingMiddleware} from "./middlewares/ToolingMiddleware.js";
 import {MongoClient} from "mongodb";
+import {TokenUtil} from "./utils/TokenUtil.js";
+import {Constantes} from "./utils/Constantes.js";
 
 const app=express();
-const port=3000;
-const url="mongodb://localhost:27017/mydb?replicaSet=myReplicaSet";
+const port=Number(process.env.PORT);
 
+const config=new Constantes();
+
+const secret=process.env.JWT_SECRET_KEY;
+const algorithm=process.env.JWT_ALGORITHM;
+const expiration=process.env.TOKEN_DURATION;
+const tokenUtil=new TokenUtil(secret,algorithm,expiration);
+
+const url=process.env.MONGO_URI;
 const connection=new MongoClient(url);
 await connection.connect();
 
 app.use(bodyParser.urlencoded());
 app.use(bodyParser.json());
-app.use(ConnectionPoolMiddleware.passConnection(connection));
+app.use([
+    ToolingMiddleware.passConnection(connection),
+    ToolingMiddleware.passTokenUtil(tokenUtil),
+    ToolingMiddleware.passConfig(config)
+]);
 app.use("/client", clientRouter);
 
 app.listen(port);

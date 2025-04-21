@@ -11,7 +11,7 @@ try{
         const statutCollection=connection.db().collection(StatutClient.table);
         const utilisateurCollection=connection.db().collection(Utilisateur.table);
 
-        await utilisateurCollection.createIndex({"nom_utilisateur":1},{unique:true,session});
+        await utilisateurCollection.createIndex({"nom_utilisateur":1,profil:1},{unique:true,session});
 
         await statutCollection.insertMany([
             { _id:1, nom:"a" },

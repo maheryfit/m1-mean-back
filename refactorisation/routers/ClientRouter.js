@@ -15,11 +15,30 @@ clientRouter.post("/inscription", async (req, res)=>{
     * */
     try{
         const utilisateur=req.body;
-        console.log(utilisateur);
         const client=new Client(utilisateur);
-        await client.inscription(req.myConnection,null);
+        await client.inscription(req.myConnection,null,req.config);
         res.status(200).send({message:"Inscription réussie"});
     }catch(error) {
+        console.log(error);
+        res.status(500).send({message:error.message});
+    }
+});
+clientRouter.post("/connexion", async (req, res)=>{
+    /*
+    * utilisateur: {
+    *   nomUtilisateur,
+    *   motDePasse,
+    *   profil
+    * }
+    * */
+    try{
+        const utilisateur=req.body;
+        let client=new Client(utilisateur);
+        client=await client.connexion(req.myConnection,null);
+        const token=await req.tokenUtil.generateToken(client);
+        res.cookie(req.config.COOKIE_KEY,token,req.config.COOKIE_CONFIG);
+        res.status(200).send(client);
+    }catch(error){
         console.log(error);
         res.status(500).send({message:error.message});
     }
