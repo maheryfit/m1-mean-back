@@ -1,4 +1,6 @@
 const Article=require("../../models/dashboard-mecanicien/Article");
+const RoleMecanicien = require("../../models/dashboard-mecanicien/RoleMecanicien");
+const {formatCreatedAndUpdatedDateForList} = require("../../utils/listUtil");
 
 class ArticleService{
     constructor() {
@@ -51,6 +53,30 @@ class ArticleService{
     async getAllService() {
         return Article.find({})
             .populate("marque");
+    }
+
+    async count() {
+        return Article.aggregate([
+            {
+                $count: "count"
+            }
+        ])
+    }
+
+    /**
+     *
+     * @param {Request} req
+     * @returns {Promise<*>}
+     */
+    async findAllPaginate(req){
+        const index=Number(req.params.index);
+        const pageLimit=Number(req.params.pagelimit);
+        const resp = await Article.find()
+            .skip((index-1)*pageLimit)
+            .limit(pageLimit)
+            .populate("marque")
+            .lean();
+        return formatCreatedAndUpdatedDateForList(resp);
     }
 
     /**

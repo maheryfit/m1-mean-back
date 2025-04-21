@@ -1,5 +1,8 @@
 class ArticleController {
-
+    /**
+     *
+     * @param {ArticleService} service
+     */
     constructor(service) {
         this.service = service;
     }
@@ -26,8 +29,8 @@ class ArticleController {
      */
     async update(req, res) {
         try {
-            const marque = await this.service.updateService(req);
-            res.status(200).json(marque);
+            const article = await this.service.updateService(req);
+            res.status(200).json(article);
         } catch (error) {
             res.status(400).json({ message: error.message });
         }
@@ -41,8 +44,8 @@ class ArticleController {
      */
     async getAll(req, res) {
         try {
-            const marques = await this.service.getAllService();
-            res.status(200).json(marques);
+            const articles = await this.service.getAllService();
+            res.status(200).json(articles);
         } catch (error) {
             res.status(400).json({ message: error.message });
         }
@@ -62,6 +65,35 @@ class ArticleController {
         }
     }
 
+    /**
+     *
+     * @param {Request} req
+     * @param {Response} res
+     */
+    async getAllPaginate(req, res){
+        try {
+            const articles=await this.service.findAllPaginate(req);
+            res.status(200).json(articles);
+        } catch (error) {
+            res.status(400).json({message: error.message});
+        }
+    }
+
+    /**
+     *
+     * @param req
+     * @param res
+     * @returns {Promise<void>}
+     */
+    async count(req, res){
+        try {
+            const count=await this.service.count(req);
+            res.status(200).json(count.length===0?0:count[0].count);
+        } catch (error) {
+            res.status(400).json({message:error.message});
+        }
+    }
+
 
     /**
      *
@@ -70,8 +102,8 @@ class ArticleController {
      */
     async findById(req, res) {
         try {
-            const marque = await this.service.findByIdService(req);
-            res.status(200).json(marque);
+            const article = await this.service.findByIdService(req);
+            res.status(200).json(article);
         } catch (error) {
             res.status(400).json({ message: error.message });
         }
