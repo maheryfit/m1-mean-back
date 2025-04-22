@@ -1,4 +1,5 @@
 import bcrypt from "bcrypt";
+import * as console from "node:console";
 export class Utilisateur{
     static #table="utilisateurs";
 
@@ -6,9 +7,18 @@ export class Utilisateur{
         return this.#table;
     }
 
+    #idutilisateur;
     #nomUtilisateur;
     #motDePasse;
     #profil;
+
+    get idutilisateur() {
+        return this.#idutilisateur;
+    }
+
+    set idutilisateur(value) {
+        this.#idutilisateur = value;
+    }
 
     get profil() {
         return this.#profil;
@@ -96,10 +106,6 @@ export class Utilisateur{
             if(!correctPassword){
                 throw new Error("Nom d'utilisateur ou mot de passe incorrect.");
             }
-            utilisateur={
-                nom_utilisateur:utilisateur.nom_utilisateur,
-                profil:utilisateur.profil
-            };
             return utilisateur;
         }finally{
             if(openedSession){

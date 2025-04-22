@@ -1,4 +1,5 @@
 import {Utilisateur} from "./Utilisateur.js";
+import {Voiture} from "./Voiture.js";
 import * as console from "node:console";
 
 export class Client extends Utilisateur{
@@ -7,11 +8,20 @@ export class Client extends Utilisateur{
         return this.#table;
     }
 
+    #idclient;
     #nom;
     #prenom;
     #telephone;
     #dateInscription;
     #statut;
+
+    get idclient() {
+        return this.#idclient;
+    }
+
+    set idclient(value) {
+        this.#idclient = value;
+    }
 
     get nom() {
         return this.#nom;
@@ -100,6 +110,69 @@ export class Client extends Utilisateur{
             }
             console.log(error);
             throw error;
+        }finally{
+            if(openedSession){
+                await session.endSession();
+            }
+        }
+    }
+    async connexion(connection,sess){
+        let session=sess;
+        let openedSession=false;
+        if(sess===null){
+            session=connection.startSession();
+            openedSession=true;
+        }
+        try{
+            const collection=connection.db().collection(Client.table);
+            const utilisateur=await super.connexion(connection,session);
+            const client=await collection.findOne({idutilisateur:utilisateur._id},{session});
+            const utilisateurToReturn={
+                idutilisateur:utilisateur._id,
+                idclient:client._id,
+                nom_utilisateur:utilisateur.nom_utilisateur,
+                profil:utilisateur.profil
+            };
+            return utilisateurToReturn;
+        }finally{
+            if(openedSession){
+                await session.endSession();
+            }
+        }
+    }
+    async getVoitures(connection,sess,page,limit){
+        let session=sess;
+        let openedSession=false;
+        if(sess===null){
+            session=connection.startSession();
+            openedSession=true;
+        }
+        try{
+            const pageNumber=Number(page);
+            const limitNumber=Number(limit);
+            const collection=await connection.db().collection(Voiture.table);
+            const voitures=await collection.find({idclient:this.idclient},{session})
+                .skip((pageNumber-1)*limitNumber)
+                .limit(limitNumber)
+                .toArray();
+            return voitures;
+        }finally{
+            if(openedSession){
+                await session.endSession();
+            }
+        }
+    }
+    async countVoitures(connection,sess){
+        let session=sess;
+        let openedSession=false;
+        if(sess===null){
+            session=connection.startSession();
+            openedSession=true;
+        }
+        try{
+            const collection=await connection.db().collection(Voiture.table);
+            const count=await collection.countDocuments({idclient:this.idclient},{session});
+            return count;
         }finally{
             if(openedSession){
                 await session.endSession();

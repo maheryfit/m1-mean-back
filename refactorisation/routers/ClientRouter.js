@@ -1,5 +1,6 @@
 import express from "express";
 import {Client} from "../models/Client.js";
+import {AuthMiddleware} from "../middlewares/AuthMiddleware.js";
 
 const clientRouter=express.Router();
 
@@ -36,6 +37,8 @@ clientRouter.post("/connexion", async (req, res)=>{
         let client=new Client(utilisateur);
         client=await client.connexion(req.myConnection,null);
         const token=await req.tokenUtil.generateToken(client);
+        client.idutilisateur=undefined;
+        client.idclient=undefined;
         res.cookie(req.config.COOKIE_KEY,token,req.config.COOKIE_CONFIG);
         res.status(200).send(client);
     }catch(error){
@@ -43,5 +46,32 @@ clientRouter.post("/connexion", async (req, res)=>{
         res.status(500).send({message:error.message});
     }
 });
+clientRouter.get("/voitures/:page/:limit", AuthMiddleware.checkAuthClient, async (req, res)=>{
+    /*
+    * cookieKey : <cookie>
+    * */
+    try{
+        const utilisateur=req.utilisateur;
+        const client=new Client({});
+        client.idclient=utilisateur.idclient;
+        const voitures=await client.getVoitures(req.myConnection,null,req.params.page,req.params.limit);
+        res.status(200).send(voitures);
+    }catch(error){
+        console.log(error);
+        res.status(500).send({message:error.message});
+    }
+});
+clientRouter.get("/count-voitures", AuthMiddleware.checkAuthClient, async (req, res)=>{
+    try{
+        const utilisateur=req.utilisateur;
+        const client=new Client({});
+        client.idclient=utilisateur.idclient;
+        const countVoitures=await client.countVoitures(req.myConnection,null);
+        res.status(200).send(countVoitures);
+    }catch(error){
+        console.log(error);
+        res.status(500).send({message:error.message});
+    }
+})
 
 export default clientRouter;
