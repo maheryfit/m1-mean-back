@@ -88,7 +88,7 @@ export class Utilisateur{
         }
         try {
             const collection=connection.db().collection(Utilisateur.table);
-            const utilisateur=await collection.findOne({nom_utilisateur:this.nomUtilisateur,profil:this.profil},{session});
+            let utilisateur=await collection.findOne({nom_utilisateur:this.nomUtilisateur,profil:this.profil},{session});
             if(utilisateur===null){
                 throw new Error("Utilisateur introuvable");
             }
@@ -96,6 +96,10 @@ export class Utilisateur{
             if(!correctPassword){
                 throw new Error("Nom d'utilisateur ou mot de passe incorrect.");
             }
+            utilisateur={
+                nom_utilisateur:utilisateur.nom_utilisateur,
+                profil:utilisateur.profil
+            };
             return utilisateur;
         }finally{
             if(openedSession){

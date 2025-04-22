@@ -7,6 +7,8 @@ import {ToolingMiddleware} from "./middlewares/ToolingMiddleware.js";
 import {MongoClient} from "mongodb";
 import {TokenUtil} from "./utils/TokenUtil.js";
 import {Constantes} from "./utils/Constantes.js";
+import cookieParser from "cookie-parser";
+import utilisateurRouter from "./routers/UtilisateurRouter.js";
 
 const app=express();
 const port=Number(process.env.PORT);
@@ -22,6 +24,7 @@ const url=process.env.MONGO_URI;
 const connection=new MongoClient(url);
 await connection.connect();
 
+app.use(cookieParser());
 app.use(bodyParser.urlencoded());
 app.use(bodyParser.json());
 app.use([
@@ -30,5 +33,6 @@ app.use([
     ToolingMiddleware.passConfig(config)
 ]);
 app.use("/client", clientRouter);
+app.use("/utilisateur", utilisateurRouter);
 
 app.listen(port);
