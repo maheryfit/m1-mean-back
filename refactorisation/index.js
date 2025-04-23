@@ -9,6 +9,7 @@ import {TokenUtil} from "./utils/TokenUtil.js";
 import {Constantes} from "./utils/Constantes.js";
 import cookieParser from "cookie-parser";
 import utilisateurRouter from "./routers/UtilisateurRouter.js";
+import stationRouter from "./routers/StationRouter.js";
 
 const app=express();
 const port=Number(process.env.PORT);
@@ -34,5 +35,6 @@ app.use([
 ]);
 app.use("/client", clientRouter);
 app.use("/utilisateur", utilisateurRouter);
+app.use("/station", stationRouter);
 
 app.listen(port);

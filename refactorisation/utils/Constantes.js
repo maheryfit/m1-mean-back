@@ -9,23 +9,37 @@ export class Constantes{
     #PROFIL_CLIENT;
     #PROFIL_MECANICIEN;
     #PROFIL_MANAGER;
+    #ETAT_UTILISATEUR_CREE;
+    #ETAT_UTILISATEUR_SUPPRIME;
+    #ETAT_CLIENT_CREE;
+    #ETAT_CLIENT_SUPPRIME;
     #ETAT_VOITURE_CREE;
     #ETAT_VOITURE_SUPPRIME;
+    #ETAT_STATION_CREE;
+    #ETAT_STATION_SUPPRIME;
+
+    get ETAT_UTILISATEUR_CREE() {
+        return this.#ETAT_UTILISATEUR_CREE;
+    }
+
+    get ETAT_UTILISATEUR_SUPPRIME() {
+        return this.#ETAT_UTILISATEUR_SUPPRIME;
+    }
+
+    get ETAT_STATION_CREE() {
+        return this.#ETAT_STATION_CREE;
+    }
+
+    get ETAT_STATION_SUPPRIME() {
+        return this.#ETAT_STATION_SUPPRIME;
+    }
 
     get ETAT_VOITURE_CREE() {
         return this.#ETAT_VOITURE_CREE;
     }
 
-    set ETAT_VOITURE_CREE(value) {
-        this.#ETAT_VOITURE_CREE = value;
-    }
-
     get ETAT_VOITURE_SUPPRIME() {
         return this.#ETAT_VOITURE_SUPPRIME;
-    }
-
-    set ETAT_VOITURE_SUPPRIME(value) {
-        this.#ETAT_VOITURE_SUPPRIME = value;
     }
 
     get PROFIL_CLIENT() {
@@ -60,6 +74,13 @@ export class Constantes{
         return this.#COOKIE_CONFIG;
     }
 
+    get ETAT_CLIENT_CREE() {
+        return this.#ETAT_CLIENT_CREE;
+    }
+
+    get ETAT_CLIENT_SUPPRIME() {
+        return this.#ETAT_CLIENT_SUPPRIME;
+    }
 
     constructor() {
         this.#SALT_ROUNDS=10;
@@ -75,7 +96,13 @@ export class Constantes{
         this.#PROFIL_CLIENT=1;
         this.#PROFIL_MECANICIEN=5;
         this.#PROFIL_MECANICIEN=10;
+        this.#ETAT_UTILISATEUR_CREE=process.env.ETAT_UTILISATEUR_CREE;
+        this.#ETAT_UTILISATEUR_SUPPRIME=process.env.ETAT_UTILISATEUR_SUPPRIME;
+        this.#ETAT_CLIENT_CREE=process.env.ETAT_CLIENT_CREE;
+        this.#ETAT_CLIENT_SUPPRIME=process.env.ETAT_CLIENT_SUPPRIME;
         this.#ETAT_VOITURE_CREE=process.env.ETAT_VOITURE_CREE;
         this.#ETAT_VOITURE_SUPPRIME=process.env.ETAT_VOITURE_SUPPRIME;
+        this.#ETAT_STATION_CREE=process.env.ETAT_STATION_CREE;
+        this.#ETAT_STATION_SUPPRIME=process.env.ETAT_VOITURE_SUPPRIME;
     }
 }

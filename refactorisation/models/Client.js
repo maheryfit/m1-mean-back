@@ -108,7 +108,8 @@ export class Client extends Utilisateur{
                 telephone:this.telephone,
                 dateInscription:new Date(),
                 statut:config.STATUT_CLIENT_SIMPLE_ID,
-                idutilisateur:utilisateurInserted._id
+                idutilisateur:utilisateurInserted._id,
+                etat:Number(config.ETAT_CLIENT_CREE)
             }
             await collection.insertOne(clientToInsert,{session});
             if(openedSession){
@@ -126,7 +127,7 @@ export class Client extends Utilisateur{
             }
         }
     }
-    async connexion(connection,sess){
+    async connexion(connection,sess,config){
         let session=sess;
         let openedSession=false;
         if(sess===null){
@@ -135,8 +136,11 @@ export class Client extends Utilisateur{
         }
         try{
             const collection=connection.db().collection(Client.table);
-            const utilisateur=await super.connexion(connection,session);
-            const client=await collection.findOne({idutilisateur:utilisateur._id},{session});
+            const utilisateur=await super.connexion(connection,session,config);
+            const client=await collection.findOne({idutilisateur:utilisateur._id,etat:Number(config.ETAT_CLIENT_CREE)},{session});
+            if(client===null){
+                throw new Error("Utilisateur introuvable");
+            }
             const utilisateurToReturn={
                 idutilisateur:utilisateur._id,
                 idclient:client._id,
@@ -161,7 +165,7 @@ export class Client extends Utilisateur{
             const pageNumber=Number(page);
             const limitNumber=Number(limit);
             const collection=await connection.db().collection(Voiture.table);
-            const voitures=await collection.find({idclient:this.idclient,etat:config.ETAT_VOITURE_CREE},{session})
+            const voitures=await collection.find({idclient:this.idclient,etat:Number(config.ETAT_VOITURE_CREE)},{session})
                 .skip((pageNumber-1)*limitNumber)
                 .limit(limitNumber)
                 .toArray();
@@ -181,7 +185,7 @@ export class Client extends Utilisateur{
         }
         try{
             const collection=await connection.db().collection(Voiture.table);
-            const count=await collection.countDocuments({idclient:this.idclient,etat:config.ETAT_VOITURE_CREE},{session});
+            const count=await collection.countDocuments({idclient:this.idclient,etat:Number(config.ETAT_VOITURE_CREE)},{session});
             return count;
         }finally{
             if(openedSession){
@@ -205,7 +209,7 @@ export class Client extends Utilisateur{
                 description:voiture.description,
                 immatriculation:voiture.immatriculation,
                 caracteristiques:voiture.caracteristiques,
-                etat:config.ETAT_VOITURE_CREE,
+                etat:Number(config.ETAT_VOITURE_CREE),
                 idclient:this.idclient,
             }
             await collection.insertOne(voitureToInsert,{session});
@@ -237,7 +241,7 @@ export class Client extends Utilisateur{
             if(openedSession){
                 session.startTransaction();
             }
-            await collection.updateOne({_id:new ObjectId(idvoiture),idclient:this.idclient},{$set:{etat:config.ETAT_VOITURE_SUPPRIME}},{session});
+            await collection.updateOne({_id:new ObjectId(idvoiture),idclient:this.idclient},{$set:{etat:Number(config.ETAT_VOITURE_SUPPRIME)}},{session});
             if(openedSession){
                 await session.commitTransaction();
             }

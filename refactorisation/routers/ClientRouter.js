@@ -36,7 +36,7 @@ clientRouter.post("/connexion", async (req, res)=>{
     try{
         const utilisateur=req.body;
         let client=new Client(utilisateur);
-        client=await client.connexion(req.myConnection,null);
+        client=await client.connexion(req.myConnection,null,req.config);
         const token=await req.tokenUtil.generateToken(client);
         client.idutilisateur=undefined;
         client.idclient=undefined;

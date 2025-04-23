@@ -1,4 +1,17 @@
 export class AuthMiddleware {
+    static async checkConnecte(req,res,next){
+        try{
+            const cookie=req.cookies[req.config.COOKIE_KEY];
+            if(cookie===undefined){
+                res.status(500).send({message:"Votre session est échue. Veuillez vous reconnecter"});
+                return;
+            }
+            next();
+        }catch(e){
+            console.log(e);
+            res.status(500).send({error:e.message});
+        }
+    }
     static async checkAuthClient(req,res,next){
         try{
             const cookie=req.cookies[req.config.COOKIE_KEY];

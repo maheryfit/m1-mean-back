@@ -80,6 +80,7 @@ export class Utilisateur{
                 nom_utilisateur:this.nomUtilisateur,
                 mot_de_passe:motDePasseHash,
                 profil:config.PROFIL_CLIENT,
+                etat:Number(config.ETAT_UTILISATEUR_CREE),
             }
             await collection.insertOne(utilisateurToInsert,{session});
             if(openedSession){
@@ -98,7 +99,7 @@ export class Utilisateur{
             }
         }
     }
-    async connexion(connection,sess){
+    async connexion(connection,sess,config){
         let session=sess;
         let openedSession=false;
         if(sess===null){
@@ -107,7 +108,7 @@ export class Utilisateur{
         }
         try {
             const collection=connection.db().collection(Utilisateur.table);
-            let utilisateur=await collection.findOne({nom_utilisateur:this.nomUtilisateur,profil:this.profil},{session});
+            let utilisateur=await collection.findOne({nom_utilisateur:this.nomUtilisateur,profil:this.profil,etat:Number(config.ETAT_UTILISATEUR_CREE)},{session});
             if(utilisateur===null){
                 throw new Error("Utilisateur introuvable");
             }
