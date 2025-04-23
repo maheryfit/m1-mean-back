@@ -1,6 +1,7 @@
 import {Utilisateur} from "./Utilisateur.js";
 import {Voiture} from "./Voiture.js";
 import * as console from "node:console";
+import {ObjectId} from "mongodb";
 
 export class Client extends Utilisateur{
     static #table="clients";
@@ -14,6 +15,15 @@ export class Client extends Utilisateur{
     #telephone;
     #dateInscription;
     #statut;
+    #etat;
+
+    get etat() {
+        return this.#etat;
+    }
+
+    set etat(value) {
+        this.#etat = value;
+    }
 
     get idclient() {
         return this.#idclient;
@@ -140,7 +150,7 @@ export class Client extends Utilisateur{
             }
         }
     }
-    async getVoitures(connection,sess,page,limit){
+    async getVoitures(connection,sess,config,page,limit){
         let session=sess;
         let openedSession=false;
         if(sess===null){
@@ -151,7 +161,7 @@ export class Client extends Utilisateur{
             const pageNumber=Number(page);
             const limitNumber=Number(limit);
             const collection=await connection.db().collection(Voiture.table);
-            const voitures=await collection.find({idclient:this.idclient},{session})
+            const voitures=await collection.find({idclient:this.idclient,etat:config.ETAT_VOITURE_CREE},{session})
                 .skip((pageNumber-1)*limitNumber)
                 .limit(limitNumber)
                 .toArray();
@@ -162,7 +172,7 @@ export class Client extends Utilisateur{
             }
         }
     }
-    async countVoitures(connection,sess){
+    async countVoitures(connection,sess,config){
         let session=sess;
         let openedSession=false;
         if(sess===null){
@@ -171,8 +181,72 @@ export class Client extends Utilisateur{
         }
         try{
             const collection=await connection.db().collection(Voiture.table);
-            const count=await collection.countDocuments({idclient:this.idclient},{session});
+            const count=await collection.countDocuments({idclient:this.idclient,etat:config.ETAT_VOITURE_CREE},{session});
             return count;
+        }finally{
+            if(openedSession){
+                await session.endSession();
+            }
+        }
+    }
+    async creerVoiture(connection,sess,config,voiture){
+        let session=sess;
+        let openedSession=false;
+        if(sess===null){
+            session=connection.startSession();
+            openedSession=true;
+        }
+        try{
+            const collection=await connection.db().collection(Voiture.table);
+            if(openedSession){
+                session.startTransaction();
+            }
+            const voitureToInsert={
+                description:voiture.description,
+                immatriculation:voiture.immatriculation,
+                caracteristiques:voiture.caracteristiques,
+                etat:config.ETAT_VOITURE_CREE,
+                idclient:this.idclient,
+            }
+            await collection.insertOne(voitureToInsert,{session});
+            if(openedSession){
+                await session.commitTransaction();
+            }
+            return voitureToInsert;
+        }catch(error){
+            if(openedSession){
+                await session.abortTransaction();
+            }
+            console.log(error);
+            throw error;
+        }finally{
+            if(openedSession){
+                await session.endSession();
+            }
+        }
+    }
+    async supprimerVoiture(connection,sess,config,idvoiture){
+        let session=sess;
+        let openedSession=false;
+        if(sess===null){
+            session=connection.startSession();
+            openedSession=true;
+        }
+        try{
+            const collection=await connection.db().collection(Voiture.table);
+            if(openedSession){
+                session.startTransaction();
+            }
+            await collection.updateOne({_id:new ObjectId(idvoiture),idclient:this.idclient},{$set:{etat:config.ETAT_VOITURE_SUPPRIME}},{session});
+            if(openedSession){
+                await session.commitTransaction();
+            }
+        }catch(error){
+            if(openedSession){
+                await session.abortTransaction();
+            }
+            console.log(error);
+            throw error;
         }finally{
             if(openedSession){
                 await session.endSession();

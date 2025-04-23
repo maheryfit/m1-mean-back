@@ -1,6 +1,7 @@
 import express from "express";
 import {Client} from "../models/Client.js";
 import {AuthMiddleware} from "../middlewares/AuthMiddleware.js";
+import {Voiture} from "../models/Voiture.js";
 
 const clientRouter=express.Router();
 
@@ -54,7 +55,7 @@ clientRouter.get("/voitures/:page/:limit", AuthMiddleware.checkAuthClient, async
         const utilisateur=req.utilisateur;
         const client=new Client({});
         client.idclient=utilisateur.idclient;
-        const voitures=await client.getVoitures(req.myConnection,null,req.params.page,req.params.limit);
+        const voitures=await client.getVoitures(req.myConnection,null,req.config,req.params.page,req.params.limit);
         res.status(200).send(voitures);
     }catch(error){
         console.log(error);
@@ -66,8 +67,40 @@ clientRouter.get("/count-voitures", AuthMiddleware.checkAuthClient, async (req, 
         const utilisateur=req.utilisateur;
         const client=new Client({});
         client.idclient=utilisateur.idclient;
-        const countVoitures=await client.countVoitures(req.myConnection,null);
+        const countVoitures=await client.countVoitures(req.myConnection,null,req.config);
         res.status(200).send(countVoitures);
+    }catch(error){
+        console.log(error);
+        res.status(500).send({message:error.message});
+    }
+});
+clientRouter.post("/voiture", AuthMiddleware.checkAuthClient, async (req, res)=>{
+    /*
+    * voiture:{
+    *   description,
+    *   immatriculation,
+    *   caracteristiques
+    * }
+    * */
+    try{
+        const utilisateur=req.utilisateur;
+        const client=new Client({});
+        client.idclient=utilisateur.idclient;
+        let voiture=req.body;
+        voiture=await client.creerVoiture(req.myConnection,null,req.config,voiture);
+        res.status(200).send(voiture);
+    }catch(error){
+        console.log(error);
+        res.status(500).send({message:error.message});
+    }
+})
+clientRouter.delete("/voiture/:idvoiture", AuthMiddleware.checkAuthClient, async (req, res)=>{
+    try{
+        const utilisateur=req.utilisateur;
+        const client=new Client({});
+        client.idclient=utilisateur.idclient;
+        await client.supprimerVoiture(req.myConnection,null,req.config,req.params.idvoiture);
+        res.sendStatus(200);
     }catch(error){
         console.log(error);
         res.status(500).send({message:error.message});

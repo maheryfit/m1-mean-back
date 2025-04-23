@@ -5,8 +5,35 @@ export class Voiture{
         return this.#table;
     }
 
+    #idvoiture;
     #description;
     #immatriculation;
+    #caracteristiques;
+    #etat;
+
+    get idvoiture() {
+        return this.#idvoiture;
+    }
+
+    set idvoiture(value) {
+        this.#idvoiture = value;
+    }
+
+    get etat() {
+        return this.#etat;
+    }
+
+    set etat(value) {
+        this.#etat = value;
+    }
+
+    get caracteristiques() {
+        return this.#caracteristiques;
+    }
+
+    set caracteristiques(value) {
+        this.#caracteristiques = value;
+    }
 
     get description() {
         return this.#description;
@@ -25,7 +52,9 @@ export class Voiture{
     }
 
     constructor(obj) {
+        this.idvoiture=obj.idvoiture;
         this.description = obj.description;
         this.immatriculation = obj.immatriculation;
+        this.caracteristiques = obj.caracteristiques;
     }
 }

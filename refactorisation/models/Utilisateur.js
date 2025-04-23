@@ -11,6 +11,15 @@ export class Utilisateur{
     #nomUtilisateur;
     #motDePasse;
     #profil;
+    #etat;
+
+    get etat() {
+        return this.#etat;
+    }
+
+    set etat(value) {
+        this.#etat = value;
+    }
 
     get idutilisateur() {
         return this.#idutilisateur;

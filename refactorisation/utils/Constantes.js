@@ -9,6 +9,24 @@ export class Constantes{
     #PROFIL_CLIENT;
     #PROFIL_MECANICIEN;
     #PROFIL_MANAGER;
+    #ETAT_VOITURE_CREE;
+    #ETAT_VOITURE_SUPPRIME;
+
+    get ETAT_VOITURE_CREE() {
+        return this.#ETAT_VOITURE_CREE;
+    }
+
+    set ETAT_VOITURE_CREE(value) {
+        this.#ETAT_VOITURE_CREE = value;
+    }
+
+    get ETAT_VOITURE_SUPPRIME() {
+        return this.#ETAT_VOITURE_SUPPRIME;
+    }
+
+    set ETAT_VOITURE_SUPPRIME(value) {
+        this.#ETAT_VOITURE_SUPPRIME = value;
+    }
 
     get PROFIL_CLIENT() {
         return this.#PROFIL_CLIENT;
@@ -57,5 +75,7 @@ export class Constantes{
         this.#PROFIL_CLIENT=1;
         this.#PROFIL_MECANICIEN=5;
         this.#PROFIL_MECANICIEN=10;
+        this.#ETAT_VOITURE_CREE=process.env.ETAT_VOITURE_CREE;
+        this.#ETAT_VOITURE_SUPPRIME=process.env.ETAT_VOITURE_SUPPRIME;
     }
 }

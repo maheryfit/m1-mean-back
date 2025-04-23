@@ -9,6 +9,7 @@ export class AuthMiddleware {
             const utilisateur=await req.tokenUtil.decodeToken(cookie);
             if(utilisateur.profil!==req.config.PROFIL_CLIENT){
                 res.status(500).send({message:"Non autorisé"});
+                return;
             }
             req.utilisateur=utilisateur;
             next();
