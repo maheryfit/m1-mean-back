@@ -17,6 +17,16 @@ export class Constantes{
     #ETAT_VOITURE_SUPPRIME;
     #ETAT_STATION_CREE;
     #ETAT_STATION_SUPPRIME;
+    #ETAT_SERVICE_CREE;
+    #ETAT_SERVICE_SUPPRIME;
+
+    get ETAT_SERVICE_CREE() {
+        return this.#ETAT_SERVICE_CREE;
+    }
+
+    get ETAT_SERVICE_SUPPRIME() {
+        return this.#ETAT_SERVICE_SUPPRIME;
+    }
 
     get ETAT_UTILISATEUR_CREE() {
         return this.#ETAT_UTILISATEUR_CREE;
@@ -103,6 +113,8 @@ export class Constantes{
         this.#ETAT_VOITURE_CREE=process.env.ETAT_VOITURE_CREE;
         this.#ETAT_VOITURE_SUPPRIME=process.env.ETAT_VOITURE_SUPPRIME;
         this.#ETAT_STATION_CREE=process.env.ETAT_STATION_CREE;
-        this.#ETAT_STATION_SUPPRIME=process.env.ETAT_VOITURE_SUPPRIME;
+        this.#ETAT_STATION_SUPPRIME=process.env.ETAT_STATION_SUPPRIME;
+        this.#ETAT_SERVICE_CREE=process.env.ETAT_SERVICE_CREE;
+        this.#ETAT_SERVICE_SUPPRIME=process.env.ETAT_SERVICE_SUPPRIME;
     }
 }

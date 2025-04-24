@@ -1,4 +1,5 @@
 import {Voiture} from "./Voiture.js";
+import {ObjectId} from "mongodb";
 
 export class Station{
     static #table="stations";
@@ -76,6 +77,41 @@ export class Station{
             const collection=connection.db().collection(Station.table);
             const countStations=await collection.countDocuments({etat:Number(config.ETAT_STATION_CREE)},{session});
             return countStations;
+        }finally{
+            if(openedSession){
+                await session.endSession();
+            }
+        }
+    }
+    async getStation(connection,sess,config){
+        let session=sess;
+        let openedSession=false;
+        if(sess===null){
+            session=connection.startSession();
+            openedSession=true;
+        }
+        try{
+            const collection=connection.db().collection(Station.table);
+            const station=await collection.findOne({_id:new ObjectId(this.idstation),etat:Number(config.ETAT_STATION_CREE)},{session});
+            return station;
+        }finally{
+            if(openedSession){
+                await session.endSession();
+            }
+        }
+    }
+
+    static async paginationStation(connection,sess,config,page,limit){
+        let session=sess;
+        let openedSession=false;
+        if(sess===null){
+            session=connection.startSession();
+            openedSession=true;
+        }
+        try{
+            const stations=await this.getAllStations(connection,session,config,page,limit);
+            const countStations=await this.countStations(connection,session,config);
+            return [stations,countStations];
         }finally{
             if(openedSession){
                 await session.endSession();

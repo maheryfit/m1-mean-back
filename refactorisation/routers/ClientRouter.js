@@ -2,6 +2,7 @@ import express from "express";
 import {Client} from "../models/Client.js";
 import {AuthMiddleware} from "../middlewares/AuthMiddleware.js";
 import {Voiture} from "../models/Voiture.js";
+import {Station} from "../models/Station.js";
 
 const clientRouter=express.Router();
 
@@ -47,7 +48,7 @@ clientRouter.post("/connexion", async (req, res)=>{
         res.status(500).send({message:error.message});
     }
 });
-clientRouter.get("/voitures/:page/:limit", AuthMiddleware.checkAuthClient, async (req, res)=>{
+clientRouter.get("/liste-voiture/:page/:limit", AuthMiddleware.checkAuthClient, async (req, res)=>{
     /*
     * cookieKey : <cookie>
     * */
@@ -55,26 +56,14 @@ clientRouter.get("/voitures/:page/:limit", AuthMiddleware.checkAuthClient, async
         const utilisateur=req.utilisateur;
         const client=new Client({});
         client.idclient=utilisateur.idclient;
-        const voitures=await client.getVoitures(req.myConnection,null,req.config,req.params.page,req.params.limit);
+        const voitures=await client.paginationVoiture(req.myConnection,null,req.config,req.params.page,req.params.limit);
         res.status(200).send(voitures);
     }catch(error){
         console.log(error);
         res.status(500).send({message:error.message});
     }
 });
-clientRouter.get("/count-voitures", AuthMiddleware.checkAuthClient, async (req, res)=>{
-    try{
-        const utilisateur=req.utilisateur;
-        const client=new Client({});
-        client.idclient=utilisateur.idclient;
-        const countVoitures=await client.countVoitures(req.myConnection,null,req.config);
-        res.status(200).send(countVoitures);
-    }catch(error){
-        console.log(error);
-        res.status(500).send({message:error.message});
-    }
-});
-clientRouter.post("/voiture", AuthMiddleware.checkAuthClient, async (req, res)=>{
+clientRouter.post("/creer-voiture", AuthMiddleware.checkAuthClient, async (req, res)=>{
     /*
     * voiture:{
     *   description,
@@ -94,7 +83,7 @@ clientRouter.post("/voiture", AuthMiddleware.checkAuthClient, async (req, res)=>
         res.status(500).send({message:error.message});
     }
 })
-clientRouter.delete("/voiture/:idvoiture", AuthMiddleware.checkAuthClient, async (req, res)=>{
+clientRouter.delete("/supprimer-voiture/:idvoiture", AuthMiddleware.checkAuthClient, async (req, res)=>{
     try{
         const utilisateur=req.utilisateur;
         const client=new Client({});

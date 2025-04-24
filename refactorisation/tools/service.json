@@ -1,0 +1,216 @@
+[{
+  "_id": {
+    "$oid": "67e520bbe75c5380c00543ac"
+  },
+  "nom": "Changement de pneus",
+  "duree": 1.2,
+  "tarif": 80000,
+  "etat":1
+},
+  {
+    "_id": {
+      "$oid": "67e520bbe75c5380c00543ad"
+    },
+    "nom": "Vidange moteur + filtre à huile",
+    "duree": 1.5,
+    "tarif": 100000,
+    "etat": 1
+  },
+  {
+    "_id": {
+      "$oid": "67e520bbe75c5380c00543ae"
+    },
+    "nom": "Réglage parallélisme & géométrie",
+    "duree": 2,
+    "tarif": 120000,
+    "etat": 1
+  },
+  {
+    "_id": {
+      "$oid": "67e520bbe75c5380c00543af"
+    },
+    "nom": "Remplacement batterie",
+    "duree": 0.8,
+    "tarif": 60000,
+    "etat": 1
+  },
+  {
+    "_id": {
+      "$oid": "67e520bbe75c5380c00543b0"
+    },
+    "nom": "Réparation carrosserie & peinture",
+    "duree": 6,
+    "tarif": 500000,
+    "etat": 1
+  },
+  {
+    "_id": {
+      "$oid": "67e520bbe75c5380c00543b1"
+    },
+    "nom": "Changement des plaquettes de frein",
+    "duree": 1.5,
+    "tarif": 150000,
+    "etat": 1
+  },
+  {
+    "_id": {
+      "$oid": "67e520bbe75c5380c00543b2"
+    },
+    "nom": "Recharge et entretien climatisation",
+    "duree": 1,
+    "tarif": 90000,
+    "etat": 1
+  },
+  {
+    "_id": {
+      "$oid": "67e520bbe75c5380c00543b3"
+    },
+    "nom": "Changement courroie de distribution",
+    "duree": 6.5,
+    "tarif": 650000,
+    "etat": 1
+  },
+  {
+    "_id": {
+      "$oid": "67e520bbe75c5380c00543b4"
+    },
+    "nom": "Diagnostic électronique moteur",
+    "duree": 1,
+    "tarif": 70000,
+    "etat": 1
+  },
+  {
+    "_id": {
+      "$oid": "67e520bbe75c5380c00543b5"
+    },
+    "nom": "Remplacement kit d'embrayage",
+    "duree": 8,
+    "tarif": 750000,
+    "etat": 1
+  },
+  {
+    "_id": {
+      "$oid": "67e520bbe75c5380c00543b6"
+    },
+    "nom": "Révision complète du véhicule",
+    "duree": 3,
+    "tarif": 200000,
+    "etat": 1
+  },
+  {
+    "_id": {
+      "$oid": "67e520bbe75c5380c00543b7"
+    },
+    "nom": "Changement amortisseurs",
+    "duree": 4.5,
+    "tarif": 400000,
+    "etat": 1
+  },
+  {
+    "_id": {
+      "$oid": "67e520bbe75c5380c00543b8"
+    },
+    "nom": "Changement filtre à air et à carburant",
+    "duree": 0.7,
+    "tarif": 45000,
+    "etat": 1
+  },
+  {
+    "_id": {
+      "$oid": "67e520bbe75c5380c00543b9"
+    },
+    "nom": "Débosselage sans peinture",
+    "duree": 3.5,
+    "tarif": 180000,
+    "etat": 1
+  },
+  {
+    "_id": {
+      "$oid": "67e520bbe75c5380c00543ba"
+    },
+    "nom": "Polissage et lustrage complet",
+    "duree": 4,
+    "tarif": 220000,
+    "etat": 1
+  },
+  {
+    "_id": {
+      "$oid": "67e520bbe75c5380c00543bb"
+    },
+    "nom": "Réparation échappement & silencieux",
+    "duree": 2.5,
+    "tarif": 180000,
+    "etat": 1
+  },
+  {
+    "_id": {
+      "$oid": "67e520bbe75c5380c00543bc"
+    },
+    "nom": "Purge et remplacement liquide de frein",
+    "duree": 1.2,
+    "tarif": 80000,
+    "etat": 1
+  },
+  {
+    "_id": {
+      "$oid": "67e520bbe75c5380c00543bd"
+    },
+    "nom": "Nettoyage moteur à la vapeur",
+    "duree": 1.5,
+    "tarif": 75000,
+    "etat": 1
+  },
+  {
+    "_id": {
+      "$oid": "67e520bbe75c5380c00543be"
+    },
+    "nom": "Installation attelage remorque",
+    "duree": 5,
+    "tarif": 350000,
+    "etat": 1
+  },
+  {
+    "_id": {
+      "$oid": "67e520bbe75c5380c00543bf"
+    },
+    "nom": "Réparation de la direction assistée",
+    "duree": 6,
+    "tarif": 500000,
+    "etat": 1
+  },
+  {
+    "_id": {
+      "$oid": "67e520bbe75c5380c00543c0"
+    },
+    "nom": "Remplacement des vitres électriques",
+    "duree": 2.2,
+    "tarif": 120000,
+    "etat": 1
+  },
+  {
+    "_id": {
+      "$oid": "67e520bbe75c5380c00543c1"
+    },
+    "nom": "Changement des balais d'essuie-glace",
+    "duree": 0.5,
+    "tarif": 30000,
+    "etat": 1
+  },
+  {
+    "_id": {
+      "$oid": "67e520bbe75c5380c00543c2"
+    },
+    "nom": "Réparation capteurs & tableau de bord",
+    "duree": 3,
+    "tarif": 190000,
+    "etat": 1
+  },
+  {
+    "_id": {
+      "$oid": "67e520bbe75c5380c00543c3"
+    },
+    "nom": "Pose de vitres teintées",
+    "duree": 4.5,
+    "tarif": 250000,
+    "etat": 1
+  }]

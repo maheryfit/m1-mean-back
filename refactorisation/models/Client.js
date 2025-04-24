@@ -2,6 +2,11 @@ import {Utilisateur} from "./Utilisateur.js";
 import {Voiture} from "./Voiture.js";
 import * as console from "node:console";
 import {ObjectId} from "mongodb";
+import {Service} from "./Service.js";
+import {config} from "@dotenvx/dotenvx";
+import * as console from "node:console";
+import * as console from "node:console";
+import * as console from "node:console";
 
 export class Client extends Utilisateur{
     static #table="clients";
@@ -16,6 +21,15 @@ export class Client extends Utilisateur{
     #dateInscription;
     #statut;
     #etat;
+    #abonnement;
+
+    get abonnement() {
+        return this.#abonnement;
+    }
+
+    set abonnement(value) {
+        this.#abonnement = value;
+    }
 
     get etat() {
         return this.#etat;
@@ -164,7 +178,7 @@ export class Client extends Utilisateur{
         try{
             const pageNumber=Number(page);
             const limitNumber=Number(limit);
-            const collection=await connection.db().collection(Voiture.table);
+            const collection=connection.db().collection(Voiture.table);
             const voitures=await collection.find({idclient:this.idclient,etat:Number(config.ETAT_VOITURE_CREE)},{session})
                 .skip((pageNumber-1)*limitNumber)
                 .limit(limitNumber)
@@ -184,7 +198,7 @@ export class Client extends Utilisateur{
             openedSession=true;
         }
         try{
-            const collection=await connection.db().collection(Voiture.table);
+            const collection=connection.db().collection(Voiture.table);
             const count=await collection.countDocuments({idclient:this.idclient,etat:Number(config.ETAT_VOITURE_CREE)},{session});
             return count;
         }finally{
@@ -201,7 +215,7 @@ export class Client extends Utilisateur{
             openedSession=true;
         }
         try{
-            const collection=await connection.db().collection(Voiture.table);
+            const collection=connection.db().collection(Voiture.table);
             if(openedSession){
                 session.startTransaction();
             }
@@ -237,7 +251,7 @@ export class Client extends Utilisateur{
             openedSession=true;
         }
         try{
-            const collection=await connection.db().collection(Voiture.table);
+            const collection=connection.db().collection(Voiture.table);
             if(openedSession){
                 session.startTransaction();
             }
@@ -251,6 +265,24 @@ export class Client extends Utilisateur{
             }
             console.log(error);
             throw error;
+        }finally{
+            if(openedSession){
+                await session.endSession();
+            }
+        }
+    }
+
+    async paginationVoiture(connection,sess,config,page,limit){
+        let session=sess;
+        let openedSession=false;
+        if(sess===null){
+            session=connection.startSession();
+            openedSession=true;
+        }
+        try{
+            const voitures=await this.getVoitures(connection,session,config,page,limit);
+            const countVoitures=await this.countVoitures(connection,session,config);
+            return [voitures,countVoitures];
         }finally{
             if(openedSession){
                 await session.endSession();
