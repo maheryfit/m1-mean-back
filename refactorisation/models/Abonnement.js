@@ -1,20 +1,14 @@
-export class StatutClient{
-    static #table="statut_clients";
+export class Abonnement {
+    static #table="abonnements";
 
     static get table() {
         return this.#table;
     }
-    #idstatut;
+
+    #idabonnement;
     #nom;
+    #prix;
     #pourcentage_reduction;
-
-    get idstatut() {
-        return this.#idstatut;
-    }
-
-    set idstatut(value) {
-        this.#idstatut = value;
-    }
 
     get pourcentage_reduction() {
         return this.#pourcentage_reduction;
@@ -24,6 +18,14 @@ export class StatutClient{
         this.#pourcentage_reduction = value;
     }
 
+    get idabonnement() {
+        return this.#idabonnement;
+    }
+
+    set idabonnement(value) {
+        this.#idabonnement = value;
+    }
+
     get nom() {
         return this.#nom;
     }
@@ -31,12 +33,12 @@ export class StatutClient{
     set nom(value) {
         this.#nom = value;
     }
-    constructor(nom) {
-        this.nom = nom;
+
+    get prix() {
+        return this.#prix;
     }
-    turnToObject(){
-        return {
-            nom: this.nom
-        }
+
+    set prix(value) {
+        this.#prix = value;
     }
 }

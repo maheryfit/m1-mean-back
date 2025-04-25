@@ -3,7 +3,7 @@ import * as process from "node:process";
 export class Constantes{
     #SALT_ROUNDS;
     #STATUT_CLIENT_SIMPLE_ID;
-    #STATUT_CLIENT_FIDELE_ID;
+    #ABONNEMENT_SIMPLE_ID;
     #COOKIE_CONFIG;
     #COOKIE_KEY;
     #PROFIL_CLIENT;
@@ -19,6 +19,20 @@ export class Constantes{
     #ETAT_STATION_SUPPRIME;
     #ETAT_SERVICE_CREE;
     #ETAT_SERVICE_SUPPRIME;
+    #ETAT_RDV_CREE;
+    #ETAT_RDV_SUPPRIME;
+
+    get ETAT_RDV_CREE() {
+        return this.#ETAT_RDV_CREE;
+    }
+
+    get ETAT_RDV_SUPPRIME() {
+        return this.#ETAT_RDV_SUPPRIME;
+    }
+
+    get ABONNEMENT_SIMPLE_ID() {
+        return this.#ABONNEMENT_SIMPLE_ID;
+    }
 
     get ETAT_SERVICE_CREE() {
         return this.#ETAT_SERVICE_CREE;
@@ -76,10 +90,6 @@ export class Constantes{
         return this.#STATUT_CLIENT_SIMPLE_ID;
     }
 
-    get STATUT_CLIENT_FIDELE_ID() {
-        return this.#STATUT_CLIENT_FIDELE_ID;
-    }
-
     get COOKIE_CONFIG() {
         return this.#COOKIE_CONFIG;
     }
@@ -94,8 +104,8 @@ export class Constantes{
 
     constructor() {
         this.#SALT_ROUNDS=10;
-        this.#STATUT_CLIENT_SIMPLE_ID=1;
-        this.#STATUT_CLIENT_FIDELE_ID=2;
+        this.#STATUT_CLIENT_SIMPLE_ID="6809fb13a773274d10b2fa2a";
+        this.#ABONNEMENT_SIMPLE_ID="67d5bb4c3c212676c4fa60fd";
         this.#COOKIE_CONFIG= {
             httpOnly: true, // Prevents access from JavaScript
             secure: (process.env.PRODUCTION==="true"), // Works only on HTTPS and HTTP
@@ -106,15 +116,17 @@ export class Constantes{
         this.#PROFIL_CLIENT=1;
         this.#PROFIL_MECANICIEN=5;
         this.#PROFIL_MECANICIEN=10;
-        this.#ETAT_UTILISATEUR_CREE=process.env.ETAT_UTILISATEUR_CREE;
-        this.#ETAT_UTILISATEUR_SUPPRIME=process.env.ETAT_UTILISATEUR_SUPPRIME;
-        this.#ETAT_CLIENT_CREE=process.env.ETAT_CLIENT_CREE;
-        this.#ETAT_CLIENT_SUPPRIME=process.env.ETAT_CLIENT_SUPPRIME;
-        this.#ETAT_VOITURE_CREE=process.env.ETAT_VOITURE_CREE;
-        this.#ETAT_VOITURE_SUPPRIME=process.env.ETAT_VOITURE_SUPPRIME;
-        this.#ETAT_STATION_CREE=process.env.ETAT_STATION_CREE;
-        this.#ETAT_STATION_SUPPRIME=process.env.ETAT_STATION_SUPPRIME;
-        this.#ETAT_SERVICE_CREE=process.env.ETAT_SERVICE_CREE;
-        this.#ETAT_SERVICE_SUPPRIME=process.env.ETAT_SERVICE_SUPPRIME;
+        this.#ETAT_UTILISATEUR_CREE=1;
+        this.#ETAT_UTILISATEUR_SUPPRIME=10;
+        this.#ETAT_CLIENT_CREE=1;
+        this.#ETAT_CLIENT_SUPPRIME=10;
+        this.#ETAT_VOITURE_CREE=1;
+        this.#ETAT_VOITURE_SUPPRIME=10;
+        this.#ETAT_STATION_CREE=1;
+        this.#ETAT_STATION_SUPPRIME=10;
+        this.#ETAT_SERVICE_CREE=1;
+        this.#ETAT_SERVICE_SUPPRIME=10;
+        this.#ETAT_RDV_CREE=1;
+        this.#ETAT_RDV_SUPPRIME=10;
     }
 }

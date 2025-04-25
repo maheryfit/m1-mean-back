@@ -13,16 +13,5 @@ stationRouter.get("/liste-station/:page/:limit", AuthMiddleware.checkConnecte, a
         res.status(500).send({message:error.message});
     }
 });
-stationRouter.get("/selection-station/:idstation", AuthMiddleware.checkConnecte, async (req,res)=>{
-    try{
-        let station=new Station();
-        station.idstation=req.params.idstation;
-        station=await station.getStation(req.myConnection,null,req.config);
-        res.status(200).send(station);
-    }catch(error){
-        console.log(error);
-        res.status(500).send({message:error.message});
-    }
-})
 
 export default stationRouter;

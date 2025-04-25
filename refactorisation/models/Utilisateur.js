@@ -1,5 +1,6 @@
 import bcrypt from "bcrypt";
 import * as console from "node:console";
+import {ObjectId} from "mongodb";
 export class Utilisateur{
     static #table="utilisateurs";
 
@@ -117,6 +118,26 @@ export class Utilisateur{
                 throw new Error("Nom d'utilisateur ou mot de passe incorrect.");
             }
             return utilisateur;
+        }finally{
+            if(openedSession){
+                await session.endSession();
+            }
+        }
+    }
+    async getUtilisaateur(connection,sess,config){
+        let session=sess;
+        let openedSession=false;
+        if(sess===null){
+            session=connection.startSession();
+            openedSession=true;
+        }
+        try{
+            const collection=connection.db().collection(Utilisateur.table);
+            const utilisateur=await collection.findOne({_id:new ObjectId(this.idutilisateur),etat:Number(config.ETAT_UTILISATEUR_CREE)},{session});
+            return {
+                _id:utilisateur._id,
+                nom_utilisateur:utilisateur.nom_utilisateur,
+            };
         }finally{
             if(openedSession){
                 await session.endSession();

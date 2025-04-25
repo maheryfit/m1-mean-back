@@ -95,5 +95,58 @@ clientRouter.delete("/supprimer-voiture/:idvoiture", AuthMiddleware.checkAuthCli
         res.status(500).send({message:error.message});
     }
 })
+clientRouter.get("/interface-creer-rdv/:idstation", AuthMiddleware.checkAuthClient, async (req, res)=>{
+    try{
+        const utilisateur=req.utilisateur;
+        const client=new Client({});
+        client.idclient=utilisateur.idclient;
+        const station=new Station();
+        station.idstation=req.params.idstation;
+        const objCreationRdv=await client.interfaceCreationRdv(req.myConnection,null,req.config,station);
+        res.status(200).send(objCreationRdv);
+    }catch(error){
+        console.log(error);
+        res.status(500).send({message:error.message});
+    }
+});
+clientRouter.post("/creer-rdv", AuthMiddleware.checkAuthClient, async (req, res)=>{
+    /*
+    * rdv: {
+    *   description,
+    *   dateheure,
+    *   voiture:{
+    *       private _idvoiture:string="";
+            private _description:string="";
+            private _immatriculation:string="";
+            private _caracteristiques:{ _nom, _valeur };
+    *   },
+    *   services:[
+    *       {
+    *           _idstation,
+    *           _nom,
+    *           _tarif,
+    *           _duree
+    *       }
+    *   ],
+    *   duree,
+    *   montant,
+    *   reste_a_payer,
+    *   remises:[{nom, pourcentage}],
+    *   station:{
+    *       _idstation, _nom, _lieu, _coordonnees:{ type, coordonnees: [] }
+    *   }
+    * */
+    try{
+        let rdv=req.body;
+        const utilisateur=req.utilisateur;
+        const client=new Client({});
+        client.idclient=utilisateur.idclient;
+        rdv=await client.creerRdv(req.myConnection,null,req.config,rdv);
+        res.status(200).send(rdv);
+    }catch(error){
+        console.log(error);
+        res.status(500).send({message:error.message});
+    }
+})
 
 export default clientRouter;

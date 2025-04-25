@@ -50,6 +50,9 @@ export class Service{
     set etat(value) {
         this.#etat = value;
     }
+    initFromCreerRdv(obj){
+
+    }
 
     static async getServices(connection, sess, config, page, limit) {
         let session = sess;

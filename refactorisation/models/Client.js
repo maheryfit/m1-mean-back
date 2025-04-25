@@ -1,12 +1,10 @@
 import {Utilisateur} from "./Utilisateur.js";
 import {Voiture} from "./Voiture.js";
-import * as console from "node:console";
 import {ObjectId} from "mongodb";
-import {Service} from "./Service.js";
-import {config} from "@dotenvx/dotenvx";
 import * as console from "node:console";
-import * as console from "node:console";
-import * as console from "node:console";
+import {Abonnement} from "./Abonnement.js";
+import {StatutClient} from "./StatutClient.js";
+import {Rdv} from "./Rdv.js";
 
 export class Client extends Utilisateur{
     static #table="clients";
@@ -22,6 +20,15 @@ export class Client extends Utilisateur{
     #statut;
     #etat;
     #abonnement;
+    #utilisateur;
+
+    get utilisateur() {
+        return this.#utilisateur;
+    }
+
+    set utilisateur(value) {
+        this.#utilisateur = value;
+    }
 
     get abonnement() {
         return this.#abonnement;
@@ -120,8 +127,9 @@ export class Client extends Utilisateur{
                 nom:this.nom,
                 prenom:this.prenom,
                 telephone:this.telephone,
-                dateInscription:new Date(),
-                statut:config.STATUT_CLIENT_SIMPLE_ID,
+                date_inscription:new Date(),
+                idstatut:new ObjectId(config.STATUT_CLIENT_SIMPLE_ID),
+                idabonnement:new ObjectId(config.ABONNEMENT_SIMPLE_ID),
                 idutilisateur:utilisateurInserted._id,
                 etat:Number(config.ETAT_CLIENT_CREE)
             }
@@ -179,7 +187,7 @@ export class Client extends Utilisateur{
             const pageNumber=Number(page);
             const limitNumber=Number(limit);
             const collection=connection.db().collection(Voiture.table);
-            const voitures=await collection.find({idclient:this.idclient,etat:Number(config.ETAT_VOITURE_CREE)},{session})
+            const voitures=await collection.find({idclient:new ObjectId(this.idclient),etat:Number(config.ETAT_VOITURE_CREE)},{session})
                 .skip((pageNumber-1)*limitNumber)
                 .limit(limitNumber)
                 .toArray();
@@ -199,7 +207,7 @@ export class Client extends Utilisateur{
         }
         try{
             const collection=connection.db().collection(Voiture.table);
-            const count=await collection.countDocuments({idclient:this.idclient,etat:Number(config.ETAT_VOITURE_CREE)},{session});
+            const count=await collection.countDocuments({idclient:new ObjectId(this.idclient),etat:Number(config.ETAT_VOITURE_CREE)},{session});
             return count;
         }finally{
             if(openedSession){
@@ -224,7 +232,7 @@ export class Client extends Utilisateur{
                 immatriculation:voiture.immatriculation,
                 caracteristiques:voiture.caracteristiques,
                 etat:Number(config.ETAT_VOITURE_CREE),
-                idclient:this.idclient,
+                idclient:new ObjectId(this.idclient),
             }
             await collection.insertOne(voitureToInsert,{session});
             if(openedSession){
@@ -255,10 +263,118 @@ export class Client extends Utilisateur{
             if(openedSession){
                 session.startTransaction();
             }
-            await collection.updateOne({_id:new ObjectId(idvoiture),idclient:this.idclient},{$set:{etat:Number(config.ETAT_VOITURE_SUPPRIME)}},{session});
+            await collection.updateOne({_id:new ObjectId(idvoiture),idclient:new ObjectId(this.idclient)},{$set:{etat:Number(config.ETAT_VOITURE_SUPPRIME)}},{session});
             if(openedSession){
                 await session.commitTransaction();
             }
+        }catch(error){
+            if(openedSession){
+                await session.abortTransaction();
+            }
+            console.log(error);
+            throw error;
+        }finally{
+            if(openedSession){
+                await session.endSession();
+            }
+        }
+    }
+    async getDetailsClient(connection,sess,config){
+        let session=sess;
+        let openedSession=false;
+        if(sess===null){
+            session=connection.startSession();
+            openedSession=true;
+        }
+        try{
+            const collection=connection.db().collection(Client.table);
+            const client=await collection.findOne({_id:new ObjectId(this.idclient),etat:Number(config.ETAT_CLIENT_CREE)},{session});
+            return client;
+        }finally{
+            if(openedSession){
+                await session.endSession();
+            }
+        }
+    }
+    async getAbonnement(connection,sess){
+        let session=sess;
+        let openedSession=false;
+        if(sess===null){
+            session=connection.startSession();
+            openedSession=true;
+        }
+        try{
+            const collection=connection.db().collection(Abonnement.table);
+            const abonnement=await collection.findOne({_id:new ObjectId(this.abonnement.idabonnement)},{session});
+            return abonnement;
+        }finally{
+            if(openedSession){
+                await session.endSession();
+            }
+        }
+    }
+    async getStatut(connection,sess){
+        let session=sess;
+        let openedSession=false;
+        if(sess===null){
+            session=connection.startSession();
+            openedSession=true;
+        }
+        try{
+            const collection=connection.db().collection(StatutClient.table);
+            const statut=await collection.findOne({_id:new ObjectId(this.statut.idstatut)},{session});
+            return statut;
+        }finally{
+            if(openedSession){
+                await session.endSession();
+            }
+        }
+    }
+    async creerRdv(connection,sess,config,rdv){
+        let session=sess;
+        let openedSession=false;
+        if(sess===null){
+            session=connection.startSession();
+            openedSession=true;
+        }
+        try{
+            const collection=connection.db().collection(Rdv.table);
+            if(openedSession){
+                session.startTransaction();
+            }
+            const rdvToInsert=rdv;
+
+            const details=await this.getDetailsClient(connection,session,config);
+            this.abonnement=new Abonnement();
+            this.abonnement.idabonnement=details.idabonnement;
+            const abonnement=await this.getAbonnement(connection,session,config);
+            this.statut=new StatutClient();
+            this.statut.idstatut=details.idstatut;
+            const statut=await this.getStatut(connection,session,config);
+            this.utilisateur=new Utilisateur({});
+            this.utilisateur.idutilisateur=details.idutilisateur;
+            const utilisateur=await this.utilisateur.getUtilisaateur(connection,session,config);
+            rdvToInsert.client= {
+                idclient:new ObjectId(this.idclient),
+                nom:details.nom,
+                prenom:details.prenom,
+                telephone:details.telephone,
+                date_inscription:details.date_inscription,
+                abonnement:abonnement,
+                statut:statut,
+                utilisateur:utilisateur,
+            };
+
+            rdvToInsert.diagnostics=[];
+            rdvToInsert.mecanicien=null;
+            rdvToInsert.station._idstation=new ObjectId(rdvToInsert.station._idstation);
+            rdvToInsert.dateheure=new Date(rdvToInsert.dateheure);
+            rdvToInsert.etat=config.ETAT_RDV_CREE;
+            await collection.insertOne(rdvToInsert,{session});
+            if(openedSession){
+                await session.commitTransaction();
+            }
+            return rdvToInsert;
         }catch(error){
             if(openedSession){
                 await session.abortTransaction();
@@ -283,6 +399,30 @@ export class Client extends Utilisateur{
             const voitures=await this.getVoitures(connection,session,config,page,limit);
             const countVoitures=await this.countVoitures(connection,session,config);
             return [voitures,countVoitures];
+        }finally{
+            if(openedSession){
+                await session.endSession();
+            }
+        }
+    }
+    async interfaceCreationRdv(connection,sess,config,stationParam){
+        let session=sess;
+        let openedSession=false;
+        if(sess===null){
+            session=connection.startSession();
+            openedSession=true;
+        }
+        try{
+            const details=await this.getDetailsClient(connection,session,config);
+            this.abonnement=new Abonnement();
+            this.abonnement.idabonnement=details.idabonnement;
+            this.statut=new StatutClient();
+            this.statut.idstatut=details.idstatut;
+            const abonnement=await this.getAbonnement(connection,session);
+            const statut=await this.getStatut(connection,session);
+
+            const station=await stationParam.getStation(connection,session,config);
+            return [station,abonnement,statut];
         }finally{
             if(openedSession){
                 await session.endSession();
