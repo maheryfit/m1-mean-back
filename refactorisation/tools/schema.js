@@ -18,7 +18,7 @@ try{
         const statutCollection=connection.db().collection(StatutClient.table);
         const abonnementCollection=connection.db().collection(Abonnement.table);
         await utilisateurCollection.createIndex({nom_utilisateur:1,profil:1,etat:1},{unique:true,session});
-        await voitureCollection.createIndex({description:1,immatriculation:1,etat:1},{unique:true,session});
+        await voitureCollection.createIndex({description:1,immatriculation:1,idclient:1,etat:1},{unique:true,session});
         await stationCollection.createIndex({coordonnees:1,etat:1},{unique:true,session});
         await servicesCollection.createIndex({nom:1,etat:1},{unique:true,session});
         await statutCollection.createIndex({nom:1},{unique:true,session});

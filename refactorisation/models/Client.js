@@ -4,7 +4,7 @@ import {ObjectId} from "mongodb";
 import * as console from "node:console";
 import {Abonnement} from "./Abonnement.js";
 import {StatutClient} from "./StatutClient.js";
-import {Rdv} from "./Rdv.js";
+import {Rdv as SessClient, Rdv} from "./Rdv.js";
 
 export class Client extends Utilisateur{
     static #table="clients";
@@ -387,6 +387,45 @@ export class Client extends Utilisateur{
             }
         }
     }
+    async getListeRdvEnCours(connection,sess,config,page,limit){
+        let session=sess;
+        let openedSession=false;
+        if(sess===null){
+            session=connection.startSession();
+            openedSession=true;
+        }
+        try{
+            const pageNumber=Number(page);
+            const limitNumber=Number(limit);
+            const collection=connection.db().collection(Rdv.table);
+            const rdv=await collection.find({"client.idclient":new ObjectId(this.idclient), etat:{ $lt:config.ETAT_RDV_TERMINE }},{session})
+                .skip((pageNumber-1)*limitNumber)
+                .limit(limitNumber)
+                .project({"voiture._description":1,"station._nom":1,dateheure:1,reste_a_payer:1}).toArray();
+            return rdv;
+        }finally{
+            if(openedSession){
+                await session.endSession();
+            }
+        }
+    }
+    async countRdvEnCours(connection,sess,config){
+        let session=sess;
+        let openedSession=false;
+        if(sess===null){
+            session=connection.startSession();
+            openedSession=true;
+        }
+        try{
+            const collection=connection.db().collection(Rdv.table);
+            const count=await collection.countDocuments({"client.idclient":new ObjectId(this.idclient), etat:{ $lt:config.ETAT_RDV_TERMINE }},{session})
+            return count;
+        }finally{
+            if(openedSession){
+                await session.endSession();
+            }
+        }
+    }
 
     async paginationVoiture(connection,sess,config,page,limit){
         let session=sess;
@@ -424,6 +463,23 @@ export class Client extends Utilisateur{
             const station=await stationParam.getStation(connection,session,config);
             return [station,abonnement,statut];
         }finally{
+            if(openedSession){
+                await session.endSession();
+            }
+        }
+    }
+    async paginationListeRdv(connection,sess,config,page,limit){
+        let session=sess;
+        let openedSession=false;
+        if(sess===null){
+            session=connection.startSession();
+            openedSession=true;
+        }
+        try{
+            const rdvs=await this.getListeRdvEnCours(connection,session,config,page,limit);
+            const countRdv=await this.countRdvEnCours(connection,session,config);
+            return [rdvs,countRdv];
+        }finally {
             if(openedSession){
                 await session.endSession();
             }

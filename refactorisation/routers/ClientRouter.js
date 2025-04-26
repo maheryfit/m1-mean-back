@@ -147,6 +147,18 @@ clientRouter.post("/creer-rdv", AuthMiddleware.checkAuthClient, async (req, res)
         console.log(error);
         res.status(500).send({message:error.message});
     }
+});
+clientRouter.get("/liste-rdv/:page/:limit", AuthMiddleware.checkAuthClient, async (req, res)=>{
+    try{
+        const utilisateur=req.utilisateur;
+        const client=new Client({});
+        client.idclient=utilisateur.idclient;
+        const rdvs=await client.paginationListeRdv(req.myConnection,null,req.config,req.params.page,req.params.limit);
+        res.status(200).send(rdvs);
+    }catch(error){
+        console.log(error);
+        res.status(500).send({message:error.message});
+    }
 })
 
 export default clientRouter;

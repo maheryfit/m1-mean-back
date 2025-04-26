@@ -20,7 +20,17 @@ export class Constantes{
     #ETAT_SERVICE_CREE;
     #ETAT_SERVICE_SUPPRIME;
     #ETAT_RDV_CREE;
+    #ETAT_RDV_CLOS;
+    #ETAT_RDV_TERMINE;
     #ETAT_RDV_SUPPRIME;
+
+    get ETAT_RDV_TERMINE() {
+        return this.#ETAT_RDV_TERMINE;
+    }
+
+    get ETAT_RDV_CLOS() {
+        return this.#ETAT_RDV_CLOS;
+    }
 
     get ETAT_RDV_CREE() {
         return this.#ETAT_RDV_CREE;
@@ -127,6 +137,8 @@ export class Constantes{
         this.#ETAT_SERVICE_CREE=1;
         this.#ETAT_SERVICE_SUPPRIME=10;
         this.#ETAT_RDV_CREE=1;
+        this.#ETAT_RDV_CLOS=5;
+        this.#ETAT_RDV_TERMINE=7;
         this.#ETAT_RDV_SUPPRIME=10;
     }
 }
