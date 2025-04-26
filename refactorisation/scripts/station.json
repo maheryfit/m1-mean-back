@@ -1,0 +1,74 @@
+[
+  {
+    "_id": {
+      "$oid": "65f1a3b1c9e77a001c1a0001"
+    },
+    "nom": "Station Alpha",
+    "lieu": "Downtown",
+    "coordonnees": {
+      "type": "Point",
+      "coordinates": [-18.9864204,47.5319636]
+    },
+    "etat": 1
+  },
+  {
+    "_id": {
+      "$oid": "65f1a3b1c9e77a001c1a0002"
+    },
+    "nom": "Station Beta",
+    "lieu": "Uptown",
+    "coordonnees": {
+      "type": "Point",
+      "coordinates": [-18.9611346,47.535132]
+    },
+    "etat": 1
+  },
+  {
+    "_id": {
+      "$oid": "65f1a3b1c9e77a001c1a0003"
+    },
+    "nom": "Station Gamma",
+    "lieu": "Suburb West",
+    "coordonnees": {
+      "type": "Point",
+      "coordinates": [-18.9568501,47.5249058]
+    },
+    "etat": 1
+  },
+  {
+    "_id": {
+      "$oid": "65f1a3b1c9e77a001c1a0004"
+    },
+    "nom": "Station Delta",
+    "lieu": "Suburb East",
+    "coordonnees": {
+      "type": "Point",
+      "coordinates": [-18.9381315,47.541967]
+    },
+    "etat": 1
+  },
+  {
+    "_id": {
+      "$oid": "65f1a3b1c9e77a001c1a0005"
+    },
+    "nom": "Station Epsilon",
+    "lieu": "City Center",
+    "coordonnees": {
+      "type": "Point",
+      "coordinates": [-18.9327336,47.5361215]
+    },
+    "etat": 1
+  },
+  {
+    "_id": {
+      "$oid": "65f1a3b1c9e77a001c1a0006"
+    },
+    "nom": "Station Zeta",
+    "lieu": "Industrial Zone",
+    "coordonnees": {
+      "type": "Point",
+      "coordinates": [-18.9319334,47.5245486]
+    },
+    "etat": 1
+  }
+]
