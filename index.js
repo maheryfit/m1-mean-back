@@ -1,6 +1,7 @@
 import express from "express";
 
 import bodyParser from "body-parser";
+import cors from "cors";
 
 import clientRouter from "./routers/ClientRouter.js";
 import {ToolingMiddleware} from "./middlewares/ToolingMiddleware.js";
