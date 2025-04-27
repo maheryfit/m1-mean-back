@@ -1,7 +1,6 @@
 import express from "express";
 
 import bodyParser from "body-parser";
-import cors from "cors";
 
 import clientRouter from "./routers/ClientRouter.js";
 import {ToolingMiddleware} from "./middlewares/ToolingMiddleware.js";
@@ -27,8 +26,12 @@ const url=process.env.MONGO_URI;
 const connection=new MongoClient(url);
 await connection.connect();
 
+app.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+});
 app.use(cookieParser());
-app.use(cors());
 app.use(bodyParser.urlencoded());
 app.use(bodyParser.json());
 app.use([
