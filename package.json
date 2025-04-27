@@ -1,43 +1,23 @@
 {
-  "name": "m1-mean-back",
+  "name": "handyman",
   "version": "1.0.0",
-  "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon app.js",
-    "start": "node app.js",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "swagger-autogen": "node swagger.js"
+    "start-development": "dotenvx run -f .env.development -- node index.js",
+    "start-production": "dotenvx run -f .env.production -- node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [],
   "author": "",
   "license": "ISC",
-  "type": "commonjs",
+  "type": "module",
+  "description": "",
   "dependencies": {
+    "@dotenvx/dotenvx": "^1.41.0",
     "bcrypt": "^5.1.1",
-    "body-parser": "^1.20.3",
-    "bson-objectid": "^2.0.4",
+    "body-parser": "^2.2.0",
     "cookie-parser": "^1.4.7",
-    "cors": "^2.8.5",
-    "dotenv": "^16.4.7",
-    "es-define-property": "^1.0.1",
-    "es-object-atoms": "^1.1.1",
-    "express": "^4.21.2",
-    "get-proto": "^1.0.1",
-    "get-root-path": "^3.0.1",
-    "gopd": "^1.2.0",
+    "express": "^5.1.0",
     "jsonwebtoken": "^9.0.2",
-    "math-intrinsics": "^1.1.0",
-    "mongodb": "^6.15.0",
-    "mongoose": "^8.12.1",
-    "multer": "^1.4.5-lts.1",
-    "path": "^0.12.7",
-    "redis": "^4.7.0",
-    "socket.io": "^4.8.1",
-    "swagger-ui-express": "^5.0.1"
-  },
-  "devDependencies": {
-    "nodemon": "^3.1.9",
-    "swagger-autogen": "^2.23.7"
+    "mongodb": "^6.15.0"
   }
 }

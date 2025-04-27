@@ -2,47 +2,62 @@ services: # services which our app going to use. (list of containers we want to 
   mongo-cont: # container name
     image: mongo # On which image container will build
     container_name: mongo-cont
+    command: [ "--replSet", "rs0", "--bind_ip_all", "--port", "27017" ]
     ports:
       - "27017:27017"
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    healthcheck:
+      test: echo "try { rs.status() } catch (err) { rs.initiate({_id:'rs0',members:[{_id:0,host:'host.docker.internal:27017'}]}) }" | mongosh --port 27017 --quiet
+      interval: 5s
+      timeout: 30s
+      start_period: 0s
+      start_interval: 1s
+      retries: 30
     volumes:
-      - mongo_db:/data/db
-    networks: # adding network
-      - mern-app
+      - "mongo1_data:/data/db"
+      - "mongo1_config:/data/configdb"
 
-  app-server:
-    container_name: app-server-cont
-    image: app-server
-    ports:
-      - "3000:3000"
-    volumes:
-      - uploads:/app/uploads
-    depends_on:
-      - mongo-cont
-    networks: # adding network
-      - mern-app
+#  app-server:
+#    container_name: app-server-cont
+#    image: app-server
+#    ports:
+#      - "3000:3000"
+#    volumes:
+#      - uploads:/app/uploads
+#    depends_on:
+#      - mongo-cont
+#    networks: # adding network
+#      - mern-app
+#    command: >
+#      sh -c "npm run start-production"
 
-  redis-cache:
-    image: redis:7.4.2-alpine
-    container_name: redis-cont
-    restart: always
-    ports:
-      - '6379:6379'
-    # Nous configurons le serveur redis pour qu'il sauvegarde UNE écriture toutes les 10 secondes
-    # --requirepass permet d'ajouter une authentification.
-    command: redis-server --save 10 1 --loglevel warning --requirepass eYVX7EwVmmxKPCDmwMtyKVge8oLd2t81
-    volumes:
-      - cache:/data
-    networks: # adding network
-      - mern-app
+#  redis-cache:
+#    image: redis:7.4.2-alpine
+#    container_name: redis-cont
+#    restart: always
+#    ports:
+#      - '6379:6379'
+#    # Nous configurons le serveur redis pour qu'il sauvegarde UNE écriture toutes les 10 secondes
+#    # --requirepass permet d'ajouter une authentification.
+#    command: redis-server --save 10 1 --loglevel warning --requirepass eYVX7EwVmmxKPCDmwMtyKVge8oLd2t81
+#    volumes:
+#      - cache:/data
+#    networks: # adding network
+#      - mern-app
 
 networks: # allow services to talk to each other while providing isolation from other docker container, running on the same host
   mern-app:
     driver: bridge
 
 volumes: # enable persistence of database data across container restart
-  mongo_db:
+  mongo_db_test:
     driver: local
   cache:
     driver: local
   uploads:
+    driver: local
+  mongo1_data:
+    driver: local
+  mongo1_config:
     driver: local

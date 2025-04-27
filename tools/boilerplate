@@ -1,0 +1,31 @@
+// CONNEXION
+
+let connection=connex;
+let session=sess;
+let openedConnection=false;
+let openedSession=false;
+if(connection===null){
+    connection=MyConnection.getConnection();
+    await connection.connect();
+    openedConnection=true;
+}
+if(sess===null){
+    session=connection.startSession();
+    openedSession=true;
+}
+try{
+
+}catch(error){
+    if(openedSession){
+        await session.abortTransaction();
+    }
+    console.log(error);
+    throw error;
+}finally{
+    if(openedSession){
+        await session.endSession();
+    }
+    if(openedConnection){
+        await connection.close();
+    }
+}
