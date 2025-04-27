@@ -119,7 +119,7 @@ export class Constantes{
         this.#COOKIE_CONFIG= {
             httpOnly: true, // Prevents access from JavaScript
             // secure: "true", // Works only on HTTPS and HTTP
-            sameSite: "None", // Prevents CSRF
+            // sameSite: "None", // Prevents CSRF
             maxAge: 2 * 60 * 60 * 1000, // -> 2h // 30 * 24 * 60 * 60 * 1000, // -> 30 days
         }
         this.#COOKIE_KEY=process.env.COOKIE_KEY;
