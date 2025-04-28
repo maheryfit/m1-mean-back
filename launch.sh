@@ -12,7 +12,7 @@ docker exec -it mongo-cont mongoimport --db mean_db --collection abonnements --f
 docker exec -it mongo-cont mongoimport --db mean_db --collection services --file service.json --jsonArray
 docker exec -it mongo-cont mongoimport --db mean_db --collection stations --file station.json --jsonArray
 docker exec -it mongo-cont mongoimport --db mean_db --collection statut_clients --file statut-client.json --jsonArray
-docker exec -it mongo-cont mongoimport --db mean_db --collection utilisateur --file utilisateur.json --jsonArray
+docker exec -it mongo-cont mongoimport --db mean_db --collection utilisateurs --file utilisateur.json --jsonArray
 docker exec -it mongo-cont mongoimport --db mean_db --collection niveaux --file niveau.json --jsonArray
 docker exec -it mongo-cont mongoimport --db mean_db --collection roles --file roles.json --jsonArray
 docker exec -it mongo-cont mongoimport --db mean_db --collection mecaniciens --file mecanicien.json --jsonArray
