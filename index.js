@@ -11,6 +11,7 @@ import cookieParser from "cookie-parser";
 import utilisateurRouter from "./routers/UtilisateurRouter.js";
 import stationRouter from "./routers/StationRouter.js";
 import serviceRouter from "./routers/ServiceRouter.js";
+import mecanicienRouter from "./routers/MecanicienRouter.js";
 
 const app=express();
 const port=Number(process.env.PORT);
@@ -26,8 +27,9 @@ const url=process.env.MONGO_URI;
 const connection=new MongoClient(url);
 await connection.connect();
 
+const corsOrigin=process.env.CORS_ORIGIN;
 app.use(function(req, res, next) {
-    res.header("Access-Control-Allow-Origin", "http://46.101.29.136");
+    res.header("Access-Control-Allow-Origin", corsOrigin);
     res.header("Access-Control-Allow-Credentials", "true");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     next();
@@ -41,6 +43,7 @@ app.use([
     ToolingMiddleware.passConfig(config)
 ]);
 app.use("/client", clientRouter);
+app.use("/mecanicien", mecanicienRouter);
 app.use("/utilisateur", utilisateurRouter);
 app.use("/station", stationRouter);
 app.use("/service", serviceRouter);

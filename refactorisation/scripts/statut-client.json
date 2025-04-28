@@ -1,9 +1,0 @@
-[
-  {
-    "_id": {
-      "$oid":"6809fb13a773274d10b2fa2a"
-    },
-    "nom":"simple",
-    "pourcentage_reduction": 0
-  }
-]

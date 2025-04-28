@@ -13,6 +13,8 @@ export class Constantes{
     #ETAT_UTILISATEUR_SUPPRIME;
     #ETAT_CLIENT_CREE;
     #ETAT_CLIENT_SUPPRIME;
+    #ETAT_MECANICIEN_CREE;
+    #ETAT_MECANICIEN_SUPPRIME;
     #ETAT_VOITURE_CREE;
     #ETAT_VOITURE_SUPPRIME;
     #ETAT_STATION_CREE;
@@ -23,6 +25,14 @@ export class Constantes{
     #ETAT_RDV_CLOS;
     #ETAT_RDV_TERMINE;
     #ETAT_RDV_SUPPRIME;
+
+    get ETAT_MECANICIEN_CREE() {
+        return this.#ETAT_MECANICIEN_CREE;
+    }
+
+    get ETAT_MECANICIEN_SUPPRIME() {
+        return this.#ETAT_MECANICIEN_SUPPRIME;
+    }
 
     get ETAT_RDV_TERMINE() {
         return this.#ETAT_RDV_TERMINE;
@@ -125,11 +135,13 @@ export class Constantes{
         this.#COOKIE_KEY=process.env.COOKIE_KEY;
         this.#PROFIL_CLIENT=1;
         this.#PROFIL_MECANICIEN=5;
-        this.#PROFIL_MECANICIEN=10;
+        this.#PROFIL_MANAGER=10;
         this.#ETAT_UTILISATEUR_CREE=1;
         this.#ETAT_UTILISATEUR_SUPPRIME=10;
         this.#ETAT_CLIENT_CREE=1;
         this.#ETAT_CLIENT_SUPPRIME=10;
+        this.#ETAT_MECANICIEN_CREE=1;
+        this.#ETAT_MECANICIEN_SUPPRIME=10;
         this.#ETAT_VOITURE_CREE=1;
         this.#ETAT_VOITURE_SUPPRIME=10;
         this.#ETAT_STATION_CREE=1;

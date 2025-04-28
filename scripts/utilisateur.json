@@ -1,0 +1,11 @@
+[
+  {
+    "_id": {
+      "$oid": "680f3afb64d5ab9ddfaa70a5"
+    },
+    "nom_utilisateur": "Marc",
+    "mot_de_passe": "$2b$10$dyv7uWE4P8NQNaco/7Ec1u4qiCEL7KrUBMfGEYGSMCAdtO5Cvnqce",
+    "profil": 5,
+    "etat": 1
+  }
+]

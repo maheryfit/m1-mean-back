@@ -5,3 +5,7 @@ db.stations.createIndex({coordonnees:1,etat:1},{unique:true});
 db.services.createIndex({nom:1,etat:1},{unique:true});
 db.statut_clients.createIndex({nom:1},{unique:true});
 db.abonnements.createIndex({nom:1},{unique:true});
+db.niveaux.createIndex({nom:1,etat:1},{unique:true});
+db.roles.createIndex({nom:1,etat:1},{unique:true});
+db.mecaniciens.createIndex({idutilisateur:1,etat:1},{unique:true});
+db.clients.createIndex({idutilisateur:1,etat:1},{unique:true});
