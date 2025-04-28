@@ -6,16 +6,16 @@ do
     echo -n "."
     sleep 1
 done
-docker exec -it mongo-cont mongosh --eval "rs.initiate({_id:\"myReplicaSet\",members:[{_id:0,host:\"mongo-cont\"}]}); load(\"schema-production.js\")"
+docker exec mongo-cont mongosh --eval "rs.initiate({_id:\"myReplicaSet\",members:[{_id:0,host:\"mongo-cont\"}]}); load(\"schema-production.js\")"
 
-docker exec -it mongo-cont mongoimport --db mean_db --collection abonnements --file abonnement.json --jsonArray
-docker exec -it mongo-cont mongoimport --db mean_db --collection services --file service.json --jsonArray
-docker exec -it mongo-cont mongoimport --db mean_db --collection stations --file station.json --jsonArray
-docker exec -it mongo-cont mongoimport --db mean_db --collection statut_clients --file statut-client.json --jsonArray
-docker exec -it mongo-cont mongoimport --db mean_db --collection utilisateurs --file utilisateur.json --jsonArray
-docker exec -it mongo-cont mongoimport --db mean_db --collection niveaux --file niveau.json --jsonArray
-docker exec -it mongo-cont mongoimport --db mean_db --collection roles --file roles.json --jsonArray
-docker exec -it mongo-cont mongoimport --db mean_db --collection mecaniciens --file mecanicien.json --jsonArray
+docker exec mongo-cont mongoimport --db mean_db --collection abonnements --file abonnement.json --jsonArray
+docker exec mongo-cont mongoimport --db mean_db --collection services --file service.json --jsonArray
+docker exec mongo-cont mongoimport --db mean_db --collection stations --file station.json --jsonArray
+docker exec mongo-cont mongoimport --db mean_db --collection statut_clients --file statut-client.json --jsonArray
+docker exec mongo-cont mongoimport --db mean_db --collection utilisateurs --file utilisateur.json --jsonArray
+docker exec mongo-cont mongoimport --db mean_db --collection niveaux --file niveau.json --jsonArray
+docker exec mongo-cont mongoimport --db mean_db --collection roles --file roles.json --jsonArray
+docker exec mongo-cont mongoimport --db mean_db --collection mecaniciens --file mecanicien.json --jsonArray
 
 docker build -t app-server .
 
