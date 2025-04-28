@@ -27,7 +27,7 @@ const connection=new MongoClient(url);
 await connection.connect();
 
 app.use(function(req, res, next) {
-    res.header("Access-Control-Allow-Origin", "http://localhost:4200, http://46.101.29.136");
+    res.header("Access-Control-Allow-Origin", "http://46.101.29.136");
     res.header("Access-Control-Allow-Credentials", "true");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     next();
