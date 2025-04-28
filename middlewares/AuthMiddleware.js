@@ -13,6 +13,14 @@ export class AuthMiddleware {
         }
     }
     static async checkAuthClient(req,res,next){
+        /*
+        * utilisateur: {
+        *   idutilisateur,
+        *   nom_utilisateur,
+        *   idclient,
+        *   profil
+        * }
+        * */
         try{
             const cookie=req.cookies[req.config.COOKIE_KEY];
             if(cookie===undefined){
@@ -21,6 +29,33 @@ export class AuthMiddleware {
             }
             const utilisateur=await req.tokenUtil.decodeToken(cookie);
             if(utilisateur.profil!==req.config.PROFIL_CLIENT){
+                res.status(500).send({message:"Non autorisé"});
+                return;
+            }
+            req.utilisateur=utilisateur;
+            next();
+        }catch(error){
+            console.error(error);
+            res.status(500).send({message:error.message});
+        }
+    }
+    static async checkAuthMecanicien(req,res,next){
+        /*
+        * utilisateur: {
+        *   idutilisateur,
+        *   nom_utilisateur,
+        *   idmecanicien,
+        *   profil
+        * }
+        * */
+        try{
+            const cookie=req.cookies[req.config.COOKIE_KEY];
+            if(cookie===undefined){
+                res.status(500).send({message:"Votre session est échue. Veuillez vous reconnecter"});
+                return;
+            }
+            const utilisateur=await req.tokenUtil.decodeToken(cookie);
+            if(utilisateur.profil!==req.config.PROFIL_MECANICIEN){
                 res.status(500).send({message:"Non autorisé"});
                 return;
             }

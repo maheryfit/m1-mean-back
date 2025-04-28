@@ -1,4 +1,6 @@
 import {Utilisateur} from "./Utilisateur.js";
+import {Rdv} from "./Rdv.js";
+import {ObjectId} from "mongodb";
 
 export class Mecanicien extends Utilisateur{
     static #table="mecaniciens";
@@ -96,6 +98,63 @@ export class Mecanicien extends Utilisateur{
             };
             return utilisateurToReturn;
         }finally{
+            if(openedSession){
+                await session.endSession();
+            }
+        }
+    }
+    async getListeRdvEnCours(connection,sess,config,page,limit){
+        let session=sess;
+        let openedSession=false;
+        if(sess===null){
+            session=connection.startSession();
+            openedSession=true;
+        }
+        try{
+            const pageNumber=Number(page);
+            const limitNumber=Number(limit);
+            const collection=connection.db().collection(Rdv.table);
+            const rdv=await collection.find({etat:{ $lt:config.ETAT_RDV_TERMINE }},{session})
+                .skip((pageNumber-1)*limitNumber)
+                .limit(limitNumber)
+                .project({"client.utilisateur.nom_utilisateur":1,"voiture._description":1,"station._nom":1,dateheure:1,reste_a_payer:1}).toArray();
+            return rdv;
+        }finally{
+            if(openedSession){
+                await session.endSession();
+            }
+        }
+    }
+    async countRdvEnCours(connection,sess,config){
+        let session=sess;
+        let openedSession=false;
+        if(sess===null){
+            session=connection.startSession();
+            openedSession=true;
+        }
+        try{
+            const collection=connection.db().collection(Rdv.table);
+            const count=await collection.countDocuments({etat:{ $lt:config.ETAT_RDV_TERMINE }},{session})
+            return count;
+        }finally{
+            if(openedSession){
+                await session.endSession();
+            }
+        }
+    }
+
+    async paginationListeRdv(connection,sess,config,page,limit){
+        let session=sess;
+        let openedSession=false;
+        if(sess===null){
+            session=connection.startSession();
+            openedSession=true;
+        }
+        try{
+            const rdvs=await this.getListeRdvEnCours(connection,session,config,page,limit);
+            const countRdv=await this.countRdvEnCours(connection,session,config);
+            return [rdvs,countRdv];
+        }finally {
             if(openedSession){
                 await session.endSession();
             }
