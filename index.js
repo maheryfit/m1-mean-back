@@ -28,6 +28,7 @@ const connection=new MongoClient(url);
 await connection.connect();
 
 const corsOrigin=process.env.CORS_ORIGIN;
+console.log(corsOrigin);
 app.use(function(req, res, next) {
     res.header("Access-Control-Allow-Origin", corsOrigin);
     res.header("Access-Control-Allow-Credentials", "true");
