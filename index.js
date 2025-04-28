@@ -24,6 +24,7 @@ const expiration=process.env.TOKEN_DURATION;
 const tokenUtil=new TokenUtil(secret,algorithm,expiration);
 
 const url=process.env.MONGO_URI;
+console.log(url);
 const connection=new MongoClient(url);
 await connection.connect();
 

@@ -20,6 +20,5 @@ docker exec -it mongo-cont mongoimport --db mean_db --collection mecaniciens --f
 docker build -t app-server .
 
 docker run -d --rm --name app-server-cont -v uploads:/app/uploads -p 3000:3000 --network mern-app app-server
-docker run -d --name app-server-cont -v uploads:/app/uploads -p 3000:3000 --network mern-app app-server
 
 docker run -d --rm --name redis-cache -p 6379:6379 -v cache:/data --network mern-app redis:7.4.2-alpine redis-server --save 10 1 --loglevel warning --requirepass eYVX7EwVmmxKPCDmwMtyKVge8oLd2t81
