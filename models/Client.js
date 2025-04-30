@@ -368,6 +368,10 @@ export class Client extends Utilisateur{
             rdvToInsert.diagnostics=[];
             rdvToInsert.mecanicien=null;
             rdvToInsert.station._idstation=new ObjectId(rdvToInsert.station._idstation);
+            for(let i=0;i<rdvToInsert.services.length;i++){
+                rdvToInsert.services[i]._idservice=new ObjectId(rdvToInsert.services[i]._idservice);
+            }
+            rdvToInsert.voiture._idvoiture=new ObjectId(rdvToInsert.voiture._idvoiture);
             rdvToInsert.dateheure=new Date(rdvToInsert.dateheure);
             rdvToInsert.etat=config.ETAT_RDV_CREE;
             await collection.insertOne(rdvToInsert,{session});

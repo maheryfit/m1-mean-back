@@ -1,3 +1,5 @@
+import {ObjectId} from "mongodb";
+
 export class Rdv{
     static #table="rdvs";
 
@@ -121,5 +123,23 @@ export class Rdv{
 
     set station(value) {
         this.#station = value;
+    }
+
+    async getRdv(connection,sess,config){
+        let session=sess;
+        let openedSession=false;
+        if(sess===null){
+            session=connection.startSession();
+            openedSession=true;
+        }
+        try{
+            const collection=await connection.db().collection(Rdv.table);
+            const rdv=await collection.findOne({_id:new ObjectId(this.idrdv),etat:{ $lt:Number(config.ETAT_RDV_TERMINE) }},{session});
+            return rdv;
+        }finally{
+            if(openedSession){
+                await session.endSession();
+            }
+        }
     }
 }

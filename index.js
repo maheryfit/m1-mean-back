@@ -24,16 +24,15 @@ const expiration=process.env.TOKEN_DURATION;
 const tokenUtil=new TokenUtil(secret,algorithm,expiration);
 
 const url=process.env.MONGO_URI;
-console.log(url);
 const connection=new MongoClient(url);
 await connection.connect();
 
 const corsOrigin=process.env.CORS_ORIGIN;
-console.log(corsOrigin);
 app.use(function(req, res, next) {
     res.header("Access-Control-Allow-Origin", corsOrigin);
     res.header("Access-Control-Allow-Credentials", "true");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    res.header("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE,OPTIONS");
     next();
 });
 app.use(cookieParser());

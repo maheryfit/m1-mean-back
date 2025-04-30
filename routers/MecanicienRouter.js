@@ -2,6 +2,7 @@ import express from "express";
 import {Client} from "../models/Client.js";
 import {Mecanicien} from "../models/Mecanicien.js";
 import {AuthMiddleware} from "../middlewares/AuthMiddleware.js";
+import {Rdv} from "../models/Rdv.js";
 
 const mecanicienRouter=express.Router();
 
@@ -37,5 +38,39 @@ mecanicienRouter.get("/liste-rdv/:page/:limit", AuthMiddleware.checkAuthMecanici
         res.status(500).send({message:error.message});
     }
 });
+mecanicienRouter.get("/details-rdv/:idrdv", AuthMiddleware.checkAuthMecanicien, async (req, res) => {
+    try{
+        console.log("HAHA");
+        let rdv=new Rdv();
+        rdv.idrdv=req.params.idrdv;
+        rdv=await rdv.getRdv(req.myConnection,null,req.config);
+        res.status(200).send(rdv);
+    }catch(error){
+        console.log(error);
+        res.status(500).send({message:error.message});
+    }
+});
+mecanicienRouter.put("/ajouter-diagnostic/:idrdv", AuthMiddleware.checkAuthMecanicien, async (req, res) => {
+    /*
+    * diagnostic:{
+    *   evaluation,
+    *   dateheure
+    * }
+    * */
+    try{
+        const diagnostic=req.body;
+        const utilisateur=req.utilisateur;
+        const mecanicien=new Mecanicien({});
+        mecanicien.idmecanicien=utilisateur.idmecanicien;
+        mecanicien.nomUtilisateur=utilisateur.nom_utilisateur;
+        const rdv=new Rdv();
+        rdv.idrdv=req.params.idrdv;
+        await mecanicien.ajouterDiagnostic(req.myConnection,null,req.config,rdv,diagnostic);
+        res.sendStatus(200);
+    }catch(error){
+        console.log(error);
+        res.status(500).send({message:error.message});
+    }
+})
 
 export default mecanicienRouter;

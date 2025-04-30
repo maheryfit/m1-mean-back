@@ -142,6 +142,39 @@ export class Mecanicien extends Utilisateur{
             }
         }
     }
+    async ajouterDiagnostic(connection,sess,config,rdv,diagnostic){
+        let session=sess;
+        let openedSession=false;
+        if(sess===null){
+            session=connection.startSession();
+            openedSession=true;
+        }
+        try{
+            const collection=connection.db().collection(Rdv.table);
+            if(openedSession){
+                session.startTransaction();
+            }
+            let diagsRdv=await collection.findOne({_id:new ObjectId(rdv.idrdv),etat:Number(config.ETAT_RDV_CREE)},{diagnostics:1},{session});
+            diagsRdv=diagsRdv.diagnostics;
+            diagnostic.idmecanicien=new ObjectId(this.idmecanicien);
+            diagnostic.nom_utilisateur_mecanicien=this.nomUtilisateur;
+            diagsRdv.push(diagnostic);
+            await collection.updateOne({_id:new ObjectId(rdv.idrdv),etat:Number(config.ETAT_RDV_CREE)},{$set:{diagnostics:diagsRdv}},{session});
+            if(openedSession){
+                await session.commitTransaction();
+            }
+        }catch(error){
+            if(openedSession){
+                await session.abortTransaction();
+            }
+            console.log(error);
+            throw error;
+        }finally {
+            if(openedSession){
+                await session.endSession();
+            }
+        }
+    }
 
     async paginationListeRdv(connection,sess,config,page,limit){
         let session=sess;
