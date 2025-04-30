@@ -23,7 +23,7 @@ export class Constantes{
     #ETAT_SERVICE_SUPPRIME;
     #ETAT_RDV_CREE;
     #ETAT_RDV_CLOS;
-    #ETAT_RDV_TERMINE;
+    #ETAT_RDV_PAYE;
     #ETAT_RDV_SUPPRIME;
     #ETAT_NIVEAU_CREE;
     #ETAT_NIVEAU_SUPPRIME;
@@ -54,8 +54,8 @@ export class Constantes{
         return this.#ETAT_MECANICIEN_SUPPRIME;
     }
 
-    get ETAT_RDV_TERMINE() {
-        return this.#ETAT_RDV_TERMINE;
+    get ETAT_RDV_PAYE() {
+        return this.#ETAT_RDV_PAYE;
     }
 
     get ETAT_RDV_CLOS() {
@@ -170,7 +170,7 @@ export class Constantes{
         this.#ETAT_SERVICE_SUPPRIME=10;
         this.#ETAT_RDV_CREE=1;
         this.#ETAT_RDV_CLOS=5;
-        this.#ETAT_RDV_TERMINE=7;
+        this.#ETAT_RDV_PAYE=7;
         this.#ETAT_RDV_SUPPRIME=10;
         this.#ETAT_NIVEAU_CREE=1;
         this.#ETAT_NIVEAU_SUPPRIME=10;

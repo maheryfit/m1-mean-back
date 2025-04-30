@@ -134,7 +134,7 @@ export class Rdv{
         }
         try{
             const collection=await connection.db().collection(Rdv.table);
-            const rdv=await collection.findOne({_id:new ObjectId(this.idrdv),etat:{ $lt:Number(config.ETAT_RDV_TERMINE) }},{session});
+            const rdv=await collection.findOne({_id:new ObjectId(this.idrdv),etat:{ $lt:Number(config.ETAT_RDV_PAYE) }},{session});
             return rdv;
         }finally{
             if(openedSession){

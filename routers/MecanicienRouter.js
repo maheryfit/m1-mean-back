@@ -84,6 +84,20 @@ mecanicienRouter.put("/prendre-charge-rdv/:idrdv", AuthMiddleware.checkAuthMecan
         console.log(error);
         res.status(500).send({message:error.message});
     }
+});
+mecanicienRouter.put("/cloturer-rdv/:idrdv", AuthMiddleware.checkAuthMecanicien, async (req, res) => {
+    try{
+        const utilisateur=req.utilisateur;
+        const mecanicien=new Mecanicien({});
+        mecanicien.idmecanicien=utilisateur.idmecanicien;
+        const rdv=new Rdv();
+        rdv.idrdv=req.params.idrdv;
+        await mecanicien.cloturerRdv(req.myConnection,null,req.config,rdv);
+        res.sendStatus(200);
+    }catch(error){
+        console.log(error);
+        res.status(500).send({message:error.message});
+    }
 })
 
 export default mecanicienRouter;

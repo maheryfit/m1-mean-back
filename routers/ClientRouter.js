@@ -3,6 +3,8 @@ import {Client} from "../models/Client.js";
 import {AuthMiddleware} from "../middlewares/AuthMiddleware.js";
 import {Voiture} from "../models/Voiture.js";
 import {Station} from "../models/Station.js";
+import {Rdv} from "../models/Rdv.js";
+import mecanicienRouter from "./MecanicienRouter.js";
 
 const clientRouter=express.Router();
 
@@ -155,6 +157,40 @@ clientRouter.get("/liste-rdv/:page/:limit", AuthMiddleware.checkAuthClient, asyn
         client.idclient=utilisateur.idclient;
         const rdvs=await client.paginationListeRdv(req.myConnection,null,req.config,req.params.page,req.params.limit);
         res.status(200).send(rdvs);
+    }catch(error){
+        console.log(error);
+        res.status(500).send({message:error.message});
+    }
+});
+clientRouter.get("/details-rdv/:idrdv", AuthMiddleware.checkAuthClient, async (req, res) => {
+    try{
+        let rdv=new Rdv();
+        rdv.idrdv=req.params.idrdv;
+        rdv=await rdv.getRdv(req.myConnection,null,req.config);
+        res.status(200).send(rdv);
+    }catch(error){
+        console.log(error);
+        res.status(500).send({message:error.message});
+    }
+});
+clientRouter.put("/ajouter-service-rdv/:idrdv", AuthMiddleware.checkAuthClient, async (req, res) => {
+    /*
+    * service:{
+    *   _idservice,
+    *   _nom,
+    *   _tarif,
+    *   _duree
+    * }
+    * */
+    try{
+        const service=req.body;
+        const utilisateur=req.utilisateur;
+        const client=new Client({});
+        client.idclient=utilisateur.idclient;
+        const rdv=new Rdv();
+        rdv.idrdv=req.params.idrdv;
+        await client.ajouterServiceRdv(req.myConnection,null,req.config,rdv,service);
+        res.sendStatus(200);
     }catch(error){
         console.log(error);
         res.status(500).send({message:error.message});

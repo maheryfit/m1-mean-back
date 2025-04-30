@@ -116,7 +116,7 @@ export class Mecanicien extends Utilisateur{
             const pageNumber=Number(page);
             const limitNumber=Number(limit);
             const collection=connection.db().collection(Rdv.table);
-            const rdv=await collection.find({etat:{ $lt:config.ETAT_RDV_TERMINE }},{session})
+            const rdv=await collection.find({etat:{ $lt:config.ETAT_RDV_PAYE }},{session})
                 .skip((pageNumber-1)*limitNumber)
                 .limit(limitNumber)
                 .project({"client.utilisateur.nom_utilisateur":1,"voiture._description":1,"station._nom":1,dateheure:1,reste_a_payer:1}).toArray();
@@ -136,7 +136,7 @@ export class Mecanicien extends Utilisateur{
         }
         try{
             const collection=connection.db().collection(Rdv.table);
-            const count=await collection.countDocuments({etat:{ $lt:config.ETAT_RDV_TERMINE }},{session})
+            const count=await collection.countDocuments({etat:{ $lt:config.ETAT_RDV_PAYE }},{session})
             return count;
         }finally{
             if(openedSession){
@@ -280,6 +280,38 @@ export class Mecanicien extends Utilisateur{
             console.log(error);
             throw error;
         }finally{
+            if(openedSession){
+                await session.endSession();
+            }
+        }
+    }
+    async cloturerRdv(connection,sess,config,rdv){
+        let session=sess;
+        let openedSession=false;
+        if(sess===null){
+            session=connection.startSession();
+            openedSession=true;
+        }
+        try{
+            const collection=connection.db().collection(Rdv.table);
+            if(openedSession){
+                session.startTransaction();
+            }
+            const detailsRdv=await rdv.getRdv(connection,session,config);
+            if(detailsRdv.mecanicien===null){
+                throw new Error("Aucun mécanicien n'a encore été assigné à cette maintenance.");
+            }
+            await collection.updateOne({_id:rdv.idrdv,etat:Number(config.ETAT_RDV_CREE)},{$set:{etat:Number(config.ETAT_RDV_CLOS)}},{session});
+            if(openedSession){
+                await session.commitTransaction();
+            }
+        }catch(error){
+            if(openedSession){
+                await session.abortTransaction();
+            }
+            console.log(error);
+            throw error;
+        }finally {
             if(openedSession){
                 await session.endSession();
             }
