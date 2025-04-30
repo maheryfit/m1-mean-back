@@ -1,6 +1,8 @@
 import {Utilisateur} from "./Utilisateur.js";
 import {Rdv} from "./Rdv.js";
 import {ObjectId} from "mongodb";
+import {Niveau} from "./Niveau.js";
+import {Role} from "./Role.js";
 
 export class Mecanicien extends Utilisateur{
     static #table="mecaniciens";
@@ -170,6 +172,114 @@ export class Mecanicien extends Utilisateur{
             console.log(error);
             throw error;
         }finally {
+            if(openedSession){
+                await session.endSession();
+            }
+        }
+    }
+    async getMecanicien(connection,sess,config){
+        let session=sess;
+        let openedSession=false;
+        if(sess===null){
+            session=connection.startSession();
+            openedSession=true;
+        }
+        try{
+            const collection=connection.db().collection(Mecanicien.table);
+            const mecanicien=await collection.findOne({_id:new ObjectId(this.idmecanicien),etat:config.ETAT_MECANICIEN_CREE},{session});
+            return mecanicien;
+        }finally {
+            if(openedSession){
+                await session.endSession();
+            }
+        }
+    }
+    async getNiveau(connection,sess,config){
+        let session=sess;
+        let openedSession=false;
+        if(sess===null){
+            session=connection.startSession();
+            openedSession=true;
+        }
+        try{
+            const collection=connection.db().collection(Niveau.table);
+            const niveau=await collection.findOne({_id:new ObjectId(this.niveau.idniveau),etat:config.ETAT_NIVEAU_CREE},{session});
+            return niveau;
+        }finally {
+            if(openedSession){
+                await session.endSession();
+            }
+        }
+    }
+    async getRole(connection,sess,config){
+        let session=sess;
+        let openedSession=false;
+        if(sess===null){
+            session=connection.startSession();
+            openedSession=true;
+        }
+        try{
+            const collection=connection.db().collection(Role.table);
+            const role=await collection.findOne({_id:new ObjectId(this.role.idrole),etat:config.ETAT_NIVEAU_CREE},{session});
+            return role;
+        }finally {
+            if(openedSession){
+                await session.endSession();
+            }
+        }
+    }
+    async prendreRdvEnCharge(connection,sess,config,rdv){
+        let session=sess;
+        let openedSession=false;
+        if(sess===null){
+            session=connection.startSession();
+            openedSession=true;
+        }
+        try{
+            const collection=connection.db().collection(Rdv.table);
+            if(openedSession){
+                session.startTransaction();
+            }
+            const mecanicien=await this.getMecanicien(connection,session,config);
+            this.niveau=new Niveau();
+            this.niveau.idniveau=mecanicien.idniveau;
+            let niveau=await this.getNiveau(connection,session,config);
+            niveau={
+                _id:new ObjectId(niveau._id),
+                nom:niveau.nom,
+                coefficient_salarial:niveau.coefficient_salarial
+            };
+            this.role=new Role();
+            this.role.idrole=mecanicien.idrole;
+            let role=await this.getRole(connection,session,config);
+            role={
+                _id:new ObjectId(role._id),
+                nom:role.nom,
+                salaire_mensuel:role.salaire_mensuel
+            }
+            this.idutilisateur=mecanicien.idutilisateur;
+            const utilisateur=await this.getUtilisateur(connection,session,config);
+            const mecanicienToPut={
+                _id:new ObjectId(mecanicien._id),
+                nom:mecanicien.nom,
+                prenom:mecanicien.prenom,
+                telephone:mecanicien.telephone,
+                niveau:niveau,
+                role:role,
+                utilisateur:utilisateur
+            };
+            await collection.updateOne({_id:new ObjectId(rdv.idrdv),etat:Number(config.ETAT_RDV_CREE)},{$set:{mecanicien:mecanicienToPut}},{session});
+            if(openedSession){
+                await session.commitTransaction();
+            }
+            return mecanicienToPut;
+        }catch(error){
+            if(openedSession){
+                await session.abortTransaction();
+            }
+            console.log(error);
+            throw error;
+        }finally{
             if(openedSession){
                 await session.endSession();
             }

@@ -40,7 +40,6 @@ mecanicienRouter.get("/liste-rdv/:page/:limit", AuthMiddleware.checkAuthMecanici
 });
 mecanicienRouter.get("/details-rdv/:idrdv", AuthMiddleware.checkAuthMecanicien, async (req, res) => {
     try{
-        console.log("HAHA");
         let rdv=new Rdv();
         rdv.idrdv=req.params.idrdv;
         rdv=await rdv.getRdv(req.myConnection,null,req.config);
@@ -67,6 +66,20 @@ mecanicienRouter.put("/ajouter-diagnostic/:idrdv", AuthMiddleware.checkAuthMecan
         rdv.idrdv=req.params.idrdv;
         await mecanicien.ajouterDiagnostic(req.myConnection,null,req.config,rdv,diagnostic);
         res.sendStatus(200);
+    }catch(error){
+        console.log(error);
+        res.status(500).send({message:error.message});
+    }
+});
+mecanicienRouter.put("/prendre-charge-rdv/:idrdv", AuthMiddleware.checkAuthMecanicien, async (req, res) => {
+    try{
+        const utilisateur=req.utilisateur;
+        let mecanicien=new Mecanicien({});
+        mecanicien.idmecanicien=utilisateur.idmecanicien;
+        const rdv=new Rdv();
+        rdv.idrdv=req.params.idrdv;
+        mecanicien= await mecanicien.prendreRdvEnCharge(req.myConnection,null,req.config,rdv);
+        res.status(200).send(mecanicien);
     }catch(error){
         console.log(error);
         res.status(500).send({message:error.message});

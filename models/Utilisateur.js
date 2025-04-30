@@ -124,7 +124,7 @@ export class Utilisateur{
             }
         }
     }
-    async getUtilisaateur(connection,sess,config){
+    async getUtilisateur(connection,sess,config){
         let session=sess;
         let openedSession=false;
         if(sess===null){

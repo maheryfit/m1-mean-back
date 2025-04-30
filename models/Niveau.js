@@ -1,3 +1,6 @@
+import {Rdv} from "./Rdv.js";
+import {ObjectId} from "mongodb";
+
 export class Niveau{
     static #table="niveaux";
 

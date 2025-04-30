@@ -353,7 +353,7 @@ export class Client extends Utilisateur{
             const statut=await this.getStatut(connection,session,config);
             this.utilisateur=new Utilisateur({});
             this.utilisateur.idutilisateur=details.idutilisateur;
-            const utilisateur=await this.utilisateur.getUtilisaateur(connection,session,config);
+            const utilisateur=await this.utilisateur.getUtilisateur(connection,session,config);
             rdvToInsert.client= {
                 idclient:new ObjectId(this.idclient),
                 nom:details.nom,

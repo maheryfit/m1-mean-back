@@ -25,6 +25,26 @@ export class Constantes{
     #ETAT_RDV_CLOS;
     #ETAT_RDV_TERMINE;
     #ETAT_RDV_SUPPRIME;
+    #ETAT_NIVEAU_CREE;
+    #ETAT_NIVEAU_SUPPRIME;
+    #ETAT_ROLE_CREE;
+    #ETAT_ROLE_SUPPRIME;
+
+    get ETAT_ROLE_CREE() {
+        return this.#ETAT_ROLE_CREE;
+    }
+
+    get ETAT_ROLE_SUPPRIME() {
+        return this.#ETAT_ROLE_SUPPRIME;
+    }
+
+    get ETAT_NIVEAU_CREE() {
+        return this.#ETAT_NIVEAU_CREE;
+    }
+
+    get ETAT_NIVEAU_SUPPRIME() {
+        return this.#ETAT_NIVEAU_SUPPRIME;
+    }
 
     get ETAT_MECANICIEN_CREE() {
         return this.#ETAT_MECANICIEN_CREE;
@@ -152,5 +172,9 @@ export class Constantes{
         this.#ETAT_RDV_CLOS=5;
         this.#ETAT_RDV_TERMINE=7;
         this.#ETAT_RDV_SUPPRIME=10;
+        this.#ETAT_NIVEAU_CREE=1;
+        this.#ETAT_NIVEAU_SUPPRIME=10;
+        this.#ETAT_ROLE_CREE=1;
+        this.#ETAT_ROLE_SUPPRIME=10;
     }
 }
