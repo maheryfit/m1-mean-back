@@ -29,6 +29,16 @@ export class Constantes{
     #ETAT_NIVEAU_SUPPRIME;
     #ETAT_ROLE_CREE;
     #ETAT_ROLE_SUPPRIME;
+    #ETAT_PAIEMENT_CREE;
+    #ETAT_PAIEMENT_SUPPRIME;
+
+    get ETAT_PAIEMENT_CREE() {
+        return this.#ETAT_PAIEMENT_CREE;
+    }
+
+    get ETAT_PAIEMENT_SUPPRIME() {
+        return this.#ETAT_PAIEMENT_SUPPRIME;
+    }
 
     get ETAT_ROLE_CREE() {
         return this.#ETAT_ROLE_CREE;
@@ -176,5 +186,7 @@ export class Constantes{
         this.#ETAT_NIVEAU_SUPPRIME=10;
         this.#ETAT_ROLE_CREE=1;
         this.#ETAT_ROLE_SUPPRIME=10;
+        this.#ETAT_PAIEMENT_CREE=1;
+        this.#ETAT_PAIEMENT_SUPPRIME=10;
     }
 }

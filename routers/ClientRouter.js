@@ -166,7 +166,7 @@ clientRouter.get("/details-rdv/:idrdv", AuthMiddleware.checkAuthClient, async (r
     try{
         let rdv=new Rdv();
         rdv.idrdv=req.params.idrdv;
-        rdv=await rdv.getRdv(req.myConnection,null,req.config);
+        rdv=await rdv.getRdvEnCours(req.myConnection,null,req.config);
         res.status(200).send(rdv);
     }catch(error){
         console.log(error);
@@ -191,6 +191,26 @@ clientRouter.put("/ajouter-service-rdv/:idrdv", AuthMiddleware.checkAuthClient, 
         rdv.idrdv=req.params.idrdv;
         await client.ajouterServiceRdv(req.myConnection,null,req.config,rdv,service);
         res.sendStatus(200);
+    }catch(error){
+        console.log(error);
+        res.status(500).send({message:error.message});
+    }
+});
+clientRouter.put("/payer-rdv/:idrdv", AuthMiddleware.checkAuthClient, async (req, res) => {
+    /*
+    * paiement: {
+    *   montant
+    * }
+    * */
+    try{
+        let paiement=req.body;
+        const utilisateur=req.utilisateur;
+        const client=new Client({});
+        client.idclient=utilisateur.idclient;
+        const rdv=new Rdv();
+        rdv.idrdv=req.params.idrdv;
+        paiement=await client.payerRdv(req.myConnection,null,req.config,rdv,paiement);
+        res.status(200).send(paiement);
     }catch(error){
         console.log(error);
         res.status(500).send({message:error.message});

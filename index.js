@@ -12,6 +12,7 @@ import utilisateurRouter from "./routers/UtilisateurRouter.js";
 import stationRouter from "./routers/StationRouter.js";
 import serviceRouter from "./routers/ServiceRouter.js";
 import mecanicienRouter from "./routers/MecanicienRouter.js";
+import rdvRouter from "./routers/RdvRouter.js";
 
 const app=express();
 const port=Number(process.env.PORT);
@@ -48,5 +49,6 @@ app.use("/mecanicien", mecanicienRouter);
 app.use("/utilisateur", utilisateurRouter);
 app.use("/station", stationRouter);
 app.use("/service", serviceRouter);
+app.use("/rdv", rdvRouter);
 
 app.listen(port);

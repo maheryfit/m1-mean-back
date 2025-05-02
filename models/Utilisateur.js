@@ -91,9 +91,9 @@ export class Utilisateur{
         }catch(error){
             if(openedSession){
                 await session.abortTransaction();
+console.log(error);
             }
-            console.log(error);
-            throw error;
+                        throw error;
         }finally{
             if(openedSession){
                 await session.endSession();

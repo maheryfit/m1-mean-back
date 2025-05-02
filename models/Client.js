@@ -5,6 +5,7 @@ import * as console from "node:console";
 import {Abonnement} from "./Abonnement.js";
 import {StatutClient} from "./StatutClient.js";
 import {Rdv as SessClient, Rdv} from "./Rdv.js";
+import {Paiement} from "./Paiement.js";
 
 export class Client extends Utilisateur{
     static #table="clients";
@@ -140,8 +141,8 @@ export class Client extends Utilisateur{
         }catch(error){
             if(openedSession){
                 await session.abortTransaction();
+console.log(error);
             }
-            console.log(error);
             throw error;
         }finally{
             if(openedSession){
@@ -242,8 +243,8 @@ export class Client extends Utilisateur{
         }catch(error){
             if(openedSession){
                 await session.abortTransaction();
+console.log(error);
             }
-            console.log(error);
             throw error;
         }finally{
             if(openedSession){
@@ -270,8 +271,8 @@ export class Client extends Utilisateur{
         }catch(error){
             if(openedSession){
                 await session.abortTransaction();
+console.log(error);
             }
-            console.log(error);
             throw error;
         }finally{
             if(openedSession){
@@ -382,8 +383,8 @@ export class Client extends Utilisateur{
         }catch(error){
             if(openedSession){
                 await session.abortTransaction();
+console.log(error);
             }
-            console.log(error);
             throw error;
         }finally{
             if(openedSession){
@@ -453,10 +454,67 @@ export class Client extends Utilisateur{
         }catch(error){
             if(openedSession){
                 await session.abortTransaction();
+console.log(error);
             }
-            console.log(error);
-            throw error;
+                        throw error;
         }finally{
+            if(openedSession){
+                await session.endSession();
+            }
+        }
+    }
+    async payerRdv(connection,sess,config,rdv,paiement){
+        let session=sess;
+        let openedSession=false;
+        if(sess===null){
+            session=connection.startSession();
+            openedSession=true;
+        }
+        try{
+            const collection=connection.db().collection(Paiement.table);
+            if(openedSession){
+                session.startTransaction();
+            }
+            const details=await this.getDetailsClient(connection,session,config);
+            this.abonnement=new Abonnement();
+            this.abonnement.idabonnement=details.idabonnement;
+            const abonnement=await this.getAbonnement(connection,session,config);
+            this.statut=new StatutClient();
+            this.statut.idstatut=details.idstatut;
+            const statut=await this.getStatut(connection,session,config);
+            this.utilisateur=new Utilisateur({});
+            this.utilisateur.idutilisateur=details.idutilisateur;
+            const utilisateur=await this.utilisateur.getUtilisateur(connection,session,config);
+            const client= {
+                idclient:new ObjectId(this.idclient),
+                nom:details.nom,
+                prenom:details.prenom,
+                telephone:details.telephone,
+                date_inscription:details.date_inscription,
+                abonnement:abonnement,
+                statut:statut,
+                utilisateur:utilisateur,
+            };
+            let paiementToInsert={
+                montant:paiement.montant,
+                dateheure:new Date(),
+                etat:config.ETAT_PAIEMENT_CREE,
+                client:client,
+                idrdv:new ObjectId(rdv.idrdv)
+            }
+            await collection.insertOne(paiementToInsert,{session});
+            await rdv.actualiserResteAPayer(connection,session,config,paiementToInsert);
+            if(openedSession){
+                await session.commitTransaction();
+            }
+            return paiementToInsert;
+        }catch(error){
+            if(openedSession){
+                await session.abortTransaction();
+console.log(error);
+            }
+                        throw error;
+        }finally {
             if(openedSession){
                 await session.endSession();
             }

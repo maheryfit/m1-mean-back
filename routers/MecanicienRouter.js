@@ -42,7 +42,7 @@ mecanicienRouter.get("/details-rdv/:idrdv", AuthMiddleware.checkAuthMecanicien, 
     try{
         let rdv=new Rdv();
         rdv.idrdv=req.params.idrdv;
-        rdv=await rdv.getRdv(req.myConnection,null,req.config);
+        rdv=await rdv.getRdvEnCours(req.myConnection,null,req.config);
         res.status(200).send(rdv);
     }catch(error){
         console.log(error);

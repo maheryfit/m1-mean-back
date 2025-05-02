@@ -168,8 +168,8 @@ export class Mecanicien extends Utilisateur{
         }catch(error){
             if(openedSession){
                 await session.abortTransaction();
+console.log(error);
             }
-            console.log(error);
             throw error;
         }finally {
             if(openedSession){
@@ -268,7 +268,7 @@ export class Mecanicien extends Utilisateur{
                 role:role,
                 utilisateur:utilisateur
             };
-            await collection.updateOne({_id:new ObjectId(rdv.idrdv),etat:Number(config.ETAT_RDV_CREE)},{$set:{mecanicien:mecanicienToPut}},{session});
+            await collection.updateOne({_id:new ObjectId(rdv.idrdv),mecanicien:null,etat:Number(config.ETAT_RDV_CREE)},{$set:{mecanicien:mecanicienToPut}},{session});
             if(openedSession){
                 await session.commitTransaction();
             }
@@ -276,8 +276,8 @@ export class Mecanicien extends Utilisateur{
         }catch(error){
             if(openedSession){
                 await session.abortTransaction();
+console.log(error);
             }
-            console.log(error);
             throw error;
         }finally{
             if(openedSession){
@@ -297,19 +297,19 @@ export class Mecanicien extends Utilisateur{
             if(openedSession){
                 session.startTransaction();
             }
-            const detailsRdv=await rdv.getRdv(connection,session,config);
+            const detailsRdv=await rdv.getRdvEnCours(connection,session,config);
             if(detailsRdv.mecanicien===null){
                 throw new Error("Aucun mécanicien n'a encore été assigné à cette maintenance.");
             }
-            await collection.updateOne({_id:rdv.idrdv,etat:Number(config.ETAT_RDV_CREE)},{$set:{etat:Number(config.ETAT_RDV_CLOS)}},{session});
+            await collection.updateOne({_id:new ObjectId(rdv.idrdv),etat:Number(config.ETAT_RDV_CREE)},{$set:{etat:Number(config.ETAT_RDV_CLOS)}},{session});
             if(openedSession){
                 await session.commitTransaction();
             }
         }catch(error){
             if(openedSession){
                 await session.abortTransaction();
+console.log(error);
             }
-            console.log(error);
             throw error;
         }finally {
             if(openedSession){

@@ -1,8 +1,10 @@
 export class AuthMiddleware {
     static async checkConnecte(req,res,next){
         try{
+            const profils=[req.config.PROFIL_CLIENT,req.config.PROFIL_MECANICIEN,req.config.PROFIL_MANAGER];
             const cookie=req.cookies[req.config.COOKIE_KEY];
-            if(cookie===undefined){
+            const utilisateur=await req.tokenUtil.decodeToken(cookie);
+            if(!profils.includes(utilisateur.profil)){
                 res.status(500).send({message:"Votre session est échue. Veuillez vous reconnecter"});
                 return;
             }
@@ -22,12 +24,13 @@ export class AuthMiddleware {
         * }
         * */
         try{
+            const profils=[req.config.PROFIL_CLIENT,req.config.PROFIL_MECANICIEN,req.config.PROFIL_MANAGER];
             const cookie=req.cookies[req.config.COOKIE_KEY];
-            if(cookie===undefined){
+            const utilisateur=await req.tokenUtil.decodeToken(cookie);
+            if(!profils.includes(utilisateur.profil)){
                 res.status(500).send({message:"Votre session est échue. Veuillez vous reconnecter"});
                 return;
             }
-            const utilisateur=await req.tokenUtil.decodeToken(cookie);
             if(utilisateur.profil!==req.config.PROFIL_CLIENT){
                 res.status(500).send({message:"Non autorisé"});
                 return;
@@ -49,12 +52,13 @@ export class AuthMiddleware {
         * }
         * */
         try{
+            const profils=[req.config.PROFIL_CLIENT,req.config.PROFIL_MECANICIEN,req.config.PROFIL_MANAGER];
             const cookie=req.cookies[req.config.COOKIE_KEY];
-            if(cookie===undefined){
+            const utilisateur=await req.tokenUtil.decodeToken(cookie);
+            if(!profils.includes(utilisateur.profil)){
                 res.status(500).send({message:"Votre session est échue. Veuillez vous reconnecter"});
                 return;
             }
-            const utilisateur=await req.tokenUtil.decodeToken(cookie);
             if(utilisateur.profil!==req.config.PROFIL_MECANICIEN){
                 res.status(500).send({message:"Non autorisé"});
                 return;
