@@ -1,0 +1,11 @@
+db=connect("mongodb://localhost:27017/mean_db");
+db.utilisateurs.createIndex({nom_utilisateur:1,profil:1,etat:1},{unique:true});
+db.voitures.createIndex({description:1,immatriculation:1,idclient:1,etat:1},{unique:true});
+db.stations.createIndex({coordonnees:1,etat:1},{unique:true});
+db.services.createIndex({nom:1,etat:1},{unique:true});
+db.statut_clients.createIndex({nom:1},{unique:true});
+db.abonnements.createIndex({nom:1},{unique:true});
+db.niveaux.createIndex({nom:1,etat:1},{unique:true});
+db.roles.createIndex({nom:1,etat:1},{unique:true});
+db.mecaniciens.createIndex({idutilisateur:1,etat:1},{unique:true});
+db.clients.createIndex({idutilisateur:1,etat:1},{unique:true});

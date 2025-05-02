@@ -10,6 +10,7 @@ const Service = require("../../models/dashboard-mecanicien/Service");
 const {startSession} = require("mongoose");
 const Maintenance = require("../../models/dashboard-mecanicien/Maintenance");
 const { ObjectId } = require('mongodb');
+const DemandeRDVDiagnosticService = require("../dashboard-client/demandeRDVDiagnosticService");
 
 class DevisService{
     constructor(){}
@@ -19,14 +20,17 @@ class DevisService{
      * @param {Request} req
      */
     async createService(req){
+        const demandeService=new DemandeRDVDiagnosticService();
         const session = await startSession();
         session.startTransaction()
         try {
             await this._insertRemise(req)
             await this._getTotalDevisWithRemise(req)
+            await this._setDureeEstimeeDansRequete(req)
             const devis=new Devis(req.body);
             await devis.save();
             await this._insertMaintenance(req.body["dateheure_debut_maintenance"], req.body['station'], devis._id)
+            await demandeService.accepterDemandeRDV(req);
             await session.commitTransaction()
             return devis;
         } catch (error) {
@@ -320,26 +324,59 @@ class DevisService{
      */
     async findByIdService(req) {
         return Devis.findById(req.params.id)
-            .populate("voiture")
+            .populate({
+                path:"voiture",
+                populate:{
+                    path:"proprietaire",
+                    select:"nom prenom nom_utilisateur"
+                }
+            })
             .populate("station")
-            .populate("mecanicien")
+            .populate({
+                path:"mecanicien",
+                populate:{
+                    path:"utilisateur",
+                    select:"nom prenom nom_utilisateur"
+                }
+            })
             //.populate("main_oeuvres")
             .populate({
                 path: "articles_quantites",
                 populate: {
-                    path: "article",
-                    model: "Articles"
+                    path: "article"
                 }
             })
             .populate("remises")
-            .populate("services")
+            .populate("services");
+    }
+
+    async findByIdDemande(req) {
+        const iddemande=req.params.iddemande;
+        return Devis.find({diagnostic:iddemande})
             .populate({
-                path: "voiture",
-                populate: {
-                    path: "proprietaire",
-                    model: "Utilisateurs",
+                path:"voiture",
+                populate:{
+                    path:"proprietaire",
+                    select:"nom prenom nom_utilisateur"
                 }
-            });
+            })
+            .populate("station")
+            .populate({
+                path:"mecanicien",
+                populate:{
+                    path:"utilisateur",
+                    select:"nom prenom nom_utilisateur"
+                }
+            })
+            //.populate("main_oeuvres")
+            .populate({
+                path: "articles_quantites.article",
+                populate:{
+                    path:"marque"
+                }
+            })
+            .populate("remises")
+            .populate("services");
     }
 
     /**
@@ -375,7 +412,30 @@ class DevisService{
             await session.endSession()
         }
     }
-
+    
+    async _setDureeEstimeeDansRequete(req){
+        const dureeEstimee=await this._getDureeServices(req.body.services);
+        req.body.duree_estimee=dureeEstimee;
+    }
+    async _getDureeServices(services){
+        const idservices=[];
+        for(let i=0;i<services.length;i++){
+            idservices.push(new ObjectId(services[i]));
+        }
+        const resultat=await Service.aggregate([
+            {
+                $match:{_id:{$in:idservices}}
+            },
+            {
+                $group:{
+                    _id:null,
+                    duree_estimee:{$sum:"$duree_estimee"}
+                }
+            }
+        ]);
+        const dureeEstimee=resultat[0]?.duree_estimee||0;
+        return dureeEstimee;
+    }
 }
 
 module.exports=DevisService;
