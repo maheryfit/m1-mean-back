@@ -444,6 +444,9 @@ console.log(error);
                 session.startTransaction();
             }
             let servicesRdv=await collection.findOne({_id:new ObjectId(rdv.idrdv),"client.idclient":new ObjectId(this.idclient),etat:Number(config.ETAT_RDV_CREE)},{services:1},{session});
+            if(servicesRdv===null){
+                throw new Error("La maintenance est déjà clôturée.")
+            }
             servicesRdv=servicesRdv.services;
             service._idservice=new ObjectId(service._idservice);
             servicesRdv.push(service);
