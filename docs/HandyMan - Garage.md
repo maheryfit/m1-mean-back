@@ -468,3 +468,229 @@ docker exec mongo-cont mongoimport --db mean_db --collection mecaniciens --file 
 npm run start-development
 ```
 
+## Frontend
+### Structure du projet
+```bash
+├── public
+├── src
+│   ├── app
+|   │   ├── core
+|   |   │   ├── ...
+|   │   ├── dashboard-client
+|   |   │   ├── ...
+|   │   ├── dashboard-mecanicien
+|   |   │   ├── ...
+|   │   ├── features
+|   |   │   ├── ...
+|   │   ├── models
+|   |   │   ├── ...
+|   │   ├── routes
+|   |   │   ├── ...
+|   │   ├── services
+|   |   │   ├── utils
+|   |   |   │   ├── ...
+|   |   │   ├── ...
+|   │   ├── app.component.ts
+|   │   ├── app.config.ts
+|   │   ├── app.routes.ts
+│   ├── environments
+|   │   ├── ...
+|   ├── index.html
+|   ├── main.ts
+├── launch.sh
+├── node_modules
+│   ├── ...
+├── package.json
+├── package-lock.json
+├── angular.json
+```
+
+### Models
+```ts
+export class ClasseVoiture{  
+  private _idvoiture:string="";  
+  private _description:string="";  
+  private _immatriculation:string="";  
+  private _caracteristiques:Caracteristique[]=[];  
+  
+  get caracteristiques(): Caracteristique[] {  
+    return this._caracteristiques;  
+  }  
+  
+  set caracteristiques(value: Caracteristique[]) {  
+    this._caracteristiques = value;  
+  }
+  ...
+  // convention du projet: méthode pour initialiser l'instance à partir des réponses du backend
+  init(obj:any){
+	  ...
+  }
+}
+```
+*Préférablement une seule classe par fichier*
+
+### Routes
+#### client.routes.ts
+```ts
+export const clientRoutes:Routes=[  
+  {  
+    // redirection en cas d'URL ambigüe
+    path: "",  
+    redirectTo:()=>{  
+      const routeService=inject(RouteService);  
+      return routeService.filtrePathProfil(
+	      environment.PROFIL_CLIENT,
+	      "/client/voitures/liste/1"
+	  );  
+    },  
+    pathMatch: "full"  
+  },  
+  {  
+    path:"voitures",  
+    title: "Gestion de voitures",  
+    children:[  
+      {
+		// redirection en cas d'URL ambigüe
+        path: "",  
+        redirectTo:()=>{  
+          const routeService=inject(RouteService);  
+          return routeService.filtrePathProfil(
+	          environment.PROFIL_CLIENT,
+	          "/client/voitures/liste/1"
+		  );  
+        },  
+        pathMatch: "full"  
+      },  
+      {  
+        path:"liste/:page",  
+        component:VoituresComponent,  
+        canActivate:[isAuthClient]  
+      },  
+      {  
+        path:"creer/:page",  
+        component:CreerVoitureComponent,  
+        canActivate:[isAuthClient]  
+      }  
+    ]  
+  },
+  ...
+]
+```
+#### app.routes.ts
+```ts
+export const routes: Routes = [  
+  {  
+    path: 'login',  
+    title: 'Connexion - Client',  
+    component: LoginComponent  
+  },  
+  {  
+    path: "",  
+    redirectTo:()=>{  
+      const routeService=inject(RouteService);  
+      return routeService.filtrePathGeneral();  
+    },  
+    pathMatch: "full"  
+  },  
+  {  
+    path: "sign-up",  
+    title: "Inscription - Client",  
+    component: SignupComponent  
+  },
+  // import de client.routes.ts  
+  {  
+    path: "client",  
+    component: DashboardClientComponent,  
+    title:"Tableau de bord - Client",  
+    children:clientRoutes  
+  },
+  ...
+}
+```
+
+#### services/util/route.service.ts
+```ts
+export class RouteService{
+  filtrePathGeneral(){  
+    const utilisateur=localStorage.getItem(environment.UTILISATEUR_STORAGE_KEY);  
+    if(utilisateur===null){  
+      return "/login";  
+    }  
+    const utilisateurParsed=JSON.parse(utilisateur);  
+    switch(utilisateurParsed.profil){  
+      case environment.PROFIL_CLIENT:  
+        return "/client";  
+      case environment.PROFIL_MECANICIEN:  
+        return "/mecanicien";  
+      default:  
+        return "/login";  
+    }  
+  }  
+  filtrePathProfil(targetProfil:number,targetUrl:string){  
+    const utilisateur=localStorage.getItem(environment.UTILISATEUR_STORAGE_KEY);  
+    if(utilisateur===null){  
+      return "/login";  
+    }  
+    const utilisateurParsed=JSON.parse(utilisateur);  
+    if(utilisateurParsed.profil===targetProfil){  
+      return targetUrl;  
+    }  
+    return "/login";  
+  }  
+}
+```
+*Comme le cookie présente un attribut HttpOnly, il est inaccessible par Angular, donc la vérification côté client de la session utilisateur se fait par localstorage.*
+
+### Services
+```ts
+@Injectable({
+	providedIn:"root"
+})
+export class ClientService{
+	creerVoiture(voiture:any){  
+	const url=`${environment.API_URL}/client/creer-voiture`;  
+	// envoi de la requête par AJAX
+	const xhr=new XMLHttpRequest();  
+	// traitement asynchrone
+	const promise=new Promise<ClasseVoiture>(function (resolve,reject){  
+		xhr.onreadystatechange=function(){  
+		  if(this.readyState===4){  
+			switch(this.status){  
+			  case 200:  
+				const data=JSON.parse(this.response);  
+				const voiture=new ClasseVoiture({});  
+				voiture.init(data);  
+				resolve(voiture);  
+				break;  
+			  case 500:  
+				reject(JSON.parse(this.response).message);  
+				break;  
+			}  
+		  }  
+		}  
+		xhr.open("POST", url, true);  
+		xhr.setRequestHeader("Content-type","application/json;charset=utf-8");  
+		xhr.withCredentials=true;  
+		xhr.send(JSON.stringify(voiture));  
+	});  
+	return promise;  
+	}
+}
+```
+
+### Déploiement
+#### launch.sh
+```bash
+# compilation du projet en bundle js
+ng build --configuration production 
+
+# nettoyage du dossier de déploiement nginx
+rm -R /var/www/html/*  
+
+# transfert des bundle compilés vers le dossier de déploiement nginx
+mv dist/m1-mean-front/browser/* /var/www/html/
+```
+#### développement en local
+```bash
+ng serve
+```
