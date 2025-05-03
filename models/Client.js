@@ -443,23 +443,34 @@ console.log(error);
             if(openedSession){
                 session.startTransaction();
             }
-            let servicesRdv=await collection.findOne({_id:new ObjectId(rdv.idrdv),"client.idclient":new ObjectId(this.idclient),etat:Number(config.ETAT_RDV_CREE)},{services:1},{session});
-            if(servicesRdv===null){
+            let detailsRdv=await collection.findOne(
+                {_id:new ObjectId(rdv.idrdv),"client.idclient":new ObjectId(this.idclient),etat:Number(config.ETAT_RDV_CREE)},
+                {services:1,montant:1,reste_a_payer:1,duree:1},
+                {session});
+            if(detailsRdv===null){
                 throw new Error("La maintenance est déjà clôturée.")
             }
-            servicesRdv=servicesRdv.services;
+            let servicesRdv=detailsRdv.services;
             service._idservice=new ObjectId(service._idservice);
             servicesRdv.push(service);
-            await collection.updateOne({_id:new ObjectId(rdv.idrdv),"client.idclient":new ObjectId(this.idclient),etat:Number(config.ETAT_RDV_CREE)},{$set:{services:servicesRdv}},{session});
+            await collection.updateOne(
+                {_id:new ObjectId(rdv.idrdv),"client.idclient":new ObjectId(this.idclient),etat:Number(config.ETAT_RDV_CREE)},
+                {$set:{
+                    services:servicesRdv,
+                    montant:detailsRdv.montant+service._tarif,
+                    reste_a_payer:detailsRdv.reste_a_payer+service._tarif,
+                    duree:detailsRdv.duree+service._duree
+                }},
+                {session});
             if(openedSession){
                 await session.commitTransaction();
             }
         }catch(error){
             if(openedSession){
                 await session.abortTransaction();
-console.log(error);
+                console.log(error);
             }
-                        throw error;
+            throw error;
         }finally{
             if(openedSession){
                 await session.endSession();
