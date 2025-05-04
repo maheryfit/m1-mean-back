@@ -215,6 +215,18 @@ clientRouter.put("/payer-rdv/:idrdv", AuthMiddleware.checkAuthClient, async (req
         console.log(error);
         res.status(500).send({message:error.message});
     }
+});
+clientRouter.get("/details-profil", AuthMiddleware.checkAuthClient, async (req, res) => {
+    try{
+        const utilisateur=req.utilisateur;
+        let client=new Client({});
+        client.idclient=utilisateur.idclient;
+        client=await client.detailsProfil(req.myConnection,null,req.config);
+        res.status(200).send(client);
+    }catch(error){
+        console.log(error);
+        res.status(500).send({message:error.message});
+    }
 })
 
 export default clientRouter;

@@ -21,15 +21,6 @@ export class Client extends Utilisateur{
     #statut;
     #etat;
     #abonnement;
-    #utilisateur;
-
-    get utilisateur() {
-        return this.#utilisateur;
-    }
-
-    set utilisateur(value) {
-        this.#utilisateur = value;
-    }
 
     get abonnement() {
         return this.#abonnement;
@@ -289,7 +280,10 @@ console.log(error);
         }
         try{
             const collection=connection.db().collection(Client.table);
-            const client=await collection.findOne({_id:new ObjectId(this.idclient),etat:Number(config.ETAT_CLIENT_CREE)},{session});
+            const client=await collection.findOne(
+                {_id:new ObjectId(this.idclient),etat:Number(config.ETAT_CLIENT_CREE)},
+                {etat:-1},
+                {session});
             return client;
         }finally{
             if(openedSession){
@@ -352,9 +346,8 @@ console.log(error);
             this.statut=new StatutClient();
             this.statut.idstatut=details.idstatut;
             const statut=await this.getStatut(connection,session,config);
-            this.utilisateur=new Utilisateur({});
-            this.utilisateur.idutilisateur=details.idutilisateur;
-            const utilisateur=await this.utilisateur.getUtilisateur(connection,session,config);
+            this.idutilisateur=details.idutilisateur;
+            const utilisateur=await this.getUtilisateur(connection,session,config);
             rdvToInsert.client= {
                 idclient:new ObjectId(this.idclient),
                 nom:details.nom,
@@ -496,9 +489,8 @@ console.log(error);
             this.statut=new StatutClient();
             this.statut.idstatut=details.idstatut;
             const statut=await this.getStatut(connection,session,config);
-            this.utilisateur=new Utilisateur({});
-            this.utilisateur.idutilisateur=details.idutilisateur;
-            const utilisateur=await this.utilisateur.getUtilisateur(connection,session,config);
+            this.idutilisateur=details.idutilisateur;
+            const utilisateur=await this.getUtilisateur(connection,session,config);
             const client= {
                 idclient:new ObjectId(this.idclient),
                 nom:details.nom,
@@ -588,6 +580,34 @@ console.log(error);
             const countRdv=await this.countRdvEnCours(connection,session,config);
             return [rdvs,countRdv];
         }finally {
+            if(openedSession){
+                await session.endSession();
+            }
+        }
+    }
+    async detailsProfil(connection,sess,config){
+        let session=sess;
+        let openedSession=false;
+        if(sess===null){
+            session=connection.startSession();
+            openedSession=true;
+        }
+        try{
+            const detailsClient=await this.getDetailsClient(connection,session,config);
+            this.statut=new StatutClient();
+            this.statut.idstatut=detailsClient.idstatut;
+            const statut=await this.getStatut(connection,session,config);
+            this.abonnement=new Abonnement();
+            this.abonnement.idabonnement=detailsClient.idabonnement;
+            const abonnement=await this.getAbonnement(connection,session,config);
+            this.idutilisateur=detailsClient.idutilisateur;
+            const utilisateur=await this.getUtilisateur(connection,session,config);
+            const profil=detailsClient;
+            profil.abonnement=abonnement;
+            profil.statut=statut;
+            profil.utilisateur=utilisateur;
+            return profil;
+        }finally{
             if(openedSession){
                 await session.endSession();
             }
