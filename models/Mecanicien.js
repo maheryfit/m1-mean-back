@@ -156,7 +156,7 @@ export class Mecanicien extends Utilisateur{
             if(openedSession){
                 session.startTransaction();
             }
-            let diagsRdv=await collection.findOne({_id:new ObjectId(rdv.idrdv),etat:Number(config.ETAT_RDV_CREE)},{diagnostics:1},{session});
+            let diagsRdv=await collection.findOne({_id:new ObjectId(rdv.idrdv),etat:{$lt:Number(config.ETAT_RDV_PAYE)}},{diagnostics:1},{session});
             diagsRdv=diagsRdv.diagnostics;
             diagnostic.idmecanicien=new ObjectId(this.idmecanicien);
             diagnostic.nom_utilisateur_mecanicien=this.nomUtilisateur;
