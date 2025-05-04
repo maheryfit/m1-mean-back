@@ -41,4 +41,22 @@ export class Abonnement {
     set prix(value) {
         this.#prix = value;
     }
+
+    static async getAbonnements(connection,sess,config){
+        let session=sess;
+        let openedSession=false;
+        if(sess===null){
+            session=connection.startSession();
+            openedSession=true;
+        }
+        try{
+            const collection=connection.db().collection(Abonnement.table);
+            const abonnements=await collection.find({},{session}).toArray();
+            return abonnements;
+        }finally {
+            if(openedSession){
+                await session.endSession();
+            }
+        }
+    }
 }

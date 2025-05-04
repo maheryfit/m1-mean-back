@@ -13,6 +13,7 @@ import stationRouter from "./routers/StationRouter.js";
 import serviceRouter from "./routers/ServiceRouter.js";
 import mecanicienRouter from "./routers/MecanicienRouter.js";
 import rdvRouter from "./routers/RdvRouter.js";
+import abonnementRouter from "./routers/AbonnementRouter.js";
 
 const app=express();
 const port=Number(process.env.PORT);
@@ -50,5 +51,6 @@ app.use("/utilisateur", utilisateurRouter);
 app.use("/station", stationRouter);
 app.use("/service", serviceRouter);
 app.use("/rdv", rdvRouter);
+app.use("/abonnement", abonnementRouter);
 
 app.listen(port);
