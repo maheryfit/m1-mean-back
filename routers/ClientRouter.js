@@ -189,7 +189,30 @@ clientRouter.put("/ajouter-service-rdv/:idrdv", AuthMiddleware.checkAuthClient, 
         client.idclient=utilisateur.idclient;
         const rdv=new Rdv();
         rdv.idrdv=req.params.idrdv;
-        await client.ajouterServiceRdv(req.myConnection,null,req.config,rdv,service);
+        await client.gererServicesRdv(req.myConnection,null,req.config,rdv,service,req.config.OPERATION_AJOUT_SERVICE_RDV);
+        res.sendStatus(200);
+    }catch(error){
+        console.log(error);
+        res.status(500).send({message:error.message});
+    }
+});
+clientRouter.put("/retirer-service-rdv/:idrdv", AuthMiddleware.checkAuthClient, async (req, res) => {
+    /*
+    * service:{
+    *   _idservice,
+    *   _nom,
+    *   _tarif,
+    *   _duree
+    * }
+    * */
+    try{
+        const service=req.body;
+        const utilisateur=req.utilisateur;
+        const client=new Client({});
+        client.idclient=utilisateur.idclient;
+        const rdv=new Rdv();
+        rdv.idrdv=req.params.idrdv;
+        await client.gererServicesRdv(req.myConnection,null,req.config,rdv,service,req.config.OPERATION_RETRAIT_SERVICE_RDV);
         res.sendStatus(200);
     }catch(error){
         console.log(error);

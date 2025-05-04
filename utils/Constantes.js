@@ -9,6 +9,9 @@ export class Constantes{
     #PROFIL_CLIENT;
     #PROFIL_MECANICIEN;
     #PROFIL_MANAGER;
+    #OPERATION_AJOUT_SERVICE_RDV;
+    #OPERATION_RETRAIT_SERVICE_RDV;
+
     #ETAT_UTILISATEUR_CREE;
     #ETAT_UTILISATEUR_SUPPRIME;
     #ETAT_CLIENT_CREE;
@@ -31,6 +34,14 @@ export class Constantes{
     #ETAT_ROLE_SUPPRIME;
     #ETAT_PAIEMENT_CREE;
     #ETAT_PAIEMENT_SUPPRIME;
+
+    get OPERATION_AJOUT_SERVICE_RDV() {
+        return this.#OPERATION_AJOUT_SERVICE_RDV;
+    }
+
+    get OPERATION_RETRAIT_SERVICE_RDV() {
+        return this.#OPERATION_RETRAIT_SERVICE_RDV;
+    }
 
     get ETAT_PAIEMENT_CREE() {
         return this.#ETAT_PAIEMENT_CREE;
@@ -166,6 +177,9 @@ export class Constantes{
         this.#PROFIL_CLIENT=1;
         this.#PROFIL_MECANICIEN=5;
         this.#PROFIL_MANAGER=10;
+        this.#OPERATION_AJOUT_SERVICE_RDV=1;
+        this.#OPERATION_RETRAIT_SERVICE_RDV=-1;
+
         this.#ETAT_UTILISATEUR_CREE=1;
         this.#ETAT_UTILISATEUR_SUPPRIME=10;
         this.#ETAT_CLIENT_CREE=1;

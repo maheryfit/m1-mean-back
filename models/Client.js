@@ -424,7 +424,7 @@ console.log(error);
             }
         }
     }
-    async ajouterServiceRdv(connection,sess,config,rdv,service){
+    async gererServicesRdv(connection,sess,config,rdv,service,operation){
         let session=sess;
         let openedSession=false;
         if(sess===null){
@@ -445,15 +445,29 @@ console.log(error);
             }
             let servicesRdv=detailsRdv.services;
             service._idservice=new ObjectId(service._idservice);
-            servicesRdv.push(service);
+            let addOrSubstract=1;
+            switch(operation){
+                case config.OPERATION_AJOUT_SERVICE_RDV:
+                    servicesRdv.push(service);
+                    break;
+                case config.OPERATION_RETRAIT_SERVICE_RDV:
+                    addOrSubstract=-1;
+                    for(let i=0;i<servicesRdv.length;i++){
+                        if(servicesRdv[i]._idservice===service._idservice){
+                            servicesRdv.splice(i,1);
+                            break;
+                        }
+                    }
+                    break;
+            }
             await collection.updateOne(
                 {_id:new ObjectId(rdv.idrdv),"client.idclient":new ObjectId(this.idclient),etat:Number(config.ETAT_RDV_CREE)},
                 {$set:{
-                    services:servicesRdv,
-                    montant:detailsRdv.montant+service._tarif,
-                    reste_a_payer:detailsRdv.reste_a_payer+service._tarif,
-                    duree:detailsRdv.duree+service._duree
-                }},
+                        services:servicesRdv,
+                        montant:detailsRdv.montant+(service._tarif*addOrSubstract),
+                        reste_a_payer:detailsRdv.reste_a_payer+(service._tarif*addOrSubstract),
+                        duree:detailsRdv.duree+(service._duree*addOrSubstract)
+                    }},
                 {session});
             if(openedSession){
                 await session.commitTransaction();
