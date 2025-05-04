@@ -453,7 +453,7 @@ console.log(error);
                 case config.OPERATION_RETRAIT_SERVICE_RDV:
                     addOrSubstract=-1;
                     for(let i=0;i<servicesRdv.length;i++){
-                        if(servicesRdv[i]._idservice===service._idservice){
+                        if(servicesRdv[i]._idservice.toString()===service._idservice.toString()){
                             servicesRdv.splice(i,1);
                             break;
                         }
