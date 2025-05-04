@@ -228,5 +228,23 @@ clientRouter.get("/details-profil", AuthMiddleware.checkAuthClient, async (req, 
         res.status(500).send({message:error.message});
     }
 })
+clientRouter.put("/changer-abonnement", AuthMiddleware.checkAuthClient, async (req, res) => {
+    /*
+    * abonnement:{
+    *   idabonnement
+    * }
+    * */
+    try{
+        const abonnement=req.body;
+        const utilisateur=req.utilisateur;
+        const client=new Client({});
+        client.idclient=utilisateur.idclient;
+        await client.changerAbonnement(req.myConnection,null,req.config,abonnement);
+        res.sendStatus(200);
+    }catch(error){
+        console.log(error);
+        res.status(500).send({message:error.message});
+    }
+})
 
 export default clientRouter;

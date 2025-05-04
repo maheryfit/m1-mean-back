@@ -526,6 +526,34 @@ console.log(error);
             }
         }
     }
+    async changerAbonnement(connection,sess,config,abonnement){
+        let session=sess;
+        let openedSession=false;
+        if(sess===null){
+            session=connection.startSession();
+            openedSession=true;
+        }
+        try{
+            const collection=connection.db().collection(Client.table);
+            if(openedSession){
+                session.startTransaction();
+            }
+            await collection.updateOne({_id:new ObjectId(this.idclient),etat:Number(config.ETAT_CLIENT_CREE)},{$set:{idabonnement:new ObjectId(abonnement.idabonnement)}},{session});
+            if(openedSession){
+                await session.commitTransaction();
+            }
+        }catch(error){
+            if(openedSession){
+                await session.abortTransaction();
+                console.log(error);
+            }
+            throw error;
+        }finally{
+            if(openedSession){
+                await session.endSession();
+            }
+        }
+    }
 
     async paginationVoiture(connection,sess,config,page,limit){
         let session=sess;

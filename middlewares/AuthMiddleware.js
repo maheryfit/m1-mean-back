@@ -11,7 +11,7 @@ export class AuthMiddleware {
             next();
         }catch(e){
             console.log(e);
-            res.status(500).send({error:e.message});
+            res.status(500).send({message:e.message});
         }
     }
     static async checkAuthClient(req,res,next){
