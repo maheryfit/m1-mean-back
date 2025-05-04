@@ -1,0 +1,45 @@
+{
+  "_id": {
+    "$oid": "6817e40d4e61044702d04b03"
+  },
+  "montant": 100000,
+  "dateheure": {
+    "$date": "2025-05-04T22:02:53.164Z"
+  },
+  "etat": 1,
+  "client": {
+    "idclient": {
+      "$oid": "6817e3c14e61044702d04b00"
+    },
+    "nom": "Jean",
+    "prenom": "Beau",
+    "telephone": "XXX",
+    "date_inscription": {
+      "$date": "2025-05-04T22:01:37.528Z"
+    },
+    "abonnement": {
+      "_id": {
+        "$oid": "6817196204689840b1740074"
+      },
+      "nom": "Gold",
+      "prix": 15000,
+      "pourcentage_reduction": 25
+    },
+    "statut": {
+      "_id": {
+        "$oid": "6809fb13a773274d10b2fa2a"
+      },
+      "nom": "simple",
+      "pourcentage_reduction": 0
+    },
+    "utilisateur": {
+      "_id": {
+        "$oid": "6817e3c14e61044702d04aff"
+      },
+      "nom_utilisateur": "JBo"
+    }
+  },
+  "idrdv": {
+    "$oid": "6817e3ff4e61044702d04b02"
+  }
+}

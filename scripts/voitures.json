@@ -1,0 +1,21 @@
+{
+  "_id": {
+    "$oid": "6817e3d14e61044702d04b01"
+  },
+  "description": "Toyota Corolla",
+  "immatriculation": "1111 TAB",
+  "caracteristiques": [
+    {
+      "_nom": "Type",
+      "_valeur": "SUV"
+    },
+    {
+      "_nom": "Transmission",
+      "_valeur": "manuelle"
+    }
+  ],
+  "etat": 1,
+  "idclient": {
+    "$oid": "6817e3c14e61044702d04b00"
+  }
+}
