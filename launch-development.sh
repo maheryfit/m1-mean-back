@@ -1,3 +1,4 @@
+docker network create mern-app
 docker run -d --rm --name mongo-cont -v mongo_db_refacto:/data/db -v $(pwd)/scripts:/scripts -w /scripts -p 27017:27017 --network mern-app mongo mongod --replSet myReplicaSet --bind_ip localhost,mongo-cont
 
 until docker exec mongo-cont mongosh --eval "db.adminCommand('ping')" > /dev/null 2>&1

@@ -16,6 +16,8 @@ export class Constantes{
     #ETAT_UTILISATEUR_SUPPRIME;
     #ETAT_CLIENT_CREE;
     #ETAT_CLIENT_SUPPRIME;
+    #ETAT_MANAGER_CREE;
+    #ETAT_MANAGER_SUPPRIME;
     #ETAT_MECANICIEN_CREE;
     #ETAT_MECANICIEN_SUPPRIME;
     #ETAT_VOITURE_CREE;
@@ -74,6 +76,15 @@ export class Constantes{
     get ETAT_MECANICIEN_SUPPRIME() {
         return this.#ETAT_MECANICIEN_SUPPRIME;
     }
+
+    get ETAT_MANAGER_CREE() {
+        return this.#ETAT_MANAGER_CREE;
+    }
+
+    get ETAT_MANAGER_SUPPRIME() {
+        return this.#ETAT_MANAGER_SUPPRIME;
+    }
+
 
     get ETAT_RDV_PAYE() {
         return this.#ETAT_RDV_PAYE;
@@ -184,6 +195,8 @@ export class Constantes{
         this.#ETAT_UTILISATEUR_SUPPRIME=10;
         this.#ETAT_CLIENT_CREE=1;
         this.#ETAT_CLIENT_SUPPRIME=10;
+        this.#ETAT_MANAGER_CREE=1;
+        this.#ETAT_MANAGER_SUPPRIME=10;
         this.#ETAT_MECANICIEN_CREE=1;
         this.#ETAT_MECANICIEN_SUPPRIME=10;
         this.#ETAT_VOITURE_CREE=1;
