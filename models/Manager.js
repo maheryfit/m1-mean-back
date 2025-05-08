@@ -52,6 +52,46 @@ export class Manager extends Utilisateur{
         this.#etat = value;
     }
 
+    constructor(obj){
+        super(obj);
+    }
+
+    async inscription(connection,sess,config){
+        let session=sess;
+        let openedSession=false;
+        if(sess===null){
+            session=connection.startSession();
+            openedSession=true;
+        }
+        try{
+            const collection=connection.db().collection(this.table);
+            if(openedSession){
+                session.startTransaction();
+            }
+            const utilisateurInserted=await super.inscription(connection,session,config);
+            const clientToInsert={
+                nom:this.nom,
+                prenom:this.prenom,
+                idutilisateur:utilisateurInserted._id,
+                etat:Number(config.ETAT_MANAGER_CREE)
+            }
+            await collection.insertOne(clientToInsert,{session});
+            if(openedSession){
+                await session.commitTransaction();
+            }
+        }catch(error){
+            if(openedSession){
+                await session.abortTransaction();
+                console.log(error);
+            }
+            throw error;
+        }finally{
+            if(openedSession){
+                await session.endSession();
+            }
+        }
+    }
+
     async connexion(connection,sess,config){
         let session=sess;
         let openedSession=false;
