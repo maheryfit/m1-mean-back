@@ -9,7 +9,6 @@ export class Manager extends Utilisateur{
     #idmanager;
     #nom;
     #prenom;
-    #telephone;
     #etat;
 
     get idmanager() {
@@ -36,14 +35,6 @@ export class Manager extends Utilisateur{
         this.#prenom = value;
     }
 
-    get telephone() {
-        return this.#telephone;
-    }
-
-    set telephone(value) {
-        this.#telephone = value;
-    }
-
     get etat() {
         return this.#etat;
     }
@@ -54,6 +45,8 @@ export class Manager extends Utilisateur{
 
     constructor(obj){
         super(obj);
+        this.nom = obj.nom;
+        this.prenom = obj.prenom;
     }
 
     async inscription(connection,sess,config){
@@ -64,21 +57,23 @@ export class Manager extends Utilisateur{
             openedSession=true;
         }
         try{
-            const collection=connection.db().collection(this.table);
+            const collection=connection.db().collection(Manager.table);
             if(openedSession){
                 session.startTransaction();
             }
             const utilisateurInserted=await super.inscription(connection,session,config);
-            const clientToInsert={
+            const managerToInsert={
                 nom:this.nom,
                 prenom:this.prenom,
                 idutilisateur:utilisateurInserted._id,
                 etat:Number(config.ETAT_MANAGER_CREE)
             }
-            await collection.insertOne(clientToInsert,{session});
+            await collection.insertOne(managerToInsert,{session});
             if(openedSession){
                 await session.commitTransaction();
             }
+            managerToInsert["id"] = managerToInsert._id;
+            return managerToInsert
         }catch(error){
             if(openedSession){
                 await session.abortTransaction();
@@ -100,7 +95,7 @@ export class Manager extends Utilisateur{
             openedSession=true;
         }
         try{
-            const collection=connection.db().collection(this.table);
+            const collection=connection.db().collection(Manager.table);
             const utilisateur=await super.connexion(connection,session,config);
             const manager=await collection.findOne({idutilisateur:utilisateur._id,etat:Number(config.ETAT_MANAGER_CREE)},{session});
             if(manager===null){
@@ -108,7 +103,7 @@ export class Manager extends Utilisateur{
             }
             return {
                 idutilisateur: utilisateur._id,
-                idmanager: manager._id,
+                id: manager._id,
                 nom_utilisateur: utilisateur.nom_utilisateur,
                 profil: utilisateur.profil
             };
