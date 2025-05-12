@@ -1,4 +1,3 @@
-import {Voiture} from "./Voiture.js";
 import {ObjectId} from "mongodb";
 
 export class Station{
@@ -55,11 +54,28 @@ export class Station{
             const pageNumber=Number(page);
             const limitNumber=Number(limit);
             const collection=connection.db().collection(Station.table);
-            const stations=await collection.find({etat:Number(config.ETAT_STATION_CREE)},{session})
-                .skip((pageNumber-1)*limitNumber)
+            return await collection.find({etat: Number(config.ETAT_STATION_CREE)}, {session})
+                .skip((pageNumber - 1) * limitNumber)
                 .limit(limitNumber)
                 .toArray();
-            return stations;
+        }finally{
+            if(openedSession){
+                await session.endSession();
+            }
+        }
+    }
+
+    static async getAll(connection,sess,config){
+        let session=sess;
+        let openedSession=false;
+        if(sess===null){
+            session=connection.startSession();
+            openedSession=true;
+        }
+        try{
+            const collection=connection.db().collection(Station.table);
+            return await collection.find({etat: Number(config.ETAT_STATION_CREE)}, {session})
+                .toArray();
         }finally{
             if(openedSession){
                 await session.endSession();
@@ -75,8 +91,7 @@ export class Station{
         }
         try{
             const collection=connection.db().collection(Station.table);
-            const countStations=await collection.countDocuments({etat:Number(config.ETAT_STATION_CREE)},{session});
-            return countStations;
+            return await collection.countDocuments({etat: Number(config.ETAT_STATION_CREE)}, {session});
         }finally{
             if(openedSession){
                 await session.endSession();
@@ -92,8 +107,10 @@ export class Station{
         }
         try{
             const collection=connection.db().collection(Station.table);
-            const station=await collection.findOne({_id:new ObjectId(this.idstation),etat:Number(config.ETAT_STATION_CREE)},{session});
-            return station;
+            return await collection.findOne({
+                _id: new ObjectId(this.idstation),
+                etat: Number(config.ETAT_STATION_CREE)
+            }, {session});
         }finally{
             if(openedSession){
                 await session.endSession();
