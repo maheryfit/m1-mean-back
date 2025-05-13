@@ -194,7 +194,6 @@ console.log(error);
             return await collection.find({etat: Number(config.ETAT_MECANICIEN_CREE)}, {session})
                 .skip((pageNumber - 1) * limitNumber)
                 .limit(limitNumber)
-                .populate("idrole")
                 .toArray();
         } finally {
             if (openedSession) {
