@@ -92,13 +92,12 @@ export class Mecanicien extends Utilisateur{
             if(mecanicien===null){
                 throw new Error("Utilisateur introuvable");
             }
-            const utilisateurToReturn={
-                idutilisateur:utilisateur._id,
-                idmecanicien:mecanicien._id,
-                nom_utilisateur:utilisateur.nom_utilisateur,
-                profil:utilisateur.profil
+            return {
+                idutilisateur: utilisateur._id,
+                idmecanicien: mecanicien._id,
+                nom_utilisateur: utilisateur.nom_utilisateur,
+                profil: utilisateur.profil
             };
-            return utilisateurToReturn;
         }finally{
             if(openedSession){
                 await session.endSession();
@@ -116,11 +115,16 @@ export class Mecanicien extends Utilisateur{
             const pageNumber=Number(page);
             const limitNumber=Number(limit);
             const collection=connection.db().collection(Rdv.table);
-            const rdv=await collection.find({etat:{ $lt:config.ETAT_RDV_PAYE }},{session})
-                .skip((pageNumber-1)*limitNumber)
+            return await collection.find({etat: {$lt: config.ETAT_RDV_PAYE}}, {session})
+                .skip((pageNumber - 1) * limitNumber)
                 .limit(limitNumber)
-                .project({"client.utilisateur.nom_utilisateur":1,"voiture._description":1,"station._nom":1,dateheure:1,reste_a_payer:1}).toArray();
-            return rdv;
+                .project({
+                    "client.utilisateur.nom_utilisateur": 1,
+                    "voiture._description": 1,
+                    "station._nom": 1,
+                    dateheure: 1,
+                    reste_a_payer: 1
+                }).toArray();
         }finally{
             if(openedSession){
                 await session.endSession();
@@ -136,8 +140,7 @@ export class Mecanicien extends Utilisateur{
         }
         try{
             const collection=connection.db().collection(Rdv.table);
-            const count=await collection.countDocuments({etat:{ $lt:config.ETAT_RDV_PAYE }},{session})
-            return count;
+            return await collection.countDocuments({etat: {$lt: config.ETAT_RDV_PAYE}}, {session});
         }finally{
             if(openedSession){
                 await session.endSession();
@@ -177,6 +180,43 @@ console.log(error);
             }
         }
     }
+        static async getAll(connection, sess, config, page, limit) {
+        let session = sess;
+        let openedSession = false;
+        if (sess === null) {
+            session = connection.startSession();
+            openedSession = true;
+        }
+        try {
+            const pageNumber=Number(page);
+            const limitNumber=Number(limit);
+            const collection=connection.db().collection(Mecanicien.table);
+            return await collection.find({etat: Number(config.ETAT_MECANICIEN_CREE)}, {session})
+                .skip((pageNumber - 1) * limitNumber)
+                .limit(limitNumber)
+                .toArray();
+        } finally {
+            if (openedSession) {
+                await session.endSession();
+            }
+        }
+    }
+    static async countMecaniciens(connection, sess, config) {
+        let session=sess;
+        let openedSession=false;
+        if(sess===null){
+            session=connection.startSession();
+            openedSession=true;
+        }
+        try{
+            const collection=connection.db().collection(Mecanicien.table);
+            return await collection.countDocuments({etat: Number(config.ETAT_MECANICIEN_CREE)}, {session});
+        }finally{
+            if(openedSession){
+                await session.endSession();
+            }
+        }
+    }
     async getMecanicien(connection,sess,config){
         let session=sess;
         let openedSession=false;
@@ -186,8 +226,10 @@ console.log(error);
         }
         try{
             const collection=connection.db().collection(Mecanicien.table);
-            const mecanicien=await collection.findOne({_id:new ObjectId(this.idmecanicien),etat:config.ETAT_MECANICIEN_CREE},{session});
-            return mecanicien;
+            return await collection.findOne({
+                _id: new ObjectId(this.idmecanicien),
+                etat: config.ETAT_MECANICIEN_CREE
+            }, {session});
         }finally {
             if(openedSession){
                 await session.endSession();
@@ -203,8 +245,10 @@ console.log(error);
         }
         try{
             const collection=connection.db().collection(Niveau.table);
-            const niveau=await collection.findOne({_id:new ObjectId(this.niveau.idniveau),etat:config.ETAT_NIVEAU_CREE},{session});
-            return niveau;
+            return await collection.findOne({
+                _id: new ObjectId(this.niveau.idniveau),
+                etat: config.ETAT_NIVEAU_CREE
+            }, {session});
         }finally {
             if(openedSession){
                 await session.endSession();
@@ -220,8 +264,10 @@ console.log(error);
         }
         try{
             const collection=connection.db().collection(Role.table);
-            const role=await collection.findOne({_id:new ObjectId(this.role.idrole),etat:config.ETAT_NIVEAU_CREE},{session});
-            return role;
+            return await collection.findOne({
+                _id: new ObjectId(this.role.idrole),
+                etat: config.ETAT_NIVEAU_CREE
+            }, {session});
         }finally {
             if(openedSession){
                 await session.endSession();

@@ -16,6 +16,9 @@ docker exec mongo-cont mongoimport --db mean_db --collection utilisateurs --file
 docker exec mongo-cont mongoimport --db mean_db --collection niveaux --file niveaux.json --jsonArray
 docker exec mongo-cont mongoimport --db mean_db --collection roles --file roles.json --jsonArray
 docker exec mongo-cont mongoimport --db mean_db --collection mecaniciens --file mecaniciens.json --jsonArray
+docker exec mongo-cont mongoimport --db mean_db --collection rdvs --file rdvs.json --jsonArray
+docker exec mongo-cont mongoimport --db mean_db --collection voitures --file voitures.json --jsonArray
+docker exec mongo-cont mongoimport --db mean_db --collection paiements --file paiements.json --jsonArray
 
 docker build -t app-server .
 

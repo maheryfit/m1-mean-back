@@ -3,6 +3,8 @@ import {Client} from "../models/Client.js";
 import {Mecanicien} from "../models/Mecanicien.js";
 import {AuthMiddleware} from "../middlewares/AuthMiddleware.js";
 import {Rdv} from "../models/Rdv.js";
+import {Service} from "../models/Service.js";
+import serviceRouter from "./ServiceRouter.js";
 
 const mecanicienRouter=express.Router();
 
@@ -99,5 +101,21 @@ mecanicienRouter.put("/cloturer-rdv/:idrdv", AuthMiddleware.checkAuthMecanicien,
         res.status(500).send({message:error.message});
     }
 })
+mecanicienRouter.get("/count", AuthMiddleware.checkConnecte, async (req,res)=>{
+    try {
+        const count = await Mecanicien.countMecaniciens(req.myConnection, null, req.config);
+        res.status(200).json(count);
+    } catch (error) {
+        res.status(500).send({message:error.message});
+    }
+})
 
+mecanicienRouter.get("/:page/:limit", AuthMiddleware.checkConnecte, async (req,res)=>{
+    try {
+        const services = await Mecanicien.getAll(req.myConnection, null, req.config, req.params.page, req.params.limit);
+        res.status(200).json(services);
+    } catch (error) {
+        res.status(500).send({message:error.message});
+    }
+})
 export default mecanicienRouter;

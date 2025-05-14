@@ -40,11 +40,9 @@ export class TokenUtil{
             algorithm:this.algorithm,
             expiresIn:this.expiration,
         }
-        const token=await jwt.sign(data, this.secret, options);
-        return token;
+        return await jwt.sign(data, this.secret, options);
     }
     async decodeToken(token){
-        const data=await jwt.verify(token, this.secret);
-        return data;
+        return jwt.verify(token, this.secret);
     }
 }

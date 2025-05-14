@@ -65,11 +65,10 @@ export class Service{
             const pageNumber=Number(page);
             const limitNumber=Number(limit);
             const collection=connection.db().collection(Service.table);
-            const services=await collection.find({etat:Number(config.ETAT_SERVICE_CREE)},{session})
-                .skip((pageNumber-1)*limitNumber)
+            return await collection.find({etat: Number(config.ETAT_SERVICE_CREE)}, {session})
+                .skip((pageNumber - 1) * limitNumber)
                 .limit(limitNumber)
                 .toArray();
-            return services;
         } finally {
             if (openedSession) {
                 await session.endSession();
@@ -85,8 +84,7 @@ export class Service{
         }
         try{
             const collection=connection.db().collection(Service.table);
-            const countServices=await collection.countDocuments({etat:Number(config.ETAT_SERVICE_CREE)},{session});
-            return countServices;
+            return await collection.countDocuments({etat: Number(config.ETAT_SERVICE_CREE)}, {session});
         }finally{
             if(openedSession){
                 await session.endSession();

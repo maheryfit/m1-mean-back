@@ -14,4 +14,15 @@ stationRouter.get("/liste-station/:page/:limit", AuthMiddleware.checkConnecte, a
     }
 });
 
+
+stationRouter.get("/", AuthMiddleware.checkConnecte, async (req,res)=>{
+    try{
+        const stations=await Station.getAll(req.myConnection,null,req.config);
+        res.status(200).send(stations);
+    }catch(error){
+        console.log(error);
+        res.status(500).send({message:error.message});
+    }
+});
+
 export default stationRouter;

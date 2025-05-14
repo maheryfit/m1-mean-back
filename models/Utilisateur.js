@@ -80,7 +80,7 @@ export class Utilisateur{
             const utilisateurToInsert={
                 nom_utilisateur:this.nomUtilisateur,
                 mot_de_passe:motDePasseHash,
-                profil:config.PROFIL_CLIENT,
+                profil:this.profil,
                 etat:Number(config.ETAT_UTILISATEUR_CREE),
             }
             await collection.insertOne(utilisateurToInsert,{session});
