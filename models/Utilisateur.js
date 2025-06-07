@@ -1,147 +1,69 @@
-import bcrypt from "bcrypt";
-import * as console from "node:console";
-import {ObjectId} from "mongodb";
-export class Utilisateur{
-    static #table="utilisateurs";
+const mongoose = require('mongoose');
+const {genSalt, hash, compare} = require("bcrypt");
+const config = require("../config");
+const UtilisateursSchema = new mongoose.Schema({
+    nom: { type: String, required: true},
+    prenom: { type: String, required: true },
+    nom_utilisateur: { type: String, required: true, unique: true},
+    mot_de_passe: { type: String, required: true },
+    profil: {
+        type: String,
+        enum: config.PROFIL,
+        default: config.DEFAULT_PROFIL,
+    }
+}, {
+    timestamps: true
+});
 
-    static get table() {
-        return this.#table;
-    }
 
-    #idutilisateur;
-    #nomUtilisateur;
-    #motDePasse;
-    #profil;
-    #etat;
-
-    get etat() {
-        return this.#etat;
-    }
-
-    set etat(value) {
-        this.#etat = value;
-    }
-
-    get idutilisateur() {
-        return this.#idutilisateur;
-    }
-
-    set idutilisateur(value) {
-        this.#idutilisateur = value;
-    }
-
-    get profil() {
-        return this.#profil;
-    }
-
-    set profil(value) {
-        this.#profil = value;
-    }
-
-    get nomUtilisateur() {
-        return this.#nomUtilisateur;
-    }
-
-    set nomUtilisateur(value) {
-        this.#nomUtilisateur = value;
-    }
-
-    get motDePasse() {
-        return this.#motDePasse;
-    }
-
-    set motDePasse(value) {
-        this.#motDePasse = value;
-    }
-    constructor(obj) {
-        this.nomUtilisateur = obj.nomUtilisateur;
-        this.motDePasse = obj.motDePasse;
-        this.profil=obj.profil;
-    }
-    toObject(){
-        return {
-            nomUtilisateur: this.nomUtilisateur,
-            motDePasse: this.motDePasse,
-        }
-    }
-    async inscription(connection,sess,config){
-        let session=sess;
-        let openedSession=false;
-        if(sess===null){
-            session=connection.startSession();
-            openedSession=true;
-        }
-        try{
-            const collection=connection.db().collection(Utilisateur.table);
-            if(openedSession) {
-                session.startTransaction();
-            }
-            const motDePasseHash=await bcrypt.hash(this.motDePasse,config.SALT_ROUNDS);
-            const utilisateurToInsert={
-                nom_utilisateur:this.nomUtilisateur,
-                mot_de_passe:motDePasseHash,
-                profil:this.profil,
-                etat:Number(config.ETAT_UTILISATEUR_CREE),
-            }
-            await collection.insertOne(utilisateurToInsert,{session});
-            if(openedSession){
-                await session.commitTransaction();
-            }
-            return utilisateurToInsert;
-        }catch(error){
-            if(openedSession){
-                await session.abortTransaction();
-console.log(error);
-            }
-                        throw error;
-        }finally{
-            if(openedSession){
-                await session.endSession();
-            }
-        }
-    }
-    async connexion(connection,sess,config){
-        let session=sess;
-        let openedSession=false;
-        if(sess===null){
-            session=connection.startSession();
-            openedSession=true;
-        }
+// Hash the password before saving the user
+UtilisateursSchema.pre('save', async function (next) {
+    // If password is modified or is a new user
+    if (this.isModified('mot_de_passe') || this.isNew) {
         try {
-            const collection=connection.db().collection(Utilisateur.table);
-            let utilisateur=await collection.findOne({nom_utilisateur:this.nomUtilisateur,profil:this.profil,etat:Number(config.ETAT_UTILISATEUR_CREE)},{session});
-            if(utilisateur===null){
-                throw new Error("Utilisateur introuvable");
-            }
-            const correctPassword=await bcrypt.compare(this.motDePasse, utilisateur.mot_de_passe);
-            if(!correctPassword){
-                throw new Error("Nom d'utilisateur ou mot de passe incorrect.");
-            }
-            return utilisateur;
-        }finally{
-            if(openedSession){
-                await session.endSession();
-            }
+            // Salt rounds determine the complexity of the hash
+            const salt = await genSalt(10);
+            this.mot_de_passe = await hash(this.mot_de_passe, salt);
+            next();
+        } catch (err) {
+            next(err);
         }
+    } else {
+        next();
     }
-    async getUtilisateur(connection,sess,config){
-        let session=sess;
-        let openedSession=false;
-        if(sess===null){
-            session=connection.startSession();
-            openedSession=true;
-        }
-        try{
-            const collection=connection.db().collection(Utilisateur.table);
-            const utilisateur=await collection.findOne({_id:new ObjectId(this.idutilisateur),etat:Number(config.ETAT_UTILISATEUR_CREE)},{session});
-            return {
-                _id:utilisateur._id,
-                nom_utilisateur:utilisateur.nom_utilisateur,
-            };
-        }finally{
-            if(openedSession){
-                await session.endSession();
-            }
-        }
+});
+
+// Method to compare entered password with hashed password
+/**
+ *
+ * @param {String} enteredPassword
+ * @returns {Promise<void|*>}
+ */
+UtilisateursSchema.methods.comparePassword = async function (enteredPassword) {
+    try {
+        return await compare(enteredPassword, this.mot_de_passe);
+    } catch (err) {
+        throw err;
     }
-}
+};
+
+// Method to compare entered password with hashed password
+/**
+ * Refer to this link: https://www.mongodb.com/docs/drivers/node/current/fundamentals/crud/query-document/
+ * @param {String} username
+ * @returns {Promise<*>}
+ */
+UtilisateursSchema.methods.findUsingUsername = async function (username) {
+    try {
+        return await mongoose.model('Utilisateurs').findOne({
+          nom_utilisateur: {
+            $eq: username
+          }
+        });
+    } catch (err) {
+        throw err;
+    }
+};
+
+
+module.exports = mongoose.model('Utilisateurs', UtilisateursSchema);

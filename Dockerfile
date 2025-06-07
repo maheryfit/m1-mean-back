@@ -13,4 +13,4 @@ COPY . /app
 
 EXPOSE 3000
 
-ENTRYPOINT ["npm", "run", "start-production"]
+CMD ["npm", "start"]
