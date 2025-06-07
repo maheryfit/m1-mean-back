@@ -1,0 +1,198 @@
+const express = require('express');
+const app = express();
+const swaggerUi = require('swagger-ui-express');
+require('dotenv').config();
+
+const cors = require('cors');
+const config = require("./config");
+const socket = require('socket.io');
+const cookieParser = require("cookie-parser");
+const pathFolder = require("path");
+const swaggerFile = require('./swagger_output.json')
+
+// Cookie
+app.use(cookieParser());
+
+// Setup public link to the picture
+app.use("/images", express.static(pathFolder.join(__dirname, 'uploads')));
+
+// Middleware setup
+app.use(cors(
+    {
+        origin: config.ORIGINS,
+        methods: ["GET", "POST", "PUT", "DELETE"],
+        credentials: true,
+    }
+))
+app.use(express.json());
+
+// Middleware to handle URL-encoded bodies (if needed)
+app.use(express.urlencoded({ extended: true }));
+
+// Service connection
+require('./utils/serviceTierceUtil')
+
+// Swagger
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerFile));
+
+
+// --------------------------------------- ROUTER -------------------------------------------------
+// Router
+const userRouter = require('./routes/utilisateurRouter')
+app.use("/user", userRouter);
+
+// Message
+const messageRouter = require('./routes/messageRouter')
+app.use("/messages", messageRouter);
+
+// --------------------------- Client --------------------------------------
+// Abonnement router
+const abonnementRouter = require('./routes/dashboard-client/abonnementRouter')
+app.use("/abonnements", abonnementRouter);
+
+// Specification router
+const specificationRouter = require('./routes/dashboard-client/specificationRouter')
+app.use("/specifications", specificationRouter);
+
+// StatutClient router
+const statutClientRouter = require('./routes/dashboard-client/statutClientRouter')
+app.use("/statutClients", statutClientRouter);
+
+// Voiture router
+const voitureRouter = require('./routes/dashboard-client/voitureRouter')
+app.use("/voitures", voitureRouter);
+
+// Client router
+const clientRouter = require('./routes/dashboard-client/clientRouter')
+app.use("/clients", clientRouter);
+
+// PaiementAbonnement router
+const paiementAbonnementRouter = require('./routes/dashboard-client/paiementAbonnementRouter')
+app.use("/paiementAbonnements", paiementAbonnementRouter);
+
+// DemandeRDVDiagnostic router
+const demandeRDVDiagnosticRouter = require('./routes/dashboard-client/demandeRDVDiagnosticRouter')
+app.use("/demandeRDVDiagnostics", demandeRDVDiagnosticRouter);
+
+// Paiement devis router
+const paiementDevisRouter = require('./routes/dashboard-client/paiementDevisRouter')
+app.use("/paiementDevis", paiementDevisRouter);
+
+// --------------------------- Client --------------------------------------
+
+// --------------------------- Mécanicien --------------------------------------
+// Mecanicien router
+const mecanicienRouter=require("./routes/dashboard-mecanicien/mecanicienRouter");
+app.use("/mecaniciens", mecanicienRouter);
+
+// Devis router
+const devisRouter=require("./routes/dashboard-mecanicien/devisRouter");
+app.use("/devis", devisRouter);
+
+// Maintenance router
+const maintenanceRouter=require("./routes/dashboard-mecanicien/maintenanceRouter");
+app.use("/maintenances", maintenanceRouter);
+
+// Station router
+const stationRouter=require("./routes/dashboard-mecanicien/stationRouter");
+app.use("/stations", stationRouter);
+
+// Service router
+const serviceRouter = require('./routes/dashboard-mecanicien/serviceRouter')
+app.use("/services", serviceRouter);
+
+// Diagnostic router
+const diagnosticRouter = require('./routes/dashboard-mecanicien/diagnosticRouter')
+app.use("/diagnostics", diagnosticRouter);
+
+// Marque router
+const marqueRouter = require('./routes/dashboard-mecanicien/marqueRouter')
+app.use("/marques", marqueRouter);
+
+// Article router
+const articleRouter = require('./routes/dashboard-mecanicien/articleRouter')
+app.use("/articles", articleRouter);
+
+// Role mécanicien router
+const roleMecanicienRouter = require('./routes/dashboard-mecanicien/roleMecanicienRouter')
+app.use("/roleMecaniciens", roleMecanicienRouter);
+
+// Niveau mécanicien router
+const niveauMecanicienRouter = require('./routes/dashboard-mecanicien/niveauMecanicienRouter')
+app.use("/niveauMecaniciens", niveauMecanicienRouter);
+
+// Confirmation paiement devis router
+const confirmationPaiementDevisRouter = require('./routes/dashboard-mecanicien/confirmationPaiementDevisRouter')
+app.use("/confirmationPaiementDevis", confirmationPaiementDevisRouter);
+
+// --------------------------- Mécanicien --------------------------------------
+
+// --------------------------- Manager --------------------------------------
+const middleware = require("./middlewares/authentificationMiddleware")
+
+// Manager router
+const managerRouter=require("./routes/dashboard-manager/managerRouter");
+app.use("/managers", middleware.authenticateTokenManager, managerRouter);
+
+// Manager router
+const changementStatutClientRouter=require("./routes/dashboard-manager/changementStatutClientRouter");
+app.use("/changementStatutClients", middleware.authenticateTokenManager, changementStatutClientRouter);
+
+// Revenue router
+const revenueRouter=require("./routes/dashboard-manager/revenueRouter");
+app.use("/revenues", middleware.authenticateTokenManager, revenueRouter);
+
+// Paiement devis station router
+const paiementDevisStationRouter=require("./routes/dashboard-manager/paiementDevisStationRouter");
+app.use("/paiementDevisStations", middleware.authenticateTokenManager, paiementDevisStationRouter);
+
+// --------------------------- Manager --------------------------------------
+
+// --------------------------------------- ROUTER -------------------------------------------------
+
+// Server
+const server = app.listen(config.PORT, () => {
+  console.log(`Server running on port ${config.PORT}`);
+});
+
+// Websocket
+const io = socket(server, {
+    cors: {
+        origin: config.ORIGINS,
+    }
+});
+
+// Singleton
+const SocketPairUtilisateur = require("./utils/objectSingletonUtil")
+const socketPairUtilisateur = new SocketPairUtilisateur()
+// Listen for new connection and print a message in console
+io.on('connection', (socket) => {
+    socket.on('chat', (data) => {
+        io.emit('chat', data);
+    })
+
+    socket.on('online', async (data) => {
+        const socketId = socket.id;
+        const utilisateurId = data.id
+        // Ajouter la clé valeur dans l'utilisateur
+        await socketPairUtilisateur.storeSocketIdAndUtilisateurId(socketId, utilisateurId);
+        io.emit('online', data);
+    })
+
+    socket.on('offline', async (data) => {
+        const socketId = socket.id;
+        // Supprimer la clé valeur dans l'utilisateur
+        await socketPairUtilisateur.invalidateSocketId(socketId);
+        io.emit('offline', data);
+    })
+
+    socket.on('typing', async (data) => {
+        const utilisateurDestinataireId = data.id
+        const socketIds = await socketPairUtilisateur.getSocketIdsByUtilisateur(utilisateurDestinataireId)
+        socketIds.forEach(socketId => {
+            io.to(socketId).emit('typing', data);
+        })
+    })
+})
+
+module.exports=app;

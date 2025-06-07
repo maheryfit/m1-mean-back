@@ -1,0 +1,170 @@
+[{
+  "_id": {
+    "$oid": "67e94e9cecfc82ee9e8ecd33"
+  },
+  "nom": "Petit",
+  "prenom": "Claire",
+  "nom_utilisateur": "claire.petit",
+  "mot_de_passe": "$2b$10$SBTxU2ZWqF01/MoIJefQouB15E/ooRp0Ej5bL0f1BHKZmjfN0h/Zm",
+  "profil": "mécanicien",
+  "createdAt": {
+    "$date": "2025-03-30T14:01:00.817Z"
+  },
+  "updatedAt": {
+    "$date": "2025-03-30T14:01:00.817Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67e94e9cecfc82ee9e8ecd30"
+  },
+  "nom": "Durand",
+  "prenom": "Paul",
+  "nom_utilisateur": "paul.durand",
+  "mot_de_passe": "$2b$10$jLBjQSZzl7wnwhxXD.4xUe75SvlbxYsn7cuxYJUlWajeMbbzZcB1.",
+  "profil": "mécanicien",
+  "createdAt": {
+    "$date": "2025-03-30T14:01:00.814Z"
+  },
+  "updatedAt": {
+    "$date": "2025-03-30T14:01:00.814Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67e94e9cecfc82ee9e8ecd34"
+  },
+  "nom": "Bernard",
+  "prenom": "Lucas",
+  "nom_utilisateur": "lucas.bernard",
+  "mot_de_passe": "$2b$10$ph5SpN21RhH4VmJgymjuIeot9aScq.I0SHKLL1hIsoXTlyr63.QUi",
+  "profil": "mécanicien",
+  "createdAt": {
+    "$date": "2025-03-30T14:01:00.817Z"
+  },
+  "updatedAt": {
+    "$date": "2025-03-30T14:01:00.817Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67e94e9cecfc82ee9e8ecd32"
+  },
+  "nom": "Martin",
+  "prenom": "Julien",
+  "nom_utilisateur": "julien.martin",
+  "mot_de_passe": "$2b$10$lT2CH.ZuL6luFL3jxgIqfuznQZDPR/47bGwR7W.dhxPX9auohWY8q",
+  "profil": "mécanicien",
+  "createdAt": {
+    "$date": "2025-03-30T14:01:00.817Z"
+  },
+  "updatedAt": {
+    "$date": "2025-03-30T14:01:00.817Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67e94e9cecfc82ee9e8ecd31"
+  },
+  "nom": "Lemoine",
+  "prenom": "Sophie",
+  "nom_utilisateur": "sophie.lemoine",
+  "mot_de_passe": "$2b$10$pWg7GYh1Y4DaGclufmKNheHyC7iomZ72InUOzsJjALrm4rOgPQI3C",
+  "profil": "mécanicien",
+  "createdAt": {
+    "$date": "2025-03-30T14:01:00.816Z"
+  },
+  "updatedAt": {
+    "$date": "2025-03-30T14:01:00.816Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67e94e9cecfc82ee9e8ecd37"
+  },
+  "nom": "Laurent",
+  "prenom": "Julie",
+  "nom_utilisateur": "julie.laurent",
+  "mot_de_passe": "$2b$10$P45pb/wuayVmgjupyYbcRu5.DxFOLj2W.vrP.cc4Q2XXy0P7HXPhi",
+  "profil": "mécanicien",
+  "createdAt": {
+    "$date": "2025-03-30T14:01:00.818Z"
+  },
+  "updatedAt": {
+    "$date": "2025-03-30T14:01:00.818Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67e94e9cecfc82ee9e8ecd38"
+  },
+  "nom": "Garcia",
+  "prenom": "Antoine",
+  "nom_utilisateur": "antoine.garcia",
+  "mot_de_passe": "$2b$10$b4rfB5e6geh/vHBeobsbfOocmAlbJn.36p2Fs4p5sVVCCAJBZJ.qq",
+  "profil": "mécanicien",
+  "createdAt": {
+    "$date": "2025-03-30T14:01:00.818Z"
+  },
+  "updatedAt": {
+    "$date": "2025-03-30T14:01:00.818Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67e94e9cecfc82ee9e8ecd36"
+  },
+  "nom": "Moreau",
+  "prenom": "Thomas",
+  "nom_utilisateur": "thomas.moreau",
+  "mot_de_passe": "$2b$10$qz8W2mKtBPyce30wsbejOeXFyOByRu.1ps8Kjmgnq6BD0OQn.Tzmq",
+  "profil": "mécanicien",
+  "createdAt": {
+    "$date": "2025-03-30T14:01:00.818Z"
+  },
+  "updatedAt": {
+    "$date": "2025-03-30T14:01:00.818Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67e94e9cecfc82ee9e8ecd39"
+  },
+  "nom": "Faure",
+  "prenom": "Camille",
+  "nom_utilisateur": "camille.faure",
+  "mot_de_passe": "$2b$10$CYyykp0XGZ.M/6HBc01icOOTRKlMGemDsIsMnhNIlcTLlMcVw.n5G",
+  "profil": "mécanicien",
+  "createdAt": {
+    "$date": "2025-03-30T14:01:00.819Z"
+  },
+  "updatedAt": {
+    "$date": "2025-03-30T14:01:00.819Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67e94e9cecfc82ee9e8ecd35"
+  },
+  "nom": "Robert",
+  "prenom": "Emma",
+  "nom_utilisateur": "emma.robert",
+  "mot_de_passe": "$2b$10$At5wxdJoeOYTSgJswrnpT..E5GP95adJESd0hBVCixGjKkQ8O/lDe",
+  "profil": "mécanicien",
+  "createdAt": {
+    "$date": "2025-03-30T14:01:00.817Z"
+  },
+  "updatedAt": {
+    "$date": "2025-03-30T14:01:00.817Z"
+  },
+  "__v": 0
+}]

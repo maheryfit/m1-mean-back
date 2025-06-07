@@ -1,0 +1,60 @@
+[{
+  "_id": {
+    "$oid": "67d5bb4c3c212676c4fa60fd"
+  },
+  "nom": "Bronze",
+  "prix": 8000,
+  "pourcentage_reduction": 5,
+  "createdAt": {
+    "$date": "2025-03-16T16:44:13.970Z"
+  },
+  "updatedAt": {
+    "$date": "2025-03-16T16:44:13.970Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67d5bb4c3c212676c4fa60fe"
+  },
+  "nom": "Silver",
+  "prix": 10000,
+  "pourcentage_reduction": 12,
+  "createdAt": {
+    "$date": "2025-03-16T16:44:13.970Z"
+  },
+  "updatedAt": {
+    "$date": "2025-03-16T16:44:13.970Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67d5bb4c3c212676c4fa60ff"
+  },
+  "nom": "Gold",
+  "prix": 15000,
+  "pourcentage_reduction": 20,
+  "createdAt": {
+    "$date": "2025-03-16T16:44:13.970Z"
+  },
+  "updatedAt": {
+    "$date": "2025-03-16T16:44:13.970Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67d5bb4c3c212676c4fa6100"
+  },
+  "nom": "Diamond",
+  "prix": 20000,
+  "pourcentage_reduction": 27,
+  "createdAt": {
+    "$date": "2025-03-16T16:44:13.970Z"
+  },
+  "updatedAt": {
+    "$date": "2025-03-16T16:44:13.970Z"
+  },
+  "__v": 0
+}]

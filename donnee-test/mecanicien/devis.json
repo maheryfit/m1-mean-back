@@ -1,0 +1,240 @@
+[{
+  "_id": {
+    "$oid": "67ea6bcd3eb7691363640c4e"
+  },
+  "voiture": {
+    "$oid": "67d91e06a31e92b755f1fbf3"
+  },
+  "services": [
+    {
+      "$oid": "67e520bbe75c5380c00543ac"
+    },
+    {
+      "$oid": "67e520bbe75c5380c00543ae"
+    },
+    {
+      "$oid": "67e520bbe75c5380c00543b1"
+    }
+  ],
+  "station": {
+    "$oid": "65f1a3b1c9e77a001c1a0001"
+  },
+  "diagnostic": {
+    "$oid": "67ea48c130cdde635b540d47"
+  },
+  "articles_quantites": [
+    {
+      "article": {
+        "$oid": "67e5116dbecfdf8860dfe122"
+      },
+      "quantite": 4,
+      "_id": {
+        "$oid": "67ea6bcd3eb7691363640c4f"
+      }
+    },
+    {
+      "article": {
+        "$oid": "67e5116dbecfdf8860dfe12e"
+      },
+      "quantite": 3,
+      "_id": {
+        "$oid": "67ea6bcd3eb7691363640c50"
+      }
+    }
+  ],
+  "mecanicien": {
+    "$oid": "67e958eed8800baa59352cb0"
+  },
+  "duree_estimee": 0,
+  "montant": {
+    "$numberDecimal": "686003.46"
+  },
+  "dateheure_debut_maintenance": {
+    "$date": "2025-04-12T00:00:00.000Z"
+  },
+  "remises": [
+    {
+      "nomRemise": "Gold",
+      "valeurRemise": 20,
+      "_id": {
+        "$oid": "67ea6bcd3eb7691363640c51"
+      }
+    }
+  ],
+  "etat": "payé",
+  "dateheure_devis": {
+    "$date": "2025-03-31T10:17:49.257Z"
+  },
+  "createdAt": {
+    "$date": "2025-03-31T10:17:49.274Z"
+  },
+  "updatedAt": {
+    "$date": "2025-04-01T08:55:13.004Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67ea6c883eb7691363640c5a"
+  },
+  "voiture": {
+    "$oid": "67d91e06a31e92b755f1fbf4"
+  },
+  "services": [
+    {
+      "$oid": "67e520bbe75c5380c00543ad"
+    },
+    {
+      "$oid": "67e520bbe75c5380c00543bd"
+    }
+  ],
+  "station": {
+    "$oid": "65f1a3b1c9e77a001c1a0001"
+  },
+  "diagnostic": {
+    "$oid": "67ea48c130cdde635b540d48"
+  },
+  "articles_quantites": [
+    {
+      "article": {
+        "$oid": "67e5116dbecfdf8860dfe12b"
+      },
+      "quantite": 1,
+      "_id": {
+        "$oid": "67ea6c883eb7691363640c5b"
+      }
+    }
+  ],
+  "mecanicien": {
+    "$oid": "67e958eed8800baa59352cb9"
+  },
+  "duree_estimee": 0,
+  "montant": {
+    "$numberDecimal": "210000"
+  },
+  "dateheure_debut_maintenance": {
+    "$date": "2025-04-05T00:00:00.000Z"
+  },
+  "etat": "payé",
+  "dateheure_devis": {
+    "$date": "2025-03-31T10:20:56.041Z"
+  },
+  "remises": [],
+  "createdAt": {
+    "$date": "2025-03-31T10:20:56.046Z"
+  },
+  "updatedAt": {
+    "$date": "2025-04-01T12:01:33.382Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67ea70033eb7691363640c6b"
+  },
+  "voiture": {
+    "$oid": "67d91e06a31e92b755f1fbf5"
+  },
+  "services": [
+    {
+      "$oid": "67e520bbe75c5380c00543af"
+    },
+    {
+      "$oid": "67e520bbe75c5380c00543ac"
+    }
+  ],
+  "station": {
+    "$oid": "65f1a3b1c9e77a001c1a0001"
+  },
+  "diagnostic": {
+    "$oid": "67ea48c130cdde635b540d49"
+  },
+  "articles_quantites": [
+    {
+      "article": {
+        "$oid": "67e5116dbecfdf8860dfe11f"
+      },
+      "quantite": 1,
+      "_id": {
+        "$oid": "67ea70033eb7691363640c6c"
+      }
+    }
+  ],
+  "mecanicien": {
+    "$oid": "67e958eed8800baa59352cb9"
+  },
+  "duree_estimee": 0,
+  "montant": {
+    "$numberDecimal": "152000.5"
+  },
+  "dateheure_debut_maintenance": {
+    "$date": "2025-04-01T00:00:00.000Z"
+  },
+  "etat": "créé",
+  "dateheure_devis": {
+    "$date": "2025-03-31T10:35:47.112Z"
+  },
+  "remises": [],
+  "createdAt": {
+    "$date": "2025-03-31T10:35:47.117Z"
+  },
+  "updatedAt": {
+    "$date": "2025-03-31T10:35:47.117Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67ea75aa3eb7691363640c75"
+  },
+  "voiture": {
+    "$oid": "67d91e06a31e92b755f1fbf6"
+  },
+  "services": [
+    {
+      "$oid": "67e520bbe75c5380c00543b2"
+    },
+    {
+      "$oid": "67e520bbe75c5380c00543b7"
+    }
+  ],
+  "station": {
+    "$oid": "65f1a3b1c9e77a001c1a0001"
+  },
+  "diagnostic": {
+    "$oid": "67ea48c130cdde635b540d4a"
+  },
+  "articles_quantites": [
+    {
+      "article": {
+        "$oid": "67e5116dbecfdf8860dfe125"
+      },
+      "quantite": 4,
+      "_id": {
+        "$oid": "67ea75aa3eb7691363640c76"
+      }
+    }
+  ],
+  "mecanicien": {
+    "$oid": "67e958eed8800baa59352cb9"
+  },
+  "duree_estimee": 0,
+  "montant": {
+    "$numberDecimal": "1010003"
+  },
+  "dateheure_debut_maintenance": {
+    "$date": "2025-05-01T00:00:00.000Z"
+  },
+  "etat": "créé",
+  "dateheure_devis": {
+    "$date": "2025-03-31T10:59:54.423Z"
+  },
+  "remises": [],
+  "createdAt": {
+    "$date": "2025-03-31T10:59:54.427Z"
+  },
+  "updatedAt": {
+    "$date": "2025-03-31T10:59:54.427Z"
+  },
+  "__v": 0
+}]

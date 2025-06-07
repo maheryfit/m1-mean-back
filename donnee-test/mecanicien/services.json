@@ -1,0 +1,432 @@
+[{
+  "_id": {
+    "$oid": "67e520bbe75c5380c00543ac"
+  },
+  "nom": "Changement de pneus",
+  "description": "Remplacement des pneus usés avec équilibrage et contrôle de pression.",
+  "duree_estimee": 1.2,
+  "tarif": {
+    "$numberDecimal": "80000"
+  },
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-03-27T09:56:11.096Z"
+  },
+  "updatedAt": {
+    "$date": "2025-03-27T09:56:11.096Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "67e520bbe75c5380c00543ad"
+  },
+  "nom": "Vidange moteur + filtre à huile",
+  "description": "Remplacement de l'huile moteur et du filtre à huile, contrôle des niveaux.",
+  "duree_estimee": 1.5,
+  "tarif": {
+    "$numberDecimal": "100000"
+  },
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-03-27T09:56:11.096Z"
+  },
+  "updatedAt": {
+    "$date": "2025-03-27T09:56:11.096Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "67e520bbe75c5380c00543ae"
+  },
+  "nom": "Réglage parallélisme & géométrie",
+  "description": "Ajustement de l'alignement des roues pour une meilleure stabilité.",
+  "duree_estimee": 2,
+  "tarif": {
+    "$numberDecimal": "120000"
+  },
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-03-27T09:56:11.097Z"
+  },
+  "updatedAt": {
+    "$date": "2025-03-27T09:56:11.097Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "67e520bbe75c5380c00543af"
+  },
+  "nom": "Remplacement batterie",
+  "description": "Installation d'une nouvelle batterie avec test de charge et diagnostic.",
+  "duree_estimee": 0.8,
+  "tarif": {
+    "$numberDecimal": "60000"
+  },
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-03-27T09:56:11.097Z"
+  },
+  "updatedAt": {
+    "$date": "2025-03-27T09:56:11.097Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "67e520bbe75c5380c00543b0"
+  },
+  "nom": "Réparation carrosserie & peinture",
+  "description": "Réparation des impacts et rayures avec retouche peinture.",
+  "duree_estimee": 6,
+  "tarif": {
+    "$numberDecimal": "500000"
+  },
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-03-27T09:56:11.097Z"
+  },
+  "updatedAt": {
+    "$date": "2025-03-27T09:56:11.097Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "67e520bbe75c5380c00543b1"
+  },
+  "nom": "Changement des plaquettes de frein",
+  "description": "Remplacement des plaquettes avant et arrière avec purge du liquide de frein.",
+  "duree_estimee": 1.5,
+  "tarif": {
+    "$numberDecimal": "150000"
+  },
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-03-27T09:56:11.097Z"
+  },
+  "updatedAt": {
+    "$date": "2025-03-27T09:56:11.097Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "67e520bbe75c5380c00543b2"
+  },
+  "nom": "Recharge et entretien climatisation",
+  "description": "Recharge de gaz et contrôle des fuites du circuit de climatisation.",
+  "duree_estimee": 1,
+  "tarif": {
+    "$numberDecimal": "90000"
+  },
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-03-27T09:56:11.097Z"
+  },
+  "updatedAt": {
+    "$date": "2025-03-27T09:56:11.097Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "67e520bbe75c5380c00543b3"
+  },
+  "nom": "Changement courroie de distribution",
+  "description": "Remplacement de la courroie et de la pompe à eau pour éviter les pannes moteur.",
+  "duree_estimee": 6.5,
+  "tarif": {
+    "$numberDecimal": "650000"
+  },
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-03-27T09:56:11.097Z"
+  },
+  "updatedAt": {
+    "$date": "2025-03-27T09:56:11.097Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "67e520bbe75c5380c00543b4"
+  },
+  "nom": "Diagnostic électronique moteur",
+  "description": "Analyse des capteurs et correction des erreurs ECU via valise de diagnostic.",
+  "duree_estimee": 1,
+  "tarif": {
+    "$numberDecimal": "70000"
+  },
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-03-27T09:56:11.097Z"
+  },
+  "updatedAt": {
+    "$date": "2025-03-27T09:56:11.097Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "67e520bbe75c5380c00543b5"
+  },
+  "nom": "Remplacement kit d'embrayage",
+  "description": "Changement complet du disque, mécanisme et butée d'embrayage.",
+  "duree_estimee": 8,
+  "tarif": {
+    "$numberDecimal": "750000"
+  },
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-03-27T09:56:11.097Z"
+  },
+  "updatedAt": {
+    "$date": "2025-03-27T09:56:11.097Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "67e520bbe75c5380c00543b6"
+  },
+  "nom": "Révision complète du véhicule",
+  "description": "Contrôle général avec vidange, filtres, freins et essai routier.",
+  "duree_estimee": 3,
+  "tarif": {
+    "$numberDecimal": "200000"
+  },
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-03-27T09:56:11.097Z"
+  },
+  "updatedAt": {
+    "$date": "2025-03-27T09:56:11.097Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "67e520bbe75c5380c00543b7"
+  },
+  "nom": "Changement amortisseurs",
+  "description": "Remplacement des amortisseurs usés pour une meilleure tenue de route.",
+  "duree_estimee": 4.5,
+  "tarif": {
+    "$numberDecimal": "400000"
+  },
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-03-27T09:56:11.097Z"
+  },
+  "updatedAt": {
+    "$date": "2025-03-27T09:56:11.097Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "67e520bbe75c5380c00543b8"
+  },
+  "nom": "Changement filtre à air et à carburant",
+  "description": "Optimisation du rendement moteur avec filtres neufs.",
+  "duree_estimee": 0.7,
+  "tarif": {
+    "$numberDecimal": "45000"
+  },
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-03-27T09:56:11.098Z"
+  },
+  "updatedAt": {
+    "$date": "2025-03-27T09:56:11.098Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "67e520bbe75c5380c00543b9"
+  },
+  "nom": "Débosselage sans peinture",
+  "description": "Suppression des bosses mineures sans repeindre la carrosserie.",
+  "duree_estimee": 3.5,
+  "tarif": {
+    "$numberDecimal": "180000"
+  },
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-03-27T09:56:11.098Z"
+  },
+  "updatedAt": {
+    "$date": "2025-03-27T09:56:11.098Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "67e520bbe75c5380c00543ba"
+  },
+  "nom": "Polissage et lustrage complet",
+  "description": "Polissage de la carrosserie pour éliminer micro-rayures et redonner brillance.",
+  "duree_estimee": 4,
+  "tarif": {
+    "$numberDecimal": "220000"
+  },
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-03-27T09:56:11.098Z"
+  },
+  "updatedAt": {
+    "$date": "2025-03-27T09:56:11.098Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "67e520bbe75c5380c00543bb"
+  },
+  "nom": "Réparation échappement & silencieux",
+  "description": "Changement ou soudure du pot d'échappement défectueux.",
+  "duree_estimee": 2.5,
+  "tarif": {
+    "$numberDecimal": "180000"
+  },
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-03-27T09:56:11.098Z"
+  },
+  "updatedAt": {
+    "$date": "2025-03-27T09:56:11.098Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "67e520bbe75c5380c00543bc"
+  },
+  "nom": "Purge et remplacement liquide de frein",
+  "description": "Vidange du liquide de frein pour assurer un freinage optimal.",
+  "duree_estimee": 1.2,
+  "tarif": {
+    "$numberDecimal": "80000"
+  },
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-03-27T09:56:11.098Z"
+  },
+  "updatedAt": {
+    "$date": "2025-03-27T09:56:11.098Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "67e520bbe75c5380c00543bd"
+  },
+  "nom": "Nettoyage moteur à la vapeur",
+  "description": "Dégraissage et nettoyage du compartiment moteur pour prolonger sa durée de vie.",
+  "duree_estimee": 1.5,
+  "tarif": {
+    "$numberDecimal": "75000"
+  },
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-03-27T09:56:11.098Z"
+  },
+  "updatedAt": {
+    "$date": "2025-03-27T09:56:11.098Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "67e520bbe75c5380c00543be"
+  },
+  "nom": "Installation attelage remorque",
+  "description": "Montage d'un attelage homologué avec faisceau électrique.",
+  "duree_estimee": 5,
+  "tarif": {
+    "$numberDecimal": "350000"
+  },
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-03-27T09:56:11.098Z"
+  },
+  "updatedAt": {
+    "$date": "2025-03-27T09:56:11.098Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "67e520bbe75c5380c00543bf"
+  },
+  "nom": "Réparation de la direction assistée",
+  "description": "Changement pompe et liquide de direction assistée pour un meilleur confort.",
+  "duree_estimee": 6,
+  "tarif": {
+    "$numberDecimal": "500000"
+  },
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-03-27T09:56:11.098Z"
+  },
+  "updatedAt": {
+    "$date": "2025-03-27T09:56:11.098Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "67e520bbe75c5380c00543c0"
+  },
+  "nom": "Remplacement des vitres électriques",
+  "description": "Réparation du mécanisme ou changement du moteur de lève-vitre.",
+  "duree_estimee": 2.2,
+  "tarif": {
+    "$numberDecimal": "120000"
+  },
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-03-27T09:56:11.098Z"
+  },
+  "updatedAt": {
+    "$date": "2025-03-27T09:56:11.098Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "67e520bbe75c5380c00543c1"
+  },
+  "nom": "Changement des balais d'essuie-glace",
+  "description": "Installation de nouveaux essuie-glaces et réglage du moteur.",
+  "duree_estimee": 0.5,
+  "tarif": {
+    "$numberDecimal": "30000"
+  },
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-03-27T09:56:11.098Z"
+  },
+  "updatedAt": {
+    "$date": "2025-03-27T09:56:11.098Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "67e520bbe75c5380c00543c2"
+  },
+  "nom": "Réparation capteurs & tableau de bord",
+  "description": "Correction des erreurs de capteurs, voyants et écrans numériques.",
+  "duree_estimee": 3,
+  "tarif": {
+    "$numberDecimal": "190000"
+  },
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-03-27T09:56:11.098Z"
+  },
+  "updatedAt": {
+    "$date": "2025-03-27T09:56:11.098Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "67e520bbe75c5380c00543c3"
+  },
+  "nom": "Pose de vitres teintées",
+  "description": "Application de films teintés haute qualité pour protection UV.",
+  "duree_estimee": 4.5,
+  "tarif": {
+    "$numberDecimal": "250000"
+  },
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-03-27T09:56:11.098Z"
+  },
+  "updatedAt": {
+    "$date": "2025-03-27T09:56:11.098Z"
+  }
+}]

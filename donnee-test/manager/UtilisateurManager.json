@@ -1,0 +1,34 @@
+[{
+  "_id": {
+    "$oid": "67d974d14a4ed9b442cc3210"
+  },
+  "nom": "Fitahiana",
+  "prenom": "Mahery",
+  "nom_utilisateur": "Fitahiana Mahery",
+  "mot_de_passe": "$2b$10$AAP9ra//MFzlnU/.Zgj2FuDDCsX4OUzWwoiga/EKcmk08JlgRarDG",
+  "profil": "manager",
+  "createdAt": {
+    "$date": "2025-03-18T13:27:45.073Z"
+  },
+  "updatedAt": {
+    "$date": "2025-03-18T13:27:45.073Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67d974d14a4ed9b442cc3211"
+  },
+  "nom": "Ny Avo",
+  "prenom": "Herilalao",
+  "nom_utilisateur": "Ny Avo",
+  "mot_de_passe": "$2b$10$JObf9NgJgK1mnjlxl1922.ZCBv.EUbu6velF2pafcE7rg1nrG24zO",
+  "profil": "manager",
+  "createdAt": {
+    "$date": "2025-03-18T13:27:45.074Z"
+  },
+  "updatedAt": {
+    "$date": "2025-03-18T13:27:45.074Z"
+  },
+  "__v": 0
+}]

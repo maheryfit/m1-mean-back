@@ -1,0 +1,440 @@
+[{
+  "_id": {
+    "$oid": "67e5116dbecfdf8860dfe11e"
+  },
+  "nom": "Alternateur 12V",
+  "description": "Alternateur haute performance pour véhicules modernes.",
+  "marque": {
+    "$oid": "67e50f2dce60059eeb9c36ff"
+  },
+  "unite": "volts",
+  "prix_unitaire": {
+    "$numberDecimal": "25000.99"
+  },
+  "type": "piece",
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-03-27T08:50:53.079Z"
+  },
+  "updatedAt": {
+    "$date": "2025-03-27T08:50:53.079Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "67e5116dbecfdf8860dfe11f"
+  },
+  "nom": "Batterie 70Ah",
+  "description": "Batterie au plomb-calcium 70Ah pour voitures.",
+  "marque": {
+    "$oid": "67e50f2dce60059eeb9c3700"
+  },
+  "unite": "unite",
+  "prix_unitaire": {
+    "$numberDecimal": "12000.5"
+  },
+  "type": "consommable",
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-03-27T08:50:53.079Z"
+  },
+  "updatedAt": {
+    "$date": "2025-03-27T08:50:53.079Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "67e5116dbecfdf8860dfe120"
+  },
+  "nom": "Bougie d'allumage NGK",
+  "description": "Bougie d'allumage en platine pour meilleure combustion.",
+  "marque": {
+    "$oid": "67e50f2dce60059eeb9c3703"
+  },
+  "unite": "unite",
+  "prix_unitaire": {
+    "$numberDecimal": "15000.75"
+  },
+  "type": "piece",
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-03-27T08:50:53.079Z"
+  },
+  "updatedAt": {
+    "$date": "2025-03-27T08:50:53.079Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "67e5116dbecfdf8860dfe121"
+  },
+  "nom": "Filtre à huile Bosch",
+  "description": "Filtre à huile haute performance.",
+  "marque": {
+    "$oid": "67e50f2dce60059eeb9c36ff"
+  },
+  "unite": "unite",
+  "prix_unitaire": {
+    "$numberDecimal": "8000.99"
+  },
+  "type": "consommable",
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-03-27T08:50:53.080Z"
+  },
+  "updatedAt": {
+    "$date": "2025-03-27T08:50:53.080Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "67e5116dbecfdf8860dfe122"
+  },
+  "nom": "Plaquettes de frein Brembo",
+  "description": "Jeu de plaquettes de frein en céramique.",
+  "marque": {
+    "$oid": "67e50f2dce60059eeb9c3706"
+  },
+  "unite": "unite",
+  "prix_unitaire": {
+    "$numberDecimal": "75000.49"
+  },
+  "type": "piece",
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-03-27T08:50:53.080Z"
+  },
+  "updatedAt": {
+    "$date": "2025-03-27T08:50:53.080Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "67e5116dbecfdf8860dfe123"
+  },
+  "nom": "Kit d'embrayage Valeo",
+  "description": "Kit d'embrayage complet avec butée hydraulique.",
+  "marque": {
+    "$oid": "67e50f2dce60059eeb9c3701"
+  },
+  "unite": "unite",
+  "prix_unitaire": {
+    "$numberDecimal": "320000"
+  },
+  "type": "piece",
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-03-27T08:50:53.080Z"
+  },
+  "updatedAt": {
+    "$date": "2025-03-27T08:50:53.080Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "67e5116dbecfdf8860dfe124"
+  },
+  "nom": "Courroie de distribution Continental",
+  "description": "Courroie renforcée pour une meilleure durabilité.",
+  "marque": {
+    "$oid": "67e50f2dce60059eeb9c3704"
+  },
+  "unite": "cm",
+  "prix_unitaire": {
+    "$numberDecimal": "45000.2"
+  },
+  "type": "piece",
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-03-27T08:50:53.080Z"
+  },
+  "updatedAt": {
+    "$date": "2025-03-27T08:50:53.080Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "67e5116dbecfdf8860dfe125"
+  },
+  "nom": "Amortisseurs Magneti Marelli",
+  "description": "Amortisseurs hydrauliques pour confort optimal.",
+  "marque": {
+    "$oid": "67e50f2dce60059eeb9c3705"
+  },
+  "unite": "unite",
+  "prix_unitaire": {
+    "$numberDecimal": "130000.75"
+  },
+  "type": "piece",
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-03-27T08:50:53.080Z"
+  },
+  "updatedAt": {
+    "$date": "2025-03-27T08:50:53.080Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "67e5116dbecfdf8860dfe126"
+  },
+  "nom": "Disque de frein SKF",
+  "description": "Disque de frein ventilé haute performance.",
+  "marque": {
+    "$oid": "67e50f2dce60059eeb9c3707"
+  },
+  "unite": "unite",
+  "prix_unitaire": {
+    "$numberDecimal": "90000.3"
+  },
+  "type": "piece",
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-03-27T08:50:53.080Z"
+  },
+  "updatedAt": {
+    "$date": "2025-03-27T08:50:53.080Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "67e5116dbecfdf8860dfe127"
+  },
+  "nom": "Liquide de refroidissement Febi Bilstein",
+  "description": "Liquide antigel longue durée.",
+  "marque": {
+    "$oid": "67e50f2dce60059eeb9c3708"
+  },
+  "unite": "l",
+  "prix_unitaire": {
+    "$numberDecimal": "7000.99"
+  },
+  "type": "consommable",
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-03-27T08:50:53.080Z"
+  },
+  "updatedAt": {
+    "$date": "2025-03-27T08:50:53.080Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "67e5116dbecfdf8860dfe128"
+  },
+  "nom": "Pompe à eau Bosch",
+  "description": "Pompe à eau résistante à haute température.",
+  "marque": {
+    "$oid": "67e50f2dce60059eeb9c36ff"
+  },
+  "unite": "unite",
+  "prix_unitaire": {
+    "$numberDecimal": "60000.45"
+  },
+  "type": "piece",
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-03-27T08:50:53.080Z"
+  },
+  "updatedAt": {
+    "$date": "2025-03-27T08:50:53.080Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "67e5116dbecfdf8860dfe129"
+  },
+  "nom": "Injecteur diesel Delphi",
+  "description": "Injecteur haute pression pour moteur diesel.",
+  "marque": {
+    "$oid": "67e50f2dce60059eeb9c3700"
+  },
+  "unite": "unite",
+  "prix_unitaire": {
+    "$numberDecimal": "110000"
+  },
+  "type": "piece",
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-03-27T08:50:53.080Z"
+  },
+  "updatedAt": {
+    "$date": "2025-03-27T08:50:53.080Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "67e5116dbecfdf8860dfe12a"
+  },
+  "nom": "Bobine d'allumage Denso",
+  "description": "Bobine haute tension pour meilleure étincelle.",
+  "marque": {
+    "$oid": "67e50f2dce60059eeb9c3702"
+  },
+  "unite": "unite",
+  "prix_unitaire": {
+    "$numberDecimal": "45000.99"
+  },
+  "type": "piece",
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-03-27T08:50:53.080Z"
+  },
+  "updatedAt": {
+    "$date": "2025-03-27T08:50:53.080Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "67e5116dbecfdf8860dfe12b"
+  },
+  "nom": "Huile moteur 5W30 Castrol",
+  "description": "Huile moteur synthétique haute performance.",
+  "marque": {
+    "$oid": "67e50f2dce60059eeb9c36ff"
+  },
+  "unite": "l",
+  "prix_unitaire": {
+    "$numberDecimal": "35000"
+  },
+  "type": "consommable",
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-03-27T08:50:53.080Z"
+  },
+  "updatedAt": {
+    "$date": "2025-03-27T08:50:53.080Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "67e5116dbecfdf8860dfe12c"
+  },
+  "nom": "Capteur de pression Continental",
+  "description": "Capteur de pression des pneus TPMS.",
+  "marque": {
+    "$oid": "67e50f2dce60059eeb9c3704"
+  },
+  "unite": "unite",
+  "prix_unitaire": {
+    "$numberDecimal": "25000.99"
+  },
+  "type": "piece",
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-03-27T08:50:53.080Z"
+  },
+  "updatedAt": {
+    "$date": "2025-03-27T08:50:53.080Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "67e5116dbecfdf8860dfe12d"
+  },
+  "nom": "Roulement de roue SKF",
+  "description": "Roulement haute durabilité pour roues.",
+  "marque": {
+    "$oid": "67e50f2dce60059eeb9c3707"
+  },
+  "unite": "unite",
+  "prix_unitaire": {
+    "$numberDecimal": "80000"
+  },
+  "type": "piece",
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-03-27T08:50:53.080Z"
+  },
+  "updatedAt": {
+    "$date": "2025-03-27T08:50:53.080Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "67e5116dbecfdf8860dfe12e"
+  },
+  "nom": "Liquide de frein Brembo DOT4",
+  "description": "Liquide de frein synthétique haute température.",
+  "marque": {
+    "$oid": "67e50f2dce60059eeb9c3706"
+  },
+  "unite": "l",
+  "prix_unitaire": {
+    "$numberDecimal": "12000.5"
+  },
+  "type": "consommable",
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-03-27T08:50:53.080Z"
+  },
+  "updatedAt": {
+    "$date": "2025-03-27T08:50:53.080Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "67e5116dbecfdf8860dfe12f"
+  },
+  "nom": "Radiateur Valeo",
+  "description": "Radiateur en aluminium pour dissipation thermique efficace.",
+  "marque": {
+    "$oid": "67e50f2dce60059eeb9c3701"
+  },
+  "unite": "unite",
+  "prix_unitaire": {
+    "$numberDecimal": "180000"
+  },
+  "type": "piece",
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-03-27T08:50:53.081Z"
+  },
+  "updatedAt": {
+    "$date": "2025-03-27T08:50:53.081Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "67e5116dbecfdf8860dfe130"
+  },
+  "nom": "Courroie accessoires Febi Bilstein",
+  "description": "Courroie d'accessoires en caoutchouc renforcé.",
+  "marque": {
+    "$oid": "67e50f2dce60059eeb9c3708"
+  },
+  "unite": "cm",
+  "prix_unitaire": {
+    "$numberDecimal": "28000.99"
+  },
+  "type": "piece",
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-03-27T08:50:53.081Z"
+  },
+  "updatedAt": {
+    "$date": "2025-03-27T08:50:53.081Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "67e5116dbecfdf8860dfe131"
+  },
+  "nom": "Pompe de direction assistée Magneti Marelli",
+  "description": "Pompe haute pression pour direction assistée.",
+  "marque": {
+    "$oid": "67e50f2dce60059eeb9c3705"
+  },
+  "unite": "unite",
+  "prix_unitaire": {
+    "$numberDecimal": "210000"
+  },
+  "type": "piece",
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-03-27T08:50:53.081Z"
+  },
+  "updatedAt": {
+    "$date": "2025-03-27T08:50:53.081Z"
+  }
+}]

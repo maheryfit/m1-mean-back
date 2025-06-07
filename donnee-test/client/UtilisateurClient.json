@@ -1,0 +1,238 @@
+[{
+  "_id": {
+    "$oid": "67d6ffdd8503d5c0d1c974d6"
+  },
+  "nom": "Dupont",
+  "prenom": "Jean",
+  "nom_utilisateur": "jdupont",
+  "mot_de_passe": "$2b$10$LN0g6bT3xpd8s5tPWQy50OvFPt7XXoD4Lpyout0nqs.Slbmo7kMKO",
+  "profil": "client",
+  "createdAt": {
+    "$date": "2025-03-16T16:44:13.970Z"
+  },
+  "updatedAt": {
+    "$date": "2025-03-16T16:44:13.970Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67d6ffdd8503d5c0d1c974da"
+  },
+  "nom": "Bernard",
+  "prenom": "Lucas",
+  "nom_utilisateur": "lbernard",
+  "mot_de_passe": "$2b$10$Mg5xwRfX504zFMPpwDiPNOAOGwJecLbVYxedvZj7p3nSv412plomW",
+  "profil": "client",
+  "createdAt": {
+    "$date": "2025-03-16T16:44:13.975Z"
+  },
+  "updatedAt": {
+    "$date": "2025-03-16T16:44:13.975Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67d6ffdd8503d5c0d1c974d7"
+  },
+  "nom": "Martin",
+  "prenom": "Sophie",
+  "nom_utilisateur": "smartin",
+  "mot_de_passe": "$2b$10$QtPzPr4hhcuLsYfBQYYwi.jDOaq50wIfyi.FHEbgrCJu60SEA6cnq",
+  "profil": "client",
+  "createdAt": {
+    "$date": "2025-03-16T16:44:13.974Z"
+  },
+  "updatedAt": {
+    "$date": "2025-03-16T16:44:13.974Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67d6ffdd8503d5c0d1c974d8"
+  },
+  "nom": "Lefevre",
+  "prenom": "Paul",
+  "nom_utilisateur": "plefevre",
+  "mot_de_passe": "$2b$10$R6LyzFFekQkEY6/VhqtDR.N1t1cRC4bufs/5nSNt2AhHW3jjzHMy6",
+  "profil": "client",
+  "createdAt": {
+    "$date": "2025-03-16T16:44:13.975Z"
+  },
+  "updatedAt": {
+    "$date": "2025-03-16T16:44:13.975Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67d6ffdd8503d5c0d1c974d9"
+  },
+  "nom": "Morel",
+  "prenom": "Julie",
+  "nom_utilisateur": "jmorel",
+  "mot_de_passe": "$2b$10$bqd5EUi2icvZB6wSIdPGne.Ae5.23Y2T3kToNfNzHu0pDOLzovZwS",
+  "profil": "client",
+  "createdAt": {
+    "$date": "2025-03-16T16:44:13.975Z"
+  },
+  "updatedAt": {
+    "$date": "2025-03-16T16:44:13.975Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67d6ffdd8503d5c0d1c974db"
+  },
+  "nom": "Richard",
+  "prenom": "Emma",
+  "nom_utilisateur": "erichard",
+  "mot_de_passe": "$2b$10$ksD30/yQ7awde3qQ1AwuI.gG.qsh7uoho8beiBdgwN7XXycQxdNa2",
+  "profil": "client",
+  "createdAt": {
+    "$date": "2025-03-16T16:44:13.975Z"
+  },
+  "updatedAt": {
+    "$date": "2025-03-16T16:44:13.975Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67d6ffdd8503d5c0d1c974df"
+  },
+  "nom": "Dubois",
+  "prenom": "Camille",
+  "nom_utilisateur": "cdubois",
+  "mot_de_passe": "$2b$10$Y7DaP2k3ch3rn2d57ehEVOSYYPs1N.QFJD8c48rpAHJEnNXI45AXO",
+  "profil": "client",
+  "createdAt": {
+    "$date": "2025-03-16T16:44:13.977Z"
+  },
+  "updatedAt": {
+    "$date": "2025-03-16T16:44:13.977Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67d6ffdd8503d5c0d1c974dd"
+  },
+  "nom": "Robert",
+  "prenom": "Chloé",
+  "nom_utilisateur": "crobert",
+  "mot_de_passe": "$2b$10$AXjmaDo2zEV645xqpk7RIuXioM9ry.NmG0b1VPlo9OJpuaZuhS0Wu",
+  "profil": "client",
+  "createdAt": {
+    "$date": "2025-03-16T16:44:13.976Z"
+  },
+  "updatedAt": {
+    "$date": "2025-03-16T16:44:13.976Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67d6ffdd8503d5c0d1c974de"
+  },
+  "nom": "Durand",
+  "prenom": "Nathan",
+  "nom_utilisateur": "ndurand",
+  "mot_de_passe": "$2b$10$eMtaW41625QzdllXFiScVOPGy/h8OJ0TF5aTaSb3cER3.jlaHT8mK",
+  "profil": "client",
+  "createdAt": {
+    "$date": "2025-03-16T16:44:13.976Z"
+  },
+  "updatedAt": {
+    "$date": "2025-03-16T16:44:13.976Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67d6ffdd8503d5c0d1c974e0"
+  },
+  "nom": "Blanc",
+  "prenom": "Alexandre",
+  "nom_utilisateur": "ablanc",
+  "mot_de_passe": "$2b$10$4.RLxFams3ZWkFYoZOSsw.rS03oC5sXyxoMT6tCbgX9w3GWD2UB3y",
+  "profil": "client",
+  "createdAt": {
+    "$date": "2025-03-16T16:44:13.977Z"
+  },
+  "updatedAt": {
+    "$date": "2025-03-16T16:44:13.977Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67d6ffdd8503d5c0d1c974dc"
+  },
+  "nom": "Petit",
+  "prenom": "Thomas",
+  "nom_utilisateur": "tpetit",
+  "mot_de_passe": "$2b$10$MgTZ4komTbaRaCvzunLjYexb5WZQNon8py0Su4rPNPGzy/OCk2DY.",
+  "profil": "client",
+  "createdAt": {
+    "$date": "2025-03-16T16:44:13.975Z"
+  },
+  "updatedAt": {
+    "$date": "2025-03-16T16:44:13.975Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67d6ffdd8503d5c0d1c974e1"
+  },
+  "nom": "Bertrand",
+  "prenom": "Marie",
+  "nom_utilisateur": "mbertrand",
+  "mot_de_passe": "$2b$10$Yrj8YeDDPJmuFKZBpoqKD.NkYSnyxw9KaWRBtYaQFlWxk0hmWxOYO",
+  "profil": "client",
+  "createdAt": {
+    "$date": "2025-03-16T16:44:13.977Z"
+  },
+  "updatedAt": {
+    "$date": "2025-03-16T16:44:13.977Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67d6ffdd8503d5c0d1c974e3"
+  },
+  "nom": "Girard",
+  "prenom": "Elodie",
+  "nom_utilisateur": "egirard",
+  "mot_de_passe": "$2b$10$u1lTZ1z.OfdsVBVtR0cSsOBOl.H1iRxVUrPpQovf8hY1xVE8I/1fi",
+  "profil": "client",
+  "createdAt": {
+    "$date": "2025-03-16T16:44:13.978Z"
+  },
+  "updatedAt": {
+    "$date": "2025-03-16T16:44:13.978Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67d6ffdd8503d5c0d1c974e5"
+  },
+  "nom": "Garnier",
+  "prenom": "Laura",
+  "nom_utilisateur": "lgarnier",
+  "mot_de_passe": "$2b$10$TLHnBaDyGkhvaeO5pUQAc.uFgNOhzVMfdXzpClfgcMNuzliaVzaYG",
+  "profil": "client",
+  "createdAt": {
+    "$date": "2025-03-16T16:44:13.978Z"
+  },
+  "updatedAt": {
+    "$date": "2025-03-16T16:44:13.978Z"
+  },
+  "__v": 0
+}]

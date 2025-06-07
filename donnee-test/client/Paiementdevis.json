@@ -1,0 +1,145 @@
+[{
+  "_id": {
+    "$oid": "67eb9dd6cac364e81aa6d100"
+  },
+  "client": {
+    "$oid": "67d71d65f9b0dc113b7007bb"
+  },
+  "devis": {
+    "$oid": "67ea6bcd3eb7691363640c4e"
+  },
+  "montant": {
+    "$numberDecimal": "686003.46"
+  },
+  "date_heure": {
+    "$date": "2025-04-01T08:03:18.895Z"
+  },
+  "etat": "validé",
+  "mode_paiement": "cash",
+  "createdAt": {
+    "$date": "2025-04-01T08:03:34.557Z"
+  },
+  "updatedAt": {
+    "$date": "2025-04-01T08:55:13.013Z"
+  },
+  "__v": 0,
+  "date_heure_validation": {
+    "$date": "2025-04-01T08:55:13.013Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "67ebd1289942aa776c050358"
+  },
+  "client": {
+    "$oid": "67d71d65f9b0dc113b7007bc"
+  },
+  "devis": {
+    "$oid": "67ea6c883eb7691363640c5a"
+  },
+  "montant": {
+    "$numberDecimal": "50000"
+  },
+  "date_heure": {
+    "$date": "2025-04-01T11:37:55.094Z"
+  },
+  "mode_paiement": "carte bancaire",
+  "createdAt": {
+    "$date": "2025-04-01T11:42:32.554Z"
+  },
+  "updatedAt": {
+    "$date": "2025-04-01T11:59:24.554Z"
+  },
+  "__v": 0,
+  "date_heure_validation": {
+    "$date": "2025-04-12T15:00:45.500Z"
+  },
+  "etat": "validé"
+},
+{
+  "_id": {
+    "$oid": "67ebd13d9942aa776c05035e"
+  },
+  "client": {
+    "$oid": "67d71d65f9b0dc113b7007bc"
+  },
+  "devis": {
+    "$oid": "67ea6c883eb7691363640c5a"
+  },
+  "montant": {
+    "$numberDecimal": "40000"
+  },
+  "date_heure": {
+    "$date": "2025-04-01T11:37:55.094Z"
+  },
+  "etat": "validé",
+  "mode_paiement": "carte bancaire",
+  "createdAt": {
+    "$date": "2025-04-01T11:42:53.752Z"
+  },
+  "updatedAt": {
+    "$date": "2025-04-01T12:00:21.508Z"
+  },
+  "__v": 0,
+  "date_heure_validation": {
+    "$date": "2025-05-02T09:00:45.500Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "67ebd1549942aa776c050369"
+  },
+  "client": {
+    "$oid": "67d71d65f9b0dc113b7007bc"
+  },
+  "devis": {
+    "$oid": "67ea6c883eb7691363640c5a"
+  },
+  "montant": {
+    "$numberDecimal": "40000"
+  },
+  "date_heure": {
+    "$date": "2025-04-01T11:37:55.094Z"
+  },
+  "etat": "validé",
+  "mode_paiement": "mobile money",
+  "createdAt": {
+    "$date": "2025-04-01T11:43:16.920Z"
+  },
+  "updatedAt": {
+    "$date": "2025-04-01T12:00:51.080Z"
+  },
+  "__v": 0,
+  "date_heure_validation": {
+    "$date": "2025-05-10T09:50:45.500Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "67ebd1609942aa776c05036f"
+  },
+  "client": {
+    "$oid": "67d71d65f9b0dc113b7007bc"
+  },
+  "devis": {
+    "$oid": "67ea6c883eb7691363640c5a"
+  },
+  "montant": {
+    "$numberDecimal": "80000"
+  },
+  "date_heure": {
+    "$date": "2025-04-01T11:37:55.094Z"
+  },
+  "etat": "validé",
+  "mode_paiement": "mobile money",
+  "createdAt": {
+    "$date": "2025-04-01T11:43:28.740Z"
+  },
+  "updatedAt": {
+    "$date": "2025-04-01T12:01:33.384Z"
+  },
+  "__v": 0,
+  "date_heure_validation": {
+    "$date": "2025-06-10T09:30:45.500Z"
+  }
+}]
