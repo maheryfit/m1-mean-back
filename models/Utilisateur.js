@@ -14,6 +14,7 @@ const UtilisateursSchema = new mongoose.Schema({
 }, {
     timestamps: true
 });
+UtilisateursSchema.index({ nom: 1, prenom: 1, nom_utilisateur:1 }, { unique: true });
 
 
 // Hash the password before saving the user

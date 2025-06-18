@@ -33,6 +33,11 @@ class UtilisateurService {
      * @returns {Promise<void>}
      */
     async registerService(request) {
+        const requestBody=request.body;
+        if(requestBody['mot_de_passe']!==requestBody['confirm_mot_de_passe']){
+            throw new Error("Les deux mot de passes ne correspondent pas.");
+        }
+        delete requestBody['confirm_mot_de_passe'];
         const user = new User(request.body)
         await user.save()
         const userToSend = {id: user.id, nom_utilisateur: user.nom_utilisateur, profil: user.profil}
