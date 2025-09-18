@@ -11,7 +11,9 @@ services: # services which our app going to use. (list of containers we want to 
 
   app-server:
     container_name: app-server-cont
-    image: app-server
+    build:
+      context: .
+      dockerfile: Dockerfile
     ports:
       - "3000:3000"
     volumes:
@@ -21,7 +23,7 @@ services: # services which our app going to use. (list of containers we want to 
     networks: # adding network
       - mern-app
 
-  redis-cache:
+  redis-cont:
     image: redis:7.4.2-alpine
     container_name: redis-cont
     restart: always
