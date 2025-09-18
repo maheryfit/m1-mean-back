@@ -1,5 +1,9 @@
 class VoitureController {
 
+    /**
+     *
+     * @param {VoitureService} service
+     */
     constructor(service) {
         this.service = service;
     }
